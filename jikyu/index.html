@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>時給換算｜年収・月収から時給を計算（時給から年収への逆算も可）</title>
+<meta name="description" content="年収・月収と労働条件（年間休日・1日の労働時間）から時給を計算します。時給から月収・年収への逆算も可能。残業代（25％割増）の目安も表示。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/jikyu/">
+<meta property="og:title" content="時給換算｜計算ラボ">
+<meta property="og:description" content="年収・月収から時給を計算。時給から年収への逆算、残業代の目安つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"時給換算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/jikyu/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"時給換算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"時給換算に賞与（ボーナス）は含めたほうがいいですか？","acceptedAnswer":{"@type":"Answer","text":"目的によります。このツールは入力した年収・月収をもとに計算します。賞与込みの実質的な時給を見たい場合は、賞与を含めた年収を入力してください。月給部分だけで比べたい場合は、賞与を除いた年収（月収×12）を入力します。"}},
+{"@type":"Question","name":"残業代の割増率はどうなっていますか？","acceptedAnswer":{"@type":"Answer","text":"法定労働時間（1日8時間・週40時間）を超える残業は25％以上、深夜労働（22時〜翌5時）は25％以上（残業と重なる場合は50％以上）、法定休日労働は35％以上の割増が法律で定められています。割増の対象になる賃金の範囲など、詳しい残業代の計算は別ツールで提供予定です。"}},
+{"@type":"Question","name":"自分の時給が最低賃金を下回っていないか確認できますか？","acceptedAnswer":{"@type":"Answer","text":"最低賃金は都道府県ごとに決められ、毎年改定されるため、このツールでは金額を表示していません。厚生労働省の公式サイトで勤務地の最低賃金を確認し、このツールで計算した時給と比べてください。月給の場合は、月給を月の平均労働時間で割った額で比較します。"}},
+{"@type":"Question","name":"月によって労働日数が違うと、時給も変わりますか？","acceptedAnswer":{"@type":"Answer","text":"その月の実際の労働時間で割れば変動します。このツールでは、年間の労働時間を12で割った「月の平均労働時間」を使う方式で計算しているため、月ごとの変動はならされています。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ 時給換算</nav>
+<h1>時給換算</h1>
+<p class="lead">年収・月収と労働条件（年間休日、1日の労働時間）を入力すると、時給を計算します。時給から月収・年収を逆算することもできます。転職や求人比較、働き方の見直しに。</p>
+<div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">逆算機能つき</span><span class="badge">残業代の目安つき</span></div>
+
+<div class="card">
+<div class="seg" id="modeSeg" style="margin-bottom:1rem">
+<button type="button" class="on" data-v="salary">給与から時給を計算</button>
+<button type="button" data-v="hourly">時給から給与を逆算</button>
+</div>
+<form class="calc" id="calcForm" onsubmit="return false">
+<div id="salaryWrap">
+<div><label class="flabel">給与の種類</label>
+<div class="seg" id="paySeg"><button type="button" class="on" data-v="annual">年収</button><button type="button" data-v="monthly">月収</button></div></div>
+<div style="margin-top:.8rem"><label class="flabel" for="amount" id="amountLabel">年収（額面）<small>円</small></label><input type="number" id="amount" value="5000000" min="0" step="10000" inputmode="numeric"></div>
+</div>
+<div id="hourlyWrap" style="display:none">
+<label class="flabel" for="wage">時給 <small>円</small></label><input type="number" id="wage" value="1500" min="0" step="10" inputmode="numeric">
+</div>
+<div><label class="flabel" for="dayHours">1日の労働時間 <small>時間（休憩を除く）</small></label><input type="number" id="dayHours" value="8" min="0" max="24" step="0.25" inputmode="decimal"></div>
+<div><label class="flabel" for="holidays">年間休日 <small>日</small></label><input type="number" id="holidays" value="120" min="0" max="365" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="otHours">月の残業時間 <small>時間（残業代の目安用）</small></label><input type="number" id="otHours" value="10" min="0" step="1" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※時給は「所定労働時間」ベースの計算です。残業代の目安は、時給に25％の割増を加えた概算です。実際の残業代は、割増の対象になる賃金の範囲や会社の規定によって異なります。</p>
+</div>
+
+<h2>時給換算の計算式</h2>
+<span class="formula">年間労働時間 ＝（365日 − 年間休日）× 1日の労働時間</span>
+<span class="formula">時給 ＝ 年収 ÷ 年間労働時間</span>
+<p>月収から計算する場合は、年収を「月収×12」に置き換えます。月の平均労働時間は「年間労働時間 ÷ 12」で、年間休日120日・1日8時間なら年間1,960時間、月平均約163.3時間です。</p>
+<p>同じ年収でも、休日が少なく労働時間が長いほど時給は低くなります。年収の額面だけでなく、時給に直して比べることで、求人や働き方の条件の良し悪しが見えやすくなります。手取りベースで見たい場合は、まず<a href="/tedori/">手取り計算</a>で手取り年収を求め、その金額を年収として入力してください。</p>
+
+<h3>計算例</h3>
+<table class="data"><tbody>
+<tr><td>年収500万円・年間休日120日・1日8時間</td><td>年間労働時間1,960時間 → 時給 2,551円</td></tr>
+<tr><td>月収30万円・年間休日120日・1日8時間</td><td>年収換算360万円 → 時給 1,837円</td></tr>
+<tr><td>時給1,500円・年間休日120日・1日8時間</td><td>月収 245,000円／年収 2,940,000円</td></tr>
+<tr><td>時給2,000円で残業10時間（25％割増）</td><td>残業代の目安 25,000円</td></tr>
+</tbody></table>
+
+<h2>残業代の割増について</h2>
+<p>残業代は、時給（時間あたりの賃金）に割増率を上乗せして計算します。法律で定められた最低の割増率は次の通りです。</p>
+<table class="data"><tbody>
+<tr><td>時間外労働（法定労働時間を超えた残業）</td><td>25％以上</td></tr>
+<tr><td>深夜労働（22時〜翌5時）</td><td>25％以上（残業と重なると50％以上）</td></tr>
+<tr><td>法定休日の労働</td><td>35％以上</td></tr>
+<tr><td>月60時間を超える残業</td><td>50％以上</td></tr>
+</tbody></table>
+<p>法定労働時間は1日8時間・週40時間です。割増の対象になる賃金には、役職手当などの諸手当が含まれる場合と除外される場合があり、実際の計算は会社ごとに異なります。残業代だけを詳しく計算するツールは別途提供予定です。</p>
+
+<h2>最低賃金との比較</h2>
+<p>最低賃金は都道府県ごとに決められ、毎年10月ごろに改定されます。金額は地域によって異なるため、このツールでは具体的な金額を表示していません。厚生労働省の公式サイトで勤務地の最低賃金を確認し、このツールで計算した時給と比べてください。月給制の場合も、「月給 ÷ 月の平均労働時間」が最低賃金を下回っていないかで判定されます。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>時給換算に賞与（ボーナス）は含めたほうがいいですか？</summary><p>目的によります。このツールは入力した年収・月収をもとに計算します。賞与込みの実質的な時給を見たい場合は、賞与を含めた年収を入力してください。月給部分だけで比べたい場合は、賞与を除いた年収（月収×12）を入力します。</p></details>
+<details class="faq"><summary>残業代の割増率はどうなっていますか？</summary><p>法定労働時間（1日8時間・週40時間）を超える残業は25％以上、深夜労働（22時〜翌5時）は25％以上（残業と重なる場合は50％以上）、法定休日労働は35％以上の割増が法律で定められています。割増の対象になる賃金の範囲など、詳しい残業代の計算は別ツールで提供予定です。</p></details>
+<details class="faq"><summary>自分の時給が最低賃金を下回っていないか確認できますか？</summary><p>最低賃金は都道府県ごとに決められ、毎年改定されるため、このツールでは金額を表示していません。厚生労働省の公式サイトで勤務地の最低賃金を確認し、このツールで計算した時給と比べてください。月給の場合は、月給を月の平均労働時間で割った額で比較します。</p></details>
+<details class="faq"><summary>月によって労働日数が違うと、時給も変わりますか？</summary><p>その月の実際の労働時間で割れば変動します。このツールでは、年間の労働時間を12で割った「月の平均労働時間」を使う方式で計算しているため、月ごとの変動はならされています。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取り額と、社保・税金の内訳を計算。令和8年対応。</div></a>
+<a class="toolcard" href="/shotokuzei-juminzei/"><span class="t">所得税・住民税計算</span><div class="d">年収から所得税と住民税の金額と内訳を計算。令和8年対応。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。逆算も可能。</div></a>
+<a class="toolcard" href="/nenrei/"><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支を計算します。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>出典：労働基準法（労働時間・割増賃金）の考え方に基づき、計算例を検算して公開しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+var modeSeg=document.getElementById("modeSeg"), paySeg=document.getElementById("paySeg");
+modeSeg.dataset.mode="salary"; paySeg.dataset.pay="annual";
+setSeg("modeSeg","mode",calc); setSeg("paySeg","pay",calc);
+["amount","wage","dayHours","holidays","otHours"].forEach(function(id){
+  document.getElementById(id).addEventListener("input",calc);
+});
+function calc(){
+  var mode=modeSeg.dataset.mode;
+  document.getElementById("salaryWrap").style.display = mode==="salary"? "" : "none";
+  document.getElementById("hourlyWrap").style.display = mode==="hourly"? "" : "none";
+  document.getElementById("amountLabel").innerHTML = paySeg.dataset.pay==="annual"? "年収（額面）<small>円</small>" : "月収（額面）<small>円</small>";
+  var dayH=num("dayHours"), hol=num("holidays");
+  var workDays=Math.max(0, 365-hol);
+  var annualHours=workDays*dayH;
+  var monthlyHours=annualHours/12;
+  var ot=num("otHours");
+  var hourlyRaw=0, annual=0;
+  if(mode==="salary"){
+    var amt=num("amount");
+    annual = paySeg.dataset.pay==="annual"? amt : amt*12;
+    hourlyRaw = annualHours>0? annual/annualHours : 0;
+  }else{
+    hourlyRaw=num("wage");
+    annual=hourlyRaw*annualHours;
+  }
+  var monthly=annual/12;
+  var perDay=hourlyRaw*dayH;
+  var otPay=hourlyRaw*1.25*ot;
+  var html="";
+  if(mode==="salary"){
+    html="<div>時給（額面ベース）</div><div class='big'>"+yen(hourlyRaw)+" 円</div>";
+  }else{
+    html="<div>年収換算</div><div class='big'>"+yen(annual)+" 円</div>";
+  }
+  html+="<table>"+
+  "<tr><td>年収換算</td><td>"+yen(annual)+" 円</td></tr>"+
+  "<tr><td>月収換算</td><td>"+yen(monthly)+" 円</td></tr>"+
+  "<tr><td>時給</td><td>"+yen(hourlyRaw)+" 円</td></tr>"+
+  "<tr><td>1日あたり（"+dayH+"時間）</td><td>"+yen(perDay)+" 円</td></tr>"+
+  "<tr><td>年間労働時間</td><td>"+yen(annualHours)+" 時間（労働日数 "+yen(workDays)+" 日）</td></tr>"+
+  "<tr><td>月の平均労働時間</td><td>"+monthlyHours.toFixed(1)+" 時間</td></tr>"+
+  "<tr><td>残業代の目安（月"+ot+"時間・25％割増）</td><td>"+yen(otPay)+" 円</td></tr>"+
+  "</table>";
+  document.getElementById("resultBox").innerHTML=html;
+}
+calc();
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>複利・積立シミュレーション｜毎月積立と一括投資の将来額を計算</title>
+<meta name="description" content="元本・毎月の積立額・想定利回り・期間を入れるだけで、複利で増えた将来の評価額・元本合計・運用益を計算。年次推移表つき。目標額から必要な積立額を逆算もできます。NISAの積立計画に。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/fukuri-tsumitate/">
+<meta property="og:title" content="複利・積立シミュレーション｜計算ラボ">
+<meta property="og:description" content="毎月積立と一括投資の将来額を複利で計算。年次推移表と逆算機能つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"複利・積立シミュレーション","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/fukuri-tsumitate/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"投資・積立","item":"https://ada262651-max.github.io/invest/"},{"@type":"ListItem","position":3,"name":"複利・積立シミュレーション"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"複利と単利の違いは何ですか？","acceptedAnswer":{"@type":"Answer","text":"単利は元本にだけ利息がつきますが、複利は「元本＋増えた利息」全体に利息がつきます。期間が長いほど差が広がり、20年・30年の積立では大きな差になります。"}},
+{"@type":"Question","name":"このシミュレーションの利回りは保証されますか？","acceptedAnswer":{"@type":"Answer","text":"保証されません。入力した利回りが毎年一定で続く前提の試算です。実際の投資では価格が変動し、利回りがマイナスの期間もあります。あくまで計画づくりの目安として使ってください。"}},
+{"@type":"Question","name":"税金や手数料は含まれますか？","acceptedAnswer":{"@type":"Answer","text":"含まれていません。NISA口座なら運用益は非課税ですが、特定口座では利益に約20.315%の税金がかかります。手数料も商品によって異なります。"}},
+{"@type":"Question","name":"積立のタイミング（月初・月末）で結果は変わりますか？","acceptedAnswer":{"@type":"Answer","text":"月初払いは月末払いより1か月分長く運用されるため、わずかに有利になります。このツールでは両方を選べます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/invest/">投資・積立</a> ＞ 複利・積立シミュレーション</nav>
+<h1>複利・積立シミュレーション</h1>
+<p class="lead">元本・毎月の積立額・想定利回り・期間を入力すると、複利で増えた将来の評価額を計算します。目標額から「毎月いくら積み立てればいいか」の逆算もできます。</p>
+<div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">年次推移表つき</span><span class="badge">逆算機能つき</span></div>
+
+<div class="card">
+<div class="seg" id="modeSeg" style="margin-bottom:1rem">
+<button type="button" class="on" data-v="fv">将来額を計算</button>
+<button type="button" data-v="rev">目標額から逆算</button>
+</div>
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="principal">元本（最初に投資する額）<small>円</small></label><input type="number" id="principal" value="0" min="0" step="10000" inputmode="numeric"></div>
+<div id="pmtWrap"><label class="flabel" for="pmt">毎月の積立額 <small>円</small></label><input type="number" id="pmt" value="30000" min="0" step="1000" inputmode="numeric"></div>
+<div id="targetWrap" style="display:none"><label class="flabel" for="target">目標額 <small>円</small></label><input type="number" id="target" value="20000000" min="0" step="100000" inputmode="numeric"></div>
+<div><label class="flabel" for="rate">想定利回り（年率）<small>％</small></label><input type="number" id="rate" value="5" min="0" max="30" step="0.1" inputmode="decimal"></div>
+<div><label class="flabel" for="years">運用期間 <small>年</small></label><input type="number" id="years" value="20" min="1" max="50" step="1" inputmode="numeric"></div>
+<div class="full"><label class="flabel">積立のタイミング</label>
+<div class="seg" id="timingSeg"><button type="button" class="on" data-v="end">月末に積立</button><button type="button" data-v="begin">月初に積立</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※利回りが毎年一定で続く前提の試算です。税金・手数料は含みません。実際の結果を保証するものではありません。</p>
+</div>
+
+<h2>年次推移表</h2>
+<div class="scroll"><table class="data" id="yearTable"><thead><tr><th>年</th><th>元本累計（円）</th><th>評価額（円）</th><th>運用益（円）</th></tr></thead><tbody></tbody></table></div>
+
+<h2>計算方法</h2>
+<p>このツールは、月単位で複利計算をしています。年率から月利（年率 ÷ 12）を求め、毎月の積立と利息の増加を1か月ずつ積み上げます。</p>
+<span class="formula">一括投資の将来額 ＝ 元本 ×（1 ＋ 年率）<sup>年数</sup></span>
+<span class="formula">毎月積立の将来額 ＝ 毎月積立額 × ｛（1 ＋ 月利）<sup>積立回数</sup> − 1｝÷ 月利</span>
+<p>元本と積立を両方入力した場合は、両方の将来額の合計が評価額になります。逆算モードでは、目標額に届くために必要な毎月積立額を同じ式から求めています。</p>
+
+<h3>計算例</h3>
+<p>毎月3万円を年利5%で20年間積み立てた場合（月末払い）：</p>
+<table class="data"><tbody>
+<tr><td>元本合計</td><td>7,200,000円</td></tr>
+<tr><td>将来の評価額</td><td>12,331,010円</td></tr>
+<tr><td>運用益（利息）</td><td>5,131,010円</td></tr>
+</tbody></table>
+<p>元本720万円に対して、利息だけで約513万円が上乗せされます。これが複利の効果です。同じ条件で元本100万円を最初に一括投資すると、20年後は2,653,298円になります。</p>
+
+<h2>早見表：年利5%で積み立てた場合の将来額</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>毎月積立額</th><th>10年後</th><th>20年後</th><th>30年後</th></tr></thead>
+<tbody>
+<tr><td>10,000円</td><td>1,552,823円</td><td>4,110,337円</td><td>8,322,586円</td></tr>
+<tr><td>30,000円</td><td>4,658,468円</td><td>12,331,010円</td><td>24,967,759円</td></tr>
+<tr><td>50,000円</td><td>7,764,114円</td><td>20,551,683円</td><td>41,612,932円</td></tr>
+<tr><td>100,000円</td><td>15,528,228円</td><td>41,103,367円</td><td>83,225,864円</td></tr>
+</tbody></table></div>
+<p class="note">※月末払い・税金手数料なしの試算。期間が長いほど、元本に対する利息の割合が大きくなります（月3万円・30年では元本1,080万円に対し評価額は約2,497万円）。</p>
+
+<h2>複利を活かす3つのポイント</h2>
+<h3>1. 期間が一番効く</h3>
+<p>上の早見表の通り、月3万円の積立は10年で約466万円、20年で約1,233万円、30年で約2,497万円です。10年延ばすごとに、増え方が加速します。早く始めて長く続けることが、金額を増やすより効く場面が多いのです。</p>
+<h3>2. 利回りの前提は控えめに</h3>
+<p>全世界株式の長期平均リターンは年5〜7%程度と言われますが、良い年も悪い年もあります。計画を立てるときは年3〜5%など控えめな前提で試算し、「想定より増えたらラッキー」くらいの余裕を持つのが安全です。</p>
+<h3>3. NISAなら運用益が非課税</h3>
+<p>通常、運用益には約20.315%の税金がかかりますが、NISA口座で運用すれば非課税です。月3万円・20年・5%の例では運用益約513万円にかかる税金（約104万円相当）がかからない計算になります。積立の計画と合わせて、<a href="/invest/">投資・積立のツール一覧</a>も参考にしてください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>複利と単利の違いは何ですか？</summary><p>単利は元本にだけ利息がつきますが、複利は「元本＋増えた利息」全体に利息がつきます。期間が長いほど差が広がり、20年・30年の積立では大きな差になります。</p></details>
+<details class="faq"><summary>このシミュレーションの利回りは保証されますか？</summary><p>保証されません。入力した利回りが毎年一定で続く前提の試算です。実際の投資では価格が変動し、利回りがマイナスの期間もあります。あくまで計画づくりの目安として使ってください。</p></details>
+<details class="faq"><summary>税金や手数料は含まれますか？</summary><p>含まれていません。NISA口座なら運用益は非課税ですが、特定口座では利益に約20.315%の税金がかかります。手数料も商品によって異なります。</p></details>
+<details class="faq"><summary>積立のタイミング（月初・月末）で結果は変わりますか？</summary><p>月初払いは月末払いより1か月分長く運用されるため、わずかに有利になります。このツールでは両方を選べます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/shohizei/"><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。8%・10%切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/waribiki/"><span class="t">割引計算</span><div class="d">「30%オフはいくら？」を即計算。割引額と支払額が分かります。</div></a>
+<a class="toolcard" href="/nissu/"><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後の日付を計算します。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>計算方法の検証：一般的な複利計算式に基づき、数値例を検算して公開しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+var modeSeg=document.getElementById("modeSeg"), timingSeg=document.getElementById("timingSeg");
+modeSeg.dataset.mode="fv"; timingSeg.dataset.timing="end";
+setSeg("modeSeg","mode",calc); setSeg("timingSeg","timing",calc);
+["principal","pmt","target","rate","years"].forEach(function(id){
+document.getElementById(id).addEventListener("input",calc);
+});
+function calc(){
+var mode=modeSeg.dataset.mode, timing=timingSeg.dataset.timing;
+document.getElementById("pmtWrap").style.display = mode==="fv"? "": "none";
+document.getElementById("targetWrap").style.display = mode==="rev"? "": "none";
+var P=num("principal"), r=num("rate")/100, yrs=Math.max(0,Math.floor(num("years")));
+var i=r/12, N=yrs*12, bal=P, rows="";
+var pmt = mode==="fv"? num("pmt"): 0;
+if(mode==="rev"){
+var target=num("target");
+if(i>0){ pmt=(target - P*Math.pow(1+i,N)) * i/(Math.pow(1+i,N)-1);}
+else { pmt = N>0? (target-P)/N: 0;}
+if(pmt<0) pmt=0;
+}
+var principalTotal=P + pmt*N;
+for(var y=1;y<=yrs;y++){
+for(var m=0;m<12;m++){
+if(timing==="begin") bal+=pmt;
+bal*= (1+i);
+if(timing==="end") bal+=pmt;
+}
+var pc=P+pmt*12*y;
+rows+="<tr><td>"+y+"年</td><td>"+yen(pc)+"</td><td>"+yen(bal)+"</td><td>"+yen(bal-pc)+"</td></tr>";
+}
+document.querySelector("#yearTable tbody").innerHTML=rows;
+var gain=bal-principalTotal;
+var html="";
+if(mode==="rev"){
+html="<div>必要な毎月積立額</div><div class='big'>"+yen(pmt)+" 円</div>"+
+"<table><tr><td>目標額</td><td>"+yen(num("target"))+" 円</td></tr>"+
+"<tr><td>元本合計</td><td>"+yen(principalTotal)+" 円</td></tr>"+
+"<tr><td>運用益（見込み）</td><td>"+yen(gain)+" 円</td></tr></table>";
+}else{
+html="<div>"+yrs+"年後の評価額</div><div class='big'>"+yen(bal)+" 円</div>"+
+"<table><tr><td>元本合計</td><td>"+yen(principalTotal)+" 円</td></tr>"+
+"<tr><td>運用益</td><td>"+yen(gain)+" 円</td></tr>"+
+"<tr><td>元本に対する増加率</td><td>"+(principalTotal>0? (gain/principalTotal*100).toFixed(1): "0")+" ％</td></tr></table>";
+}
+document.getElementById("resultBox").innerHTML=html;
+}
+calc();
+</script>
+</body>
+</html>

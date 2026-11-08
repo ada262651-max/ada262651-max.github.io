@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日数計算｜2つの日付の間の日数と○日後の日付・曜日</title>
+<meta name="description" content="2つの日付の間の日数を計算し、週換算も表示。基準日から○日後・○日前の日付と曜日も分かります。締切・契約期間・記念日の確認に。うるう年にも自動対応。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/nissu/">
+<meta property="og:title" content="日数計算｜計算ラボ">
+<meta property="og:description" content="2つの日付の間の日数と、○日後の日付・曜日を計算します。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"日数計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/nissu/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"日数計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"「○日間」と「○日後」は何が違うのですか？","acceptedAnswer":{"@type":"Answer","text":"「○日後」は基準の日から数えた到達日、「○日間」は期間の長さを表します。たとえば2026年11月8日から見て12月31日は53日後で、両端の日を含めて数えた期間は54日間です。数え方で1日ずれる点に注意してください。"}},
+{"@type":"Question","name":"うるう年は自動で計算されますか？","acceptedAnswer":{"@type":"Answer","text":"はい。2月29日も1日として数えます。たとえば2月1日から3月1日までの日数は、うるう年の2028年は29日、平年の2026年は28日です。"}},
+{"@type":"Question","name":"契約の「30日以内」は初日を含みますか？","acceptedAnswer":{"@type":"Answer","text":"民法では、期間の初日は算入しないのが原則です（初日不算入の原則）。ただし、クーリング・オフのように初日を1日目として数える特例もあります。このツールの日数は日付の差（経過日数）なので、締切が関わる場合は契約書や公式の案内で数え方を確認してください。"}},
+{"@type":"Question","name":"営業日（土日・祝日を除いた日数）で計算できますか？","acceptedAnswer":{"@type":"Answer","text":"このツールは暦どおりの日数（暦日）で計算します。祝日は年によって変わるため、営業日ベースの計算には対応していません。営業日が条件の手続きでは、相手先の案内を確認してください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ 日数計算</nav>
+<h1>日数計算</h1>
+<p class="lead">2つの日付の間が何日あるかを計算します。週換算の表示つき。基準の日から「○日後」「○日前」の日付と曜日も調べられます。</p>
+<div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">曜日も表示</span><span class="badge">うるう年対応</span></div>
+
+<div class="card">
+<h3 style="margin-top:0">2つの日付の間の日数</h3>
+<form class="calc" id="formA" onsubmit="return false">
+<div><label class="flabel" for="d1">開始日</label><input type="date" id="d1" value="2026-11-08"></div>
+<div><label class="flabel" for="d2">終了日</label><input type="date" id="d2" value="2026-12-31"></div>
+</form>
+<div class="result" id="resultA"></div>
+<p class="note">※日付の差（経過日数）で計算します。両端の日を含む「○日間」で数えた値も合わせて表示します。開始日と終了日の前後は問いません。</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">○日後・○日前の日付</h3>
+<form class="calc" id="formB" onsubmit="return false">
+<div><label class="flabel" for="base">基準日</label><input type="date" id="base" value="2026-11-08"></div>
+<div><label class="flabel" for="days">日数 <small>日</small></label><input type="number" id="days" value="100" min="0" step="1" inputmode="numeric"></div>
+<div class="full"><label class="flabel">方向</label>
+<div class="seg" id="dirSeg"><button type="button" class="on" data-v="after">日後</button><button type="button" data-v="before">日前</button></div></div>
+</form>
+<div class="result" id="resultB"></div>
+</div>
+
+<h2>計算方法</h2>
+<p>日数は、2つの日付の引き算で求めます。このツールはうるう年の2月29日も含め、暦どおりに数えます。「○日後」は基準の日に日数を足した日付で、結果には曜日も合わせて表示します。締切の日が何曜日かを確認したいときにも使えます。</p>
+<span class="formula">間の日数 ＝ 終了日 − 開始日</span>
+<span class="formula">○日後の日付 ＝ 基準日 ＋ ○日</span>
+<h3>計算例</h3>
+<table class="data"><tbody>
+<tr><td>2026年11月8日 → 2026年12月31日</td><td>53日（7週間と4日）</td></tr>
+<tr><td>2026年1月1日 → 2026年12月31日</td><td>364日（52週間ちょうど）</td></tr>
+<tr><td>2026年11月8日の30日後</td><td>2026年12月8日（火）</td></tr>
+<tr><td>2026年11月8日の100日後</td><td>2027年2月16日（火）</td></tr>
+</tbody></table>
+
+<h2>「初日を数えるか」で1日ずれる</h2>
+<p>日数の数え方には2通りあります。1つは日付の差そのもの（経過日数）で、このツールの計算はこちらです。もう1つは、初日と最終日の両方を含めて数える方法で、差の日数に1を足した値になります。たとえば2026年11月8日から12月31日までは、差の日数では53日、両端を含めて数えると54「日間」です。</p>
+<p>旅行の日程（3泊4日など）や「○日間有効」という表現は、両端を含む数え方が一般的です。一方、法律の期間計算には別のルールがあり、民法では「期間の初日は算入しない」ことが原則とされています（初日不算入の原則。期間が午前0時から始まるときは初日も数えます）。反対に、クーリング・オフのように、書面を受け取った日を1日目として数える特例もあります。締切が関わる場面では、このツールの結果を目安として、正式な数え方を契約書や公式の案内で確認してください。</p>
+
+<h2>うるう年の扱い</h2>
+<p>うるう年は、西暦が4で割り切れる年に原則として訪れ、2月が29日まであります。ただし例外があり、100で割り切れる年はうるう年ではなく、400で割り切れる年はうるう年になります（2000年はうるう年、2100年は平年です）。このため、同じ2月1日から3月1日までの日数でも、2028年（うるう年）は29日、2026年（平年）は28日と変わります。長い期間の日数を手で数えるとずらしやすいところですが、このツールはこの規則のとおりに自動で計算します。</p>
+
+<h2>契約や締切ではこう使われます</h2>
+<p>日数計算は、支払期限（「請求日から30日以内」）、解約の予告期間、保証期間、試用期間、各種申請の受付期間など、日常のあらゆる場面で登場します。使うときに注意したいのは2点です。まず「1か月後」のような月単位の表現は、日数に直すと月によって28〜31日の幅があること。次に、期限の最終日が土日・祝日に当たる場合の扱いは、契約や制度ごとに異なることです。「営業日ベース」と書かれている場合は、暦の日数とは別物になります。重要な手続きほど、相手先の定義を確認したうえで、余裕を持った日程を組んでください。生まれてからの日数や次の誕生日を知りたい場合は、<a href="/nenrei/">年齢計算</a>が便利です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>「○日間」と「○日後」は何が違うのですか？</summary><p>「○日後」は基準の日から数えた到達日、「○日間」は期間の長さを表します。たとえば2026年11月8日から見て12月31日は53日後で、両端の日を含めて数えた期間は54日間です。数え方で1日ずれる点に注意してください。</p></details>
+<details class="faq"><summary>うるう年は自動で計算されますか？</summary><p>はい。2月29日も1日として数えます。たとえば2月1日から3月1日までの日数は、うるう年の2028年は29日、平年の2026年は28日です。</p></details>
+<details class="faq"><summary>契約の「30日以内」は初日を含みますか？</summary><p>民法では、期間の初日は算入しないのが原則です（初日不算入の原則）。ただし、クーリング・オフのように初日を1日目として数える特例もあります。このツールの日数は日付の差（経過日数）なので、締切が関わる場合は契約書や公式の案内で数え方を確認してください。</p></details>
+<details class="faq"><summary>営業日（土日・祝日を除いた日数）で計算できますか？</summary><p>このツールは暦どおりの日数（暦日）で計算します。祝日は年によって変わるため、営業日ベースの計算には対応していません。営業日が条件の手続きでは、相手先の案内を確認してください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/nenrei/"><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・次の誕生日までを計算。</div></a>
+<a class="toolcard" href="/shohizei/"><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。8%・10%切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/waribiki/"><span class="t">割引計算</span><div class="d">「30%オフはいくら？」を即計算。割引額と支払額が分かります。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。逆算も可能。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>計算方法の検証：暦の規則に基づき、本文中の数値例（2026年11月8日から2026年12月31日までは53日など）を検算して公開しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+var dirSeg=document.getElementById("dirSeg");
+dirSeg.dataset.dir="after";
+setSeg("dirSeg","dir",calcB);
+["d1","d2"].forEach(function(id){ document.getElementById(id).addEventListener("input",calcA); });
+["base","days"].forEach(function(id){ document.getElementById(id).addEventListener("input",calcB); });
+var WD=["日","月","火","水","木","金","土"];
+function parseDate(id){
+var v=document.getElementById(id).value;
+if(!v) return null;
+var p=v.split("-");
+return new Date(parseInt(p[0],10), parseInt(p[1],10)-1, parseInt(p[2],10));
+}
+function fmt(d){ return d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日（"+WD[d.getDay()]+"）"; }
+function diffDays(a,b){ return Math.round((b.getTime()-a.getTime())/86400000); }
+function calcA(){
+var a=parseDate("d1"), b=parseDate("d2"), box=document.getElementById("resultA");
+if(!a||!b){ box.innerHTML="<div>日付を入力してください</div>"; return; }
+var d=Math.abs(diffDays(a,b));
+box.innerHTML=
+"<div>間の日数</div><div class='big'>"+yen(d)+" 日</div>"+
+"<table><tr><td>週換算</td><td>"+Math.floor(d/7)+"週間と"+(d%7)+"日</td></tr>"+
+"<tr><td>両端を含む日数（○日間）</td><td>"+yen(d+1)+" 日間</td></tr>"+
+"<tr><td>開始日</td><td>"+fmt(a)+"</td></tr>"+
+"<tr><td>終了日</td><td>"+fmt(b)+"</td></tr></table>";
+}
+function calcB(){
+var base=parseDate("base"), box=document.getElementById("resultB");
+if(!base){ box.innerHTML="<div>基準日を入力してください</div>"; return; }
+var n=Math.floor(num("days")), dir=dirSeg.dataset.dir;
+var t=new Date(base.getTime());
+t.setDate(t.getDate() + (dir==="after"? n: -n));
+box.innerHTML=
+"<div>"+n+"日"+(dir==="after"? "後": "前")+"の日付</div><div class='big'>"+fmt(t)+"</div>"+
+"<table><tr><td>基準日</td><td>"+fmt(base)+"</td></tr>"+
+"<tr><td>曜日</td><td>"+WD[t.getDay()]+"曜日</td></tr></table>";
+}
+calcA(); calcB();
+</script>
+</body>
+</html>

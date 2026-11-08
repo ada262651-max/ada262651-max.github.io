@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>消費税計算｜税込⇔税抜をすぐ計算（10%・8%対応）</title>
+<meta name="description" content="税込価格から税抜価格と消費税額を、税抜価格から税込価格をすぐ計算。10%と軽減税率8%の切替、端数処理（切り捨て・四捨五入・切り上げ）の選択に対応。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/shohizei/">
+<meta property="og:title" content="消費税計算｜計算ラボ">
+<meta property="og:description" content="税込⇔税抜をすぐ計算。10%・8%切替、端数処理の選択つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"消費税計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/shohizei/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"消費税計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"税込価格から税抜価格を求める計算式は？","acceptedAnswer":{"@type":"Answer","text":"税率10%なら「税込価格 ÷ 1.1」、8%なら「税込価格 ÷ 1.08」です。割り切れない場合は端数処理の方法によって1円前後変わります。"}},
+{"@type":"Question","name":"軽減税率8%の対象は何ですか？","acceptedAnswer":{"@type":"Answer","text":"酒類・外食を除く飲食料品と、週2回以上発行される定期購読の新聞です。それ以外は原則10%です。"}},
+{"@type":"Question","name":"消費税の端数処理はどう決まっていますか？","acceptedAnswer":{"@type":"Answer","text":"事業者が請求書単位で処理方法を選べるのが原則で、切り捨てが広く使われています。このツールでは切り捨て・四捨五入・切り上げを選べます。"}},
+{"@type":"Question","name":"内税と外税の違いは？","acceptedAnswer":{"@type":"Answer","text":"内税は消費税込みの総額表示、外税は税抜価格に税が別表示される形式です。現在の小売表示は総額表示（税込）が義務づけられています。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ 消費税計算</nav>
+<h1>消費税計算（税込⇔税抜）</h1>
+<p class="lead">金額を入れるだけで、税込価格・税抜価格・消費税額をまとめて計算します。税率10%と軽減税率8%の切替、端数処理の方法も選べます。</p>
+<div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">軽減税率8%対応</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">入力する金額の種類</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="incl">税込価格から</button><button type="button" data-v="excl">税抜価格から</button></div></div>
+<div><label class="flabel" for="amount">金額 <small>円</small></label><input type="number" id="amount" value="1100" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel">税率</label>
+<div class="seg" id="rateSeg"><button type="button" class="on" data-v="10">10%</button><button type="button" data-v="8">8%（軽減税率）</button></div></div>
+<div class="full"><label class="flabel">税額の端数処理</label>
+<div class="seg" id="roundSeg"><button type="button" class="on" data-v="floor">切り捨て</button><button type="button" data-v="round">四捨五入</button><button type="button" data-v="ceil">切り上げ</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※端数処理の方法は事業者・請求単位で異なります。実際の請求書の金額と1円前後異なる場合があります。</p>
+</div>
+
+<h2>計算方法</h2>
+<span class="formula">税抜価格から税込価格 ＝ 税抜価格 ＋ 税抜価格 × 税率</span>
+<span class="formula">税込価格から税抜価格 ＝ 税込価格 ÷（1 ＋ 税率）</span>
+<p>税率10%なら、税込価格を1.1で割ると税抜価格になります。消費税額は「税込価格 − 税抜価格」です。</p>
+<h3>計算例</h3>
+<table class="data"><tbody>
+<tr><td>税込1,100円（10%）</td><td>税抜 1,000円／消費税 100円</td></tr>
+<tr><td>税抜1,980円（8%・切り捨て）</td><td>消費税 158円／税込 2,138円</td></tr>
+<tr><td>税抜10,000円（10%）</td><td>消費税 1,000円／税込 11,000円</td></tr>
+</tbody></table>
+
+<h2>軽減税率8%の対象</h2>
+<p>2019年10月から、飲食料品（酒類と外食を除く）と、週2回以上発行される定期購読の新聞には軽減税率8%が適用されています。テイクアウトや宅配は8%、店内飲食は10%というように、同じ商品でも提供のされ方で税率が変わる点に注意が必要です。それ以外の商品・サービスは原則10%です。</p>
+<h2>端数処理について</h2>
+<p>消費税額に1円未満の端数が出た場合の処理方法は、法律で一律には決まっておらず、事業者が請求書単位で選ぶのが原則です。切り捨てが最も広く使われていますが、四捨五入・切り上げを採用している事業者もあります。このツールでは3方式を切り替えて比べられます。経理処理では、取引先の請求書の方式に合わせてください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>税込価格から税抜価格を求める計算式は？</summary><p>税率10%なら「税込価格 ÷ 1.1」、8%なら「税込価格 ÷ 1.08」です。割り切れない場合は端数処理の方法によって1円前後変わります。</p></details>
+<details class="faq"><summary>軽減税率8%の対象は何ですか？</summary><p>酒類・外食を除く飲食料品と、週2回以上発行される定期購読の新聞です。それ以外は原則10%です。</p></details>
+<details class="faq"><summary>消費税の端数処理はどう決まっていますか？</summary><p>事業者が請求書単位で処理方法を選べるのが原則で、切り捨てが広く使われています。このツールでは切り捨て・四捨五入・切り上げを選べます。</p></details>
+<details class="faq"><summary>内税と外税の違いは？</summary><p>内税は消費税込みの総額表示、外税は税抜価格に税が別表示される形式です。現在の小売表示は総額表示（税込）が義務づけられています。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/waribiki/"><span class="t">割引計算</span><div class="d">「30%オフはいくら？」を即計算。割引額と支払額が分かります。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。逆算も可能。</div></a>
+<a class="toolcard" href="/nissu/"><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後の日付を計算します。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>出典：国税庁「消費税の軽減税率制度について」等を確認（2026-11-08）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+var modeSeg=document.getElementById("modeSeg"), rateSeg=document.getElementById("rateSeg"), roundSeg=document.getElementById("roundSeg");
+modeSeg.dataset.mode="incl"; rateSeg.dataset.rate="10"; roundSeg.dataset.round="floor";
+setSeg("modeSeg","mode",calc); setSeg("rateSeg","rate",calc); setSeg("roundSeg","round",calc);
+document.getElementById("amount").addEventListener("input",calc);
+function roundTax(x){
+var m=roundSeg.dataset.round;
+if(m==="floor") return Math.floor(x);
+if(m==="ceil") return Math.ceil(x);
+return Math.round(x);
+}
+function calc(){
+var amt=num("amount"), rate=parseInt(rateSeg.dataset.rate,10)/100;
+var incl, excl, tax;
+if(modeSeg.dataset.mode==="incl"){
+incl=amt; tax=roundTax(incl*rate/(1+rate)); excl=incl-tax;
+}else{
+excl=amt; tax=roundTax(excl*rate); incl=excl+tax;
+}
+document.getElementById("resultBox").innerHTML=
+"<div>税込価格</div><div class='big'>"+yen(incl)+" 円</div>"+
+"<table><tr><td>税抜価格</td><td>"+yen(excl)+" 円</td></tr>"+
+"<tr><td>消費税額（"+rateSeg.dataset.rate+"%）</td><td>"+yen(tax)+" 円</td></tr></table>";
+}
+calc();
+</script>
+</body>
+</html>

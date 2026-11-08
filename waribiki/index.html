@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>割引計算｜%オフ・○割引の割引後の価格をすぐ計算</title>
+<meta name="description" content="定価と割引を入れるだけで、割引後の価格・割引額・実際に払う割合をすぐ計算。%オフ・円引き・「○割○分」の引き方に対応。「割・分」換算表と%オフ早見表つき。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/waribiki/">
+<meta property="og:title" content="割引計算｜計算ラボ">
+<meta property="og:description" content="「30%オフはいくら？」を即計算。割引額と実際に払う割合が分かります。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"割引計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/waribiki/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"割引計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"「30%オフ」と「3割引」は同じ意味ですか？","acceptedAnswer":{"@type":"Answer","text":"同じです。「割」は10%、「分」は1%を表すので、3割引＝30%引きで、実際に払うのは定価の70%です。たとえば3,980円の3割引は2,786円になります。"}},
+{"@type":"Question","name":"%オフの計算式を教えてください","acceptedAnswer":{"@type":"Answer","text":"割引後の価格は「定価 ×（1 − 割引率 ÷ 100）」です。30%オフなら定価×0.7になります。割引額だけを知りたい場合は「定価 × 割引率 ÷ 100」で求められます。"}},
+{"@type":"Question","name":"「3割引」と「定価の3割で販売」は何が違いますか？","acceptedAnswer":{"@type":"Answer","text":"「3割引」は定価から30%を引くので、支払額は定価の70%です。「定価の3割」は支払額そのものが定価の30%という意味で、70%引きと同じになります。言葉が似ているので、セール表示ではどちらを指すか確認しましょう。"}},
+{"@type":"Question","name":"割引は税込価格・税抜価格のどちらにかかりますか？","acceptedAnswer":{"@type":"Answer","text":"店舗や表示方法によって異なります。税込価格から割り引く場合と、税抜価格に割引を適用してから消費税を足す場合があり、端数処理で1円前後ずれることもあります。消費税だけを計算したい場合は、消費税計算ツールをご利用ください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ 割引計算</nav>
+<h1>割引計算</h1>
+<p class="lead">定価と割引の指定を入れるだけで、割引後の価格・割引額・実際に払う割合を計算します。「30%オフ」「500円引き」「3割引」のどれにも対応しています。</p>
+<div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">「○割○分」表示にも対応</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">割引の指定方法</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="pct">％オフ</button><button type="button" data-v="yen">円引き</button><button type="button" data-v="wari">割・分で指定</button></div></div>
+<div><label class="flabel" for="price">定価 <small>円</small></label><input type="number" id="price" value="3980" min="0" step="10" inputmode="numeric"></div>
+<div id="pctWrap"><label class="flabel" for="rate">割引率 <small>％オフ</small></label><input type="number" id="rate" value="30" min="0" max="100" step="1" inputmode="numeric"></div>
+<div id="yenWrap" style="display:none"><label class="flabel" for="yenOff">割引額 <small>円引き</small></label><input type="number" id="yenOff" value="500" min="0" step="100" inputmode="numeric"></div>
+<div id="wariWrap" style="display:none"><label class="flabel">割引（○割○分引き）</label><div><input type="number" id="wari" value="3" min="0" max="9" step="1" inputmode="numeric" style="width:42%;display:inline-block"> 割 <input type="number" id="bu" value="0" min="0" max="9" step="1" inputmode="numeric" style="width:42%;display:inline-block"> 分</div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※入力した金額そのものに割引を適用します。割引が税込価格・税抜価格のどちらにかかるか、端数の処理は店舗によって異なります。</p>
+</div>
+
+<h2>計算方法</h2>
+<span class="formula">割引後の価格 ＝ 定価 ×（1 − 割引率 ÷ 100）</span>
+<span class="formula">割引額 ＝ 定価 × 割引率 ÷ 100</span>
+<p>%オフは、定価から割引率の分を差し引く計算です。30%オフなら定価の30%が割引額になり、残りの70%が実際に払う金額になります。「円引き」の場合は、定価から割引額をそのまま引いたものが支払額です。「○割○分」の表示は、1割＝10%、1分＝1%に換算してから、同じ式に当てはめます（例：2割5分引＝25%オフ）。</p>
+<p>割引額に1円未満の端数が出た場合、このツールでは四捨五入して表示します。店舗側の端数処理と異なる場合は、実際の支払額と1円前後ずれることがあります。</p>
+
+<h3>計算例</h3>
+<table class="data"><tbody>
+<tr><td>3,980円の30%オフ</td><td>割引後 2,786円／割引額 1,194円</td></tr>
+<tr><td>1,200円から500円引き</td><td>割引後 700円／割引率 約41.7%</td></tr>
+<tr><td>2,000円の2割5分引（25%オフ）</td><td>割引後 1,500円／割引額 500円</td></tr>
+</tbody></table>
+
+<h2>「割・分」の換算表</h2>
+<p>昔ながらの「○割引」という表示は、衣料品や日用品のセールで今でもよく使われています。「割」は10%単位、「分」は1%単位を表します。たとえば「2割5分引」は20%＋5%で、25%引きという意味です。迷いやすいのは「払う割合」のほうで、割引率が大きいほど、実際に払う割合は小さくなります。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>表記</th><th>割引率</th><th>実際に払う割合</th></tr></thead>
+<tbody>
+<tr><td>5分引</td><td>5%</td><td>95%</td></tr>
+<tr><td>1割引</td><td>10%</td><td>90%</td></tr>
+<tr><td>1割5分引</td><td>15%</td><td>85%</td></tr>
+<tr><td>2割引</td><td>20%</td><td>80%</td></tr>
+<tr><td>2割5分引</td><td>25%</td><td>75%</td></tr>
+<tr><td>3割引</td><td>30%</td><td>70%</td></tr>
+<tr><td>4割引</td><td>40%</td><td>60%</td></tr>
+<tr><td>半額（5割引）</td><td>50%</td><td>50%</td></tr>
+</tbody></table></div>
+
+<h2>早見表：%オフ後の価格</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>定価</th><th>10%オフ</th><th>20%オフ</th><th>30%オフ</th><th>40%オフ</th><th>50%オフ</th></tr></thead>
+<tbody>
+<tr><td>1,000円</td><td>900円</td><td>800円</td><td>700円</td><td>600円</td><td>500円</td></tr>
+<tr><td>5,000円</td><td>4,500円</td><td>4,000円</td><td>3,500円</td><td>3,000円</td><td>2,500円</td></tr>
+<tr><td>10,000円</td><td>9,000円</td><td>8,000円</td><td>7,000円</td><td>6,000円</td><td>5,000円</td></tr>
+</tbody></table></div>
+<p class="note">※表は割引後の価格です。たとえば定価5,000円の30%オフは3,500円になります。</p>
+
+<h2>セール表示で気をつけたい3つのこと</h2>
+<h3>1. 「最大○○%オフ」は一部の商品だけ</h3>
+<p>店頭や広告の「最大70%オフ」は、その割引率が適用される商品が一部に限られる、という意味の表示です。実際にはほとんどの商品が10〜30%オフ、ということも珍しくありません。お目当ての商品自体の割引率を確認してから比べましょう。</p>
+<h3>2. ポイント還元は値引きとは別物</h3>
+<p>「実質○%還元」は、価格から引かれるのではなく、ポイントで戻ってくる仕組みです。ポイントには有効期限や使い道の制限があるため、現金の値引きと単純に比べることはできません。実質の負担を考えるときは、ポイントを無理なく使い切れるかどうかも含めて判断するのがおすすめです。</p>
+<h3>3. 割引の元になる価格を確認する</h3>
+<p>割引率が高くても、元の定価が高く設定されていれば割安とは限りません。また、割引が税込価格にかかるか税抜価格にかかるかで、最終的な支払額が変わることもあります。迷ったときは、税込の支払総額どうしで比べるのが確実です。消費税だけを切り分けて計算したい場合は、<a href="/shohizei/">消費税計算</a>も合わせてどうぞ。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>「30%オフ」と「3割引」は同じ意味ですか？</summary><p>同じです。「割」は10%、「分」は1%を表すので、3割引＝30%引きで、実際に払うのは定価の70%です。たとえば3,980円の3割引は2,786円になります。</p></details>
+<details class="faq"><summary>%オフの計算式を教えてください</summary><p>割引後の価格は「定価 ×（1 − 割引率 ÷ 100）」です。30%オフなら定価×0.7になります。割引額だけを知りたい場合は「定価 × 割引率 ÷ 100」で求められます。</p></details>
+<details class="faq"><summary>「3割引」と「定価の3割で販売」は何が違いますか？</summary><p>「3割引」は定価から30%を引くので、支払額は定価の70%です。「定価の3割」は支払額そのものが定価の30%という意味で、70%引きと同じになります。言葉が似ているので、セール表示ではどちらを指すか確認しましょう。</p></details>
+<details class="faq"><summary>割引は税込価格・税抜価格のどちらにかかりますか？</summary><p>店舗や表示方法によって異なります。税込価格から割り引く場合と、税抜価格に割引を適用してから消費税を足す場合があり、端数処理で1円前後ずれることもあります。消費税だけを計算したい場合は、消費税計算ツールをご利用ください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/shohizei/"><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。8%・10%切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。逆算も可能。</div></a>
+<a class="toolcard" href="/nissu/"><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後の日付を計算します。</div></a>
+<a class="toolcard" href="/nenrei/"><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・次の誕生日までを計算。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>計算方法の検証：割引計算の基本式に基づき、本文中の数値例（3,980円の30%オフ＝2,786円など）を検算して公開しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+var modeSeg=document.getElementById("modeSeg");
+modeSeg.dataset.mode="pct";
+setSeg("modeSeg","mode",calc);
+["price","rate","yenOff","wari","bu"].forEach(function(id){
+document.getElementById(id).addEventListener("input",calc);
+});
+function pctStr(x){ return (Math.round(x*10)/10).toLocaleString("ja-JP"); }
+function calc(){
+var mode=modeSeg.dataset.mode;
+document.getElementById("pctWrap").style.display = mode==="pct"? "": "none";
+document.getElementById("yenWrap").style.display = mode==="yen"? "": "none";
+document.getElementById("wariWrap").style.display = mode==="wari"? "": "none";
+var price=num("price"), rate=0, discount=0, pay=0;
+if(mode==="yen"){
+discount=Math.min(num("yenOff"),price);
+pay=price-discount;
+rate= price>0? discount/price*100: 0;
+}else{
+if(mode==="pct") rate=num("rate");
+else rate=num("wari")*10+num("bu");
+discount=Math.round(price*rate/100);
+pay=price-discount;
+}
+var payRate= price>0? pay/price*100: 0;
+document.getElementById("resultBox").innerHTML=
+"<div>割引後の価格</div><div class='big'>"+yen(pay)+" 円</div>"+
+"<table><tr><td>定価</td><td>"+yen(price)+" 円</td></tr>"+
+"<tr><td>割引額</td><td>"+yen(discount)+" 円</td></tr>"+
+"<tr><td>割引率</td><td>"+pctStr(rate)+" ％</td></tr>"+
+"<tr><td>実際に払う割合</td><td>"+pctStr(payRate)+" ％</td></tr></table>";
+}
+calc();
+</script>
+</body>
+</html>
