@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>残業代計算｜時間外・深夜・休日の割増賃金を計算</title>
+<meta name="description" content="月給と残業時間を入れると、時間外・深夜・法定休日・月60時間超の割増率で残業代を計算。固定残業代との比較もできます。労働基準法第37条の割増率に基づく目安。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/zangyodai/">
+<meta property="og:title" content="残業代計算｜計算ラボ">
+<meta property="og:description" content="月給と残業時間から、時間外・深夜・休日・月60時間超の割増賃金（残業代）を計算。固定残業代との比較つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"残業代計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/zangyodai/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"残業代計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"所定労働時間を超えた残業はすべて25％増しになりますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。会社の所定労働時間を超えても、法定労働時間（1日8時間・週40時間）までは「法内残業」で、法律上の割増は不要です（通常の賃金は支払われます）。法定労働時間を超えた分が25％増しの時間外労働になります。"}},
+{"@type":"Question","name":"固定残業代があれば残業代は払われなくてよいのですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。固定残業代（みなし残業代）は「何時間分の割増賃金か」が明確で、実際の残業時間から計算した額を上回っている場合にのみ不足がありません。実際の残業代が固定残業代を上回れば、差額を支払う必要があります。このページでは固定残業代を入力すると差額を表示します。"}},
+{"@type":"Question","name":"月60時間の起算日はいつですか？","acceptedAnswer":{"@type":"Answer","text":"会社が定める賃金計算期間の初日です（多くは毎月1日）。60時間の算定には法定休日に行った労働時間は含まれません。所定休日に行った時間外労働は含まれます。月60時間を超える部分の割増率は50％以上で、中小企業にも2023年4月1日から適用されています。"}},
+{"@type":"Question","name":"深夜と休日が重なると割増率はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"割増率は足し合わせます。時間外労働と深夜労働が重なれば25％＋25％＝50％、月60時間超の時間外労働と深夜労働が重なれば50％＋25％＝75％、法定休日労働と深夜労働が重なれば35％＋25％＝60％になります。"}},
+{"@type":"Question","name":"残業代の請求には期限がありますか？","acceptedAnswer":{"@type":"Answer","text":"賃金請求権の消滅時効は3年です（2020年4月以降）。過去の未払い分も、原則として3年分までさかのぼって請求できます。給与明細やタイムカードなど、労働時間の証拠を残しておくことが大切です。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 残業代計算</nav>
+<h1>残業代計算</h1>
+<p class="lead">月給と残業時間を入れると、時間外・深夜・法定休日・月60時間超の割増率で残業代（割増賃金）の目安を計算します。固定残業代を入力すれば、不足額との比較もできます。</p>
+<div class="badges"><span class="badge">労働基準法 第37条の割増率</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="salary">月給（各種手当を含む合計）<small>円</small></label><input type="number" id="salary" value="300000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel" for="hours">1か月平均所定労働時間<small>時間／年間の所定労働日数×1日の所定労働時間÷12</small></label><input type="number" id="hours" value="170" min="100" max="250" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="ot">時間外労働時間（月）<small>時間／法定労働時間（1日8時間・週40時間）を超えた分</small></label><input type="number" id="ot" value="30" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="otNight">うち深夜労働時間<small>時間／午後10時〜午前5時</small></label><input type="number" id="otNight" value="0" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="hol">法定休日労働時間（月）<small>時間／週1日（または4週4日）の法定休日の労働</small></label><input type="number" id="hol" value="0" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="holNight">うち深夜労働時間（休日）<small>時間／午後10時〜午前5時</small></label><input type="number" id="holNight" value="0" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="fixed">固定残業代（月額・ある場合のみ）<small>円／0の場合は比較を表示しません</small></label><input type="number" id="fixed" value="0" min="0" step="10000" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。割増率は労働基準法第37条の最低基準（時間外25％・深夜25％・法定休日35％・月60時間超50％）で計算しています。就業規則でこれより高い率が定められている場合は、そちらが適用されます。家族手当・通勤手当・住宅手当など、割増賃金の基礎から除かれる手当がある場合は、月給からその分を差し引いて入力してください。残業代は税金・社会保険料の控除前の金額です。</p>
+</div>
+
+<h2>残業代の計算の流れ</h2>
+<p>残業代（割増賃金）は「1時間あたりの賃金 × 割増率 × 残業時間」で決まります。月給制の場合は、まず月給を1時間あたりの賃金に換算してから計算します。</p>
+<h3>1. 1時間あたりの賃金を求める</h3>
+<p>月給（各種手当を含む合計）を「1か月平均所定労働時間」で割ります。1か月平均所定労働時間は、年間の所定労働日数×1日の所定労働時間÷12で求めます。たとえば1日8時間・年間所定労働日数260日なら、8時間×260日÷12≒173時間です。家族手当・通勤手当・住宅手当・別居手当・子女教育手当、臨時に支払われた賃金、1か月を超える期間ごとに支払われる賃金（賞与など）は、割増賃金の基礎から除かれます。</p>
+<h3>2. 割増率をかける</h3>
+<p>労働の種類ごとに割増率が決まっています。法定労働時間（1日8時間・週40時間）を超えた時間外労働は25％以上、午後10時から午前5時までの深夜労働は25％以上、法定休日の労働は35％以上です。1か月に60時間を超える時間外労働は50％以上になります（中小企業にも2023年4月1日から適用）。深夜や休日と重なると率は足し合わせます。</p>
+<h3>3. 時間をかけて合計する</h3>
+<p>時間外労働は60時間までと60時間超で分けて計算します。60時間の算定には法定休日の労働時間は含みません。法定休日の労働は60時間の算定から外して、別に35％（深夜なら60％）で計算します。</p>
+
+<h2>割増率の一覧</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>労働の種類</th><th>割増率（以上）</th></tr></thead>
+<tbody>
+<tr><td>法定時間外労働（月60時間以内）</td><td>25％</td></tr>
+<tr><td>法定時間外労働（月60時間超）</td><td>50％</td></tr>
+<tr><td>深夜労働（午後10時〜午前5時）</td><td>25％</td></tr>
+<tr><td>法定休日労働</td><td>35％</td></tr>
+<tr><td>時間外労働＋深夜労働</td><td>50％（25％＋25％）</td></tr>
+<tr><td>月60時間超の時間外労働＋深夜労働</td><td>75％（50％＋25％）</td></tr>
+<tr><td>法定休日労働＋深夜労働</td><td>60％（35％＋25％）</td></tr>
+</tbody></table></div>
+<p class="note">※割増率は労働基準法第37条の最低基準です。会社が就業規則でこれより高い率を定めている場合は、そちらが適用されます。</p>
+
+<h2>月給別・時間外別 残業代の早見表</h2>
+<p>1か月平均所定労働時間170時間、深夜・休日労働なしの場合の目安です。60時間を超える分は50％で計算しています。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>月給</th><th>時間外20時間</th><th>時間外40時間</th><th>時間外60時間</th><th>時間外80時間</th></tr></thead>
+<tbody>
+<tr><td>200,000円</td><td>29,412円</td><td>58,824円</td><td>88,235円</td><td>123,529円</td></tr>
+<tr><td>250,000円</td><td>36,765円</td><td>73,529円</td><td>110,294円</td><td>154,412円</td></tr>
+<tr><td>300,000円</td><td>44,118円</td><td>88,235円</td><td>132,353円</td><td>185,294円</td></tr>
+<tr><td>350,000円</td><td>51,471円</td><td>102,941円</td><td>154,412円</td><td>216,177円</td></tr>
+<tr><td>400,000円</td><td>58,824円</td><td>117,647円</td><td>176,471円</td><td>247,059円</td></tr>
+</tbody></table></div>
+<p class="note">※この早見表は、このページの計算式と同じ計算で作成しています。1円未満は四捨五入しています。</p>
+
+<h3>計算例：月給30万円・所定170時間・時間外30時間</h3>
+<table class="data"><tbody>
+<tr><td>1時間あたりの賃金</td><td>1,765円（300,000円÷170時間）</td></tr>
+<tr><td>時間外労働 30時間（25％増し）</td><td>66,176円（1,765円×1.25×30時間）</td></tr>
+<tr><td>残業代の合計</td><td>66,176円</td></tr>
+</tbody></table>
+
+<h3>計算例：月給30万円・所定170時間・時間外80時間（うち深夜10時間）・法定休日8時間（うち深夜2時間）・固定残業代15万円</h3>
+<table class="data"><tbody>
+<tr><td>1時間あたりの賃金</td><td>1,765円（300,000円÷170時間）</td></tr>
+<tr><td>時間外60時間以内・昼間 50時間（25％増し）</td><td>110,294円</td></tr>
+<tr><td>時間外60時間以内・深夜 10時間（50％増し）</td><td>26,471円</td></tr>
+<tr><td>時間外60時間超・昼間 20時間（50％増し）</td><td>52,941円</td></tr>
+<tr><td>法定休日・昼間 6時間（35％増し）</td><td>14,294円</td></tr>
+<tr><td>法定休日・深夜 2時間（60％増し）</td><td>5,647円</td></tr>
+<tr><td>残業代の合計</td><td>209,647円</td></tr>
+<tr><td>固定残業代</td><td>150,000円（約68.0時間分に相当）</td></tr>
+<tr><td>不足額</td><td>59,647円</td></tr>
+</tbody></table>
+<p>固定残業代が実際の残業代を下回る場合、不足分を支払う必要があります。固定残業代が何時間分に相当するかは、固定残業代÷（1時間あたりの賃金×1.25）で分かります。上の例では15万円は約68.0時間分に相当しますが、実際の時間外労働は80時間で、深夜・休日の割増しもあるため、59,647円の不足が出ます。</p>
+
+<h2>固定残業代との比較について</h2>
+<p>固定残業代（みなし残業代）は、給与にあらかじめ一定時間分の割増賃金を含めておく仕組みです。有効なためには、通常の賃金と割増賃金の部分が明確に区別でき、実際の残業時間から計算した額を上回っていることが必要です。固定残業代を除いた額が最低賃金を下回っていないかも確かめる必要があります。参考：2026年10月の改定で、東京都の最低賃金は時間額1,280円、全国加重平均は1,177円です。お住まいの都道府県の金額は厚生労働省「地域別最低賃金の全国一覧」でご確認ください。</p>
+
+<h2>注意点</h2>
+<p>所定労働時間を超えても法定労働時間（1日8時間・週40時間）以内の残業は「法内残業」で、法律上の割増は不要です。ただし、その時間の賃金自体は支払われます（このページの計算は法定時間外の分だけを対象にしています）。変形労働時間制・フレックスタイム制・裁量労働制など、働き方によって時間外労働の数え方が変わる場合があります。みなし労働時間制では、実際の労働時間ではなく、みなされた時間で残業代を計算します。賃金請求権の消滅時効は3年です（2020年4月以降）。未払いが疑われる場合は、給与明細・タイムカード・勤務記録などの証拠を残し、労働基準監督署や弁護士にご相談ください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>所定労働時間を超えた残業はすべて25％増しになりますか？</summary><p>いいえ。会社の所定労働時間を超えても、法定労働時間（1日8時間・週40時間）までは「法内残業」で、法律上の割増は不要です（通常の賃金は支払われます）。法定労働時間を超えた分が25％増しの時間外労働になります。</p></details>
+<details class="faq"><summary>固定残業代があれば残業代は払われなくてよいのですか？</summary><p>いいえ。固定残業代（みなし残業代）は「何時間分の割増賃金か」が明確で、実際の残業時間から計算した額を上回っている場合にのみ不足がありません。実際の残業代が固定残業代を上回れば、差額を支払う必要があります。このページでは固定残業代を入力すると差額を表示します。</p></details>
+<details class="faq"><summary>月60時間の起算日はいつですか？</summary><p>会社が定める賃金計算期間の初日です（多くは毎月1日）。60時間の算定には法定休日に行った労働時間は含まれません。所定休日に行った時間外労働は含まれます。月60時間を超える部分の割増率は50％以上で、中小企業にも2023年4月1日から適用されています。</p></details>
+<details class="faq"><summary>深夜と休日が重なると割増率はどうなりますか？</summary><p>割増率は足し合わせます。時間外労働と深夜労働が重なれば25％＋25％＝50％、月60時間超の時間外労働と深夜労働が重なれば50％＋25％＝75％、法定休日労働と深夜労働が重なれば35％＋25％＝60％になります。</p></details>
+<details class="faq"><summary>残業代の請求には期限がありますか？</summary><p>賃金請求権の消滅時効は3年です（2020年4月以降）。過去の未払い分も、原則として3年分までさかのぼって請求できます。給与明細やタイムカードなど、労働時間の証拠を残しておくことが大切です。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/jikyu/"><span class="t">時給換算</span><div class="d">年収・月収から時給を計算。時給から年収への逆算と、残業代の目安も。</div></a>
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/shitsugyo-hoken/"><span class="t">失業保険計算</span><div class="d">失業手当（基本手当）の1日あたりの金額・もらえる日数・受給総額の目安を計算。</div></a>
+<a class="toolcard" href="/work/"><span class="t">給付・労働の計算ツール一覧</span><div class="d">失業保険・残業代など、働くこと・辞めることに関わるお金の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-09／更新日：2026-11-09<br>出典：厚生労働省「時間外・休日労働と割増賃金」、厚生労働省「月60時間を超える時間外労働の割増賃金率が引き上げられます」、労働基準法第37条・労働基準法施行規則第19条、厚生労働省「地域別最低賃金の全国一覧」を確認（2026-11-09）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+//CORE-START
+// 計算ラボ 残業代（割増賃金）計算エンジン
+// 根拠：労働基準法第37条（時間外25％以上・深夜25％以上・法定休日35％以上・月60時間超50％以上）
+//       厚生労働省「時間外・休日労働と割増賃金」／「月60時間を超える時間外労働の割増賃金率が引き上げられます」
+//       労働基準法施行規則第19条（月給制の1時間あたり賃金＝月給÷1か月平均所定労働時間）
+// 確認日：2026-11-09。テストケースは research/zangyodai-test.md
+// 端数処理：各内訳を1円未満四捨五入し、その合計を残業代とする。1時間あたりの賃金は表示のみ四捨五入。
+function zangyoParts(salary, hours, ot, otNight, hol, holNight){
+  var u = salary / hours; // 1時間あたりの賃金（端数処理前）
+  var otWithin = Math.min(ot, 60), otOver = ot - otWithin;
+  var nWithin = Math.min(otNight, otWithin), nOver = otNight - nWithin;
+  var hn = Math.min(holNight, hol);
+  function amt(h, rate){ return Math.round(u * rate * h); }
+  return {
+    unit: u,
+    rows: [
+      {label:"時間外労働（60時間以内・昼間）", hours: otWithin - nWithin, rate: 1.25, amount: amt(otWithin - nWithin, 1.25)},
+      {label:"時間外労働（60時間以内・深夜）", hours: nWithin, rate: 1.50, amount: amt(nWithin, 1.50)},
+      {label:"時間外労働（60時間超・昼間）", hours: otOver - nOver, rate: 1.50, amount: amt(otOver - nOver, 1.50)},
+      {label:"時間外労働（60時間超・深夜）", hours: nOver, rate: 1.75, amount: amt(nOver, 1.75)},
+      {label:"法定休日労働（昼間）", hours: hol - hn, rate: 1.35, amount: amt(hol - hn, 1.35)},
+      {label:"法定休日労働（深夜）", hours: hn, rate: 1.60, amount: amt(hn, 1.60)}
+    ]
+  };
+}
+//CORE-END
+["salary","hours","ot","otNight","hol","holNight","fixed"].forEach(function(id){ document.getElementById(id).addEventListener("input",calc); });
+function calc(){
+  var salary = Math.max(0, num("salary"));
+  var hours = Math.max(1, num("hours"));
+  var ot = Math.max(0, num("ot"));
+  var otNight = Math.min(Math.max(0, num("otNight")), ot);
+  var hol = Math.max(0, num("hol"));
+  var holNight = Math.min(Math.max(0, num("holNight")), hol);
+  var fixed = Math.max(0, num("fixed"));
+  document.getElementById("otNight").value = otNight;
+  document.getElementById("holNight").value = holNight;
+  var r = zangyoParts(salary, hours, ot, otNight, hol, holNight);
+  var total = 0;
+  var rowsHtml = "<table><tr><td>1時間あたりの賃金</td><td>" + yen(r.unit) + " 円（" + yen(salary) + " 円÷" + hours + "時間）</td></tr>";
+  r.rows.forEach(function(row){
+    if(row.hours > 0){
+      total += row.amount;
+      rowsHtml += "<tr><td>" + row.label + " " + row.hours + "時間</td><td>" + yen(row.amount) + " 円</td></tr>";
+    }
+  });
+  rowsHtml += "<tr><td>残業代の合計</td><td>" + yen(total) + " 円</td></tr>";
+  if(fixed > 0){
+    var diff = total - fixed;
+    var equiv = (r.unit > 0) ? (fixed / (r.unit * 1.25)) : 0;
+    rowsHtml += "<tr><td>固定残業代</td><td>" + yen(fixed) + " 円（約" + equiv.toFixed(1) + "時間分に相当）</td></tr>";
+    rowsHtml += "<tr><td>" + (diff > 0 ? "不足額" : "固定残業代でまかなえています") + "</td><td>" + yen(Math.abs(diff)) + " 円" + (diff > 0 ? " 不足" : " の余り") + "</td></tr>";
+  }
+  rowsHtml += "</table>";
+  html = "<div>残業代の合計（月）</div><div class='big'>" + yen(total) + " 円</div>" + rowsHtml;
+  document.getElementById("resultBox").innerHTML = html;
+  document.getElementById("premiseNote").textContent =
+   "前提：月給 " + yen(salary) + "円、1か月平均所定労働時間 " + hours + "時間、1時間あたりの賃金 " + yen(r.unit) + "円。時間外労働 " + ot + "時間（うち深夜 " + otNight + "時間）、法定休日労働 " + hol + "時間（うち深夜 " + holNight + "時間）で計算しています。割増率は労働基準法第37条の最低基準です。";
+}
+calc();
+</script>
+</body>
+</html>

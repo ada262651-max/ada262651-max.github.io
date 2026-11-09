@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>年収の壁シミュレーション｜106万・130万・178万円の壁を計算</title>
+<meta name="description" content="年収を入れると、住民税・社会保険の扶養・配偶者控除・所得税の「年収の壁」のどれを超えているか判定。106万円の壁の撤廃、130万円・136万円・169万円・178万円・197万円・207万円の壁を令和8年分で解説。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/nenshu-no-kabe/">
+<meta property="og:title" content="年収の壁シミュレーション｜計算ラボ">
+<meta property="og:description" content="年収から、住民税・社保扶養・配偶者控除・所得税の「年収の壁」のどれを超えているか判定。令和8年分対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"年収の壁シミュレーション","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/nenshu-no-kabe/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"年収の壁シミュレーション"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"106万円の壁は本当になくなったのですか？","acceptedAnswer":{"@type":"Answer","text":"はい。月額賃金8.8万円以上（年収換算約106万円）という賃金要件は、年金制度改正法により2026年10月1日に撤廃されました。いまは週の所定労働時間20時間以上・雇用期間2か月超の見込み・学生でない・従業員数51人以上の企業などの要件で、社会保険の加入を判定します。賃金額にかかわらず、要件を満たせば加入対象になります。"}},
+{"@type":"Question","name":"130万円を超えるとどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"配偶者の健康保険・厚生年金の扶養から外れます。自分で社会保険に加入することになり、保険料が引かれるため手取りが一時的に下がることがあります。130万円は「130万円未満」が扶養の要件なので、130万円ちょうどで扶養から外れます。なお、労働契約書で130万円未満と定められている場合は、一時的な収入増だけでは扶養から外れないとする扱いもあります。"}},
+{"@type":"Question","name":"178万円を超えると所得税がかかりますか？","acceptedAnswer":{"@type":"Answer","text":"単身・給与収入のみの場合、令和8年分から年収178万円を超えると所得税がかかります。178万円は基礎控除104万円＋給与所得控除74万円の合計です。ただし所得税は超えた分だけに税率がかかる累進課税なので、178万円を超えた途端に手取りが大きく減るわけではありません。"}},
+{"@type":"Question","name":"住民税の壁が110万円と119万円の2つあるのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"年度で値が変わるからです。令和8年度分（令和7年所得）の住民税では110万円、令和9年度分（令和8年所得）では119万円が、住民税がかかり始める目安です。給与所得控除の最低保障額が65万円から74万円に上がるため、非課税限度額が110万円から119万円に上がります。"}},
+{"@type":"Question","name":"扶養内で働くなら年収はいくらまでがよいですか？","acceptedAnswer":{"@type":"Answer","text":"目的によって違います。配偶者の社会保険の扶養を維持するなら130万円未満、配偶者控除を維持するなら136万円以下、所得税をかけないなら178万円以下が目安です。ただし週20時間以上働く場合は、年収が130万円未満でも社会保険の加入対象になることがあります。どのラインを選ぶかは、世帯全体の手取りで考えるのが大切です。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ 年収の壁シミュレーション</nav>
+<h1>年収の壁シミュレーション</h1>
+<p class="lead">年収を入れると、住民税・社会保険の扶養・配偶者控除・所得税の「年収の壁」のどれを超えているか判定します。令和8年分の壁（178万円など）に対応しています。</p>
+<div class="badges"><span class="badge">令和8年分対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="income">年収（給与収入のみ）<small>円／賞与を含む1年分の総額</small></label><input type="number" id="income" value="1500000" min="0" step="100000" inputmode="numeric"></div>
+<div class="full"><label class="flabel">働き方</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="fuyo">配偶者の扶養内で働く</button><button type="button" data-v="tanshin">単身・世帯主</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。年収は給与収入のみの場合で計算しています。住民税の壁は単身・1級地の場合の目安で、世帯構成やお住まいの地域で変わります。社会保険の加入は年収だけでなく、週の所定労働時間などの要件でも判定されます。</p>
+</div>
+
+<h2>年収の壁とは</h2>
+<p>「年収の壁」は、年収がある金額を超えると税金がかかったり、社会保険の扶養から外れたりする境目のことです。壁は1つではなく、住民税・社会保険・配偶者控除・所得税などで金額が違います。令和8年分の税制改正で、所得税の壁は160万円から178万円に、配偶者控除の壁は123万円から136万円に引き上げられました。</p>
+
+<h2>7つの壁の一覧（令和8年分）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>金額</th><th>種類</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>110万円（令和8年度分）／119万円（令和9年度分）</td><td>住民税</td><td>住民税がかかり始める目安（単身・1級地）。年度で値が変わる</td></tr>
+<tr><td>130万円</td><td>社会保険</td><td>配偶者の健康保険・厚生年金の扶養から外れる（130万円未満が要件）</td></tr>
+<tr><td>136万円</td><td>税金</td><td>配偶者控除・扶養控除の対象でなくなる（合計所得62万円）</td></tr>
+<tr><td>169万円</td><td>税金</td><td>配偶者特別控除の満額38万円が減り始める（配偶者の合計所得95万円）</td></tr>
+<tr><td>178万円</td><td>税金</td><td>所得税がかかり始める（単身・給与のみ。令和8年分から）</td></tr>
+<tr><td>197万円</td><td>税金</td><td>特定親族特別控除（19歳以上23歳未満）の上限（合計所得123万円）</td></tr>
+<tr><td>207万円</td><td>税金</td><td>配偶者特別控除がなくなる（配偶者の合計所得133万円）</td></tr>
+</tbody></table></div>
+<p class="note">※「超える」は金額を上回ることです。ただし130万円の壁だけは「130万円未満」が扶養の要件のため、130万円ちょうどで扶養から外れます。住民税の壁は年度で値が変わります（令和8年度分110万円、令和9年度分119万円）。</p>
+
+<h2>106万円の壁はなくなりました</h2>
+<p>「106万円の壁」と呼ばれていた、短時間労働者の社会保険加入の月額賃金8.8万円以上（年収換算約106万円）という賃金要件は、年金制度改正法により2026年10月1日に撤廃されました。いまは週の所定労働時間20時間以上・雇用期間2か月超の見込み・学生でない・従業員数51人以上の企業などの要件で、社会保険の加入を判定します。年収を抑えても、労働時間によっては加入対象になります。130万円の壁（被扶養者の要件）は存続しています。</p>
+
+<h2>年収別 年収の壁の早見表</h2>
+<p>給与収入のみの場合の判定です。●はその壁を超えていることです。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>年収</th><th>住民税<br>110万円</th><th>社保扶養<br>130万円</th><th>配偶者控除<br>136万円</th><th>特例満額<br>169万円</th><th>所得税<br>178万円</th><th>特定親族<br>197万円</th><th>特例終了<br>207万円</th></tr></thead>
+<tbody>
+<tr><td>100万円</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>110万円</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>120万円</td><td>●</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>130万円</td><td>●</td><td>●</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>140万円</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>150万円</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>160万円</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>170万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>180万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td></tr>
+<tr><td>190万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>—</td><td>—</td></tr>
+<tr><td>200万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>—</td></tr>
+<tr><td>210万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>220万円</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+</tbody></table></div>
+<p class="note">※住民税の壁は令和8年度分の110万円で判定しています。令和9年度分は119万円です。この早見表は、このページの計算式と同じ判定で作成しています。</p>
+
+<h3>計算例：年収150万円・配偶者の扶養内で働くパート</h3>
+<table class="data"><tbody>
+<tr><td>超えている壁</td><td>住民税110万円、社保扶養130万円、配偶者控除136万円</td></tr>
+<tr><td>超えていない壁</td><td>特例満額169万円、所得税178万円、特定親族197万円、特例終了207万円</td></tr>
+<tr><td>所得税</td><td>かからない（150万円＜178万円）</td></tr>
+<tr><td>配偶者特別控除</td><td>満額38万円の対象（給与所得 150万円−74万円＝76万円≦95万円）</td></tr>
+<tr><td>住民税</td><td>かかる（150万円＞110万円）</td></tr>
+<tr><td>社会保険</td><td>配偶者の扶養から外れる（150万円≧130万円）</td></tr>
+</tbody></table>
+<p>年収150万円では、配偶者控除は対象外になりますが、配偶者特別控除の満額38万円が使えます。所得税はかかりませんが、住民税はかかり、社会保険の扶養からは外れます。手取りの全体像は<a href="/tedori/">手取り計算</a>でご確認ください。</p>
+
+<h3>計算例：年収180万円・配偶者の扶養内で働くパート</h3>
+<table class="data"><tbody>
+<tr><td>超えている壁</td><td>住民税110万円、社保扶養130万円、配偶者控除136万円、特例満額169万円、所得税178万円</td></tr>
+<tr><td>超えていない壁</td><td>特定親族197万円、特例終了207万円</td></tr>
+<tr><td>所得税</td><td>かかり始める（180万円＞178万円）</td></tr>
+<tr><td>配偶者特別控除</td><td>満額でなくなり逓減する（給与所得 180万円−74万円＝106万円＞95万円）</td></tr>
+</tbody></table>
+<p>年収180万円では所得税がかかり始めます。ただし所得税は超えた分だけに税率がかかるため、178万円を超えた途端に手取りが大きく減るわけではありません。配偶者特別控除は満額38万円から段階的に減っていきます。</p>
+
+<h2>扶養内で働く場合の考え方</h2>
+<p>どのラインを選ぶかは目的によって違います。配偶者の社会保険の扶養を維持するなら130万円未満、配偶者控除を維持するなら136万円以下、所得税をかけないなら178万円以下が目安です。ただし週20時間以上働く場合は、年収が130万円未満でも社会保険の加入対象になることがあります。税金の壁は超えても段階的に増えるだけですが、社会保険の壁は超えた直後に手取りが下がることがあります。どのラインが世帯全体の手取りにとって得かは、<a href="/tedori/">手取り計算</a>と<a href="/shotokuzei-juminzei/">所得税・住民税計算</a>で比べるのが確実です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>106万円の壁は本当になくなったのですか？</summary><p>はい。月額賃金8.8万円以上（年収換算約106万円）という賃金要件は、年金制度改正法により2026年10月1日に撤廃されました。いまは週の所定労働時間20時間以上・雇用期間2か月超の見込み・学生でない・従業員数51人以上の企業などの要件で、社会保険の加入を判定します。賃金額にかかわらず、要件を満たせば加入対象になります。</p></details>
+<details class="faq"><summary>130万円を超えるとどうなりますか？</summary><p>配偶者の健康保険・厚生年金の扶養から外れます。自分で社会保険に加入することになり、保険料が引かれるため手取りが一時的に下がることがあります。130万円は「130万円未満」が扶養の要件なので、130万円ちょうどで扶養から外れます。なお、労働契約書で130万円未満と定められている場合は、一時的な収入増だけでは扶養から外れないとする扱いもあります。</p></details>
+<details class="faq"><summary>178万円を超えると所得税がかかりますか？</summary><p>単身・給与収入のみの場合、令和8年分から年収178万円を超えると所得税がかかります。178万円は基礎控除104万円＋給与所得控除74万円の合計です。ただし所得税は超えた分だけに税率がかかる累進課税なので、178万円を超えた途端に手取りが大きく減るわけではありません。</p></details>
+<details class="faq"><summary>住民税の壁が110万円と119万円の2つあるのはなぜですか？</summary><p>年度で値が変わるからです。令和8年度分（令和7年所得）の住民税では110万円、令和9年度分（令和8年所得）では119万円が、住民税がかかり始める目安です。給与所得控除の最低保障額が65万円から74万円に上がるため、非課税限度額が110万円から119万円に上がります。</p></details>
+<details class="faq"><summary>扶養内で働くなら年収はいくらまでがよいですか？</summary><p>目的によって違います。配偶者の社会保険の扶養を維持するなら130万円未満、配偶者控除を維持するなら136万円以下、所得税をかけないなら178万円以下が目安です。ただし週20時間以上働く場合は、年収が130万円未満でも社会保険の加入対象になることがあります。どのラインを選ぶかは、世帯全体の手取りで考えるのが大切です。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/shotokuzei-juminzei/"><span class="t">所得税・住民税計算</span><div class="d">年収から所得税と住民税をそれぞれ計算。課税所得と税額の内訳まで表示します。</div></a>
+<a class="toolcard" href="/jikyu/"><span class="t">時給換算</span><div class="d">年収・月収から時給を計算。時給から年収への逆算と、残業代の目安も。</div></a>
+<a class="toolcard" href="/money/"><span class="t">お金の計算ツール一覧</span><div class="d">手取り・所得税・住民税・時給・消費税・割引など、お金の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-09／更新日：2026-11-09<br>出典：国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&amp;A」、国税庁 No.1191「配偶者控除」・No.1195「配偶者特別控除」・No.1180「扶養控除」・No.1177「特定親族特別控除」、厚生労働省「『年収の壁』への対応」、総務省「個人住民税」を確認（2026-11-09）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+//CORE-START
+// 計算ラボ 年収の壁シミュレーション（令和8年分）
+// 根拠：国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&A」
+//       国税庁 No.1191/1195/1180/1177、厚生労働省「『年収の壁』への対応」、総務省「個人住民税」
+//       詳細は research/tedori-spec-2026.md §7
+// 確認日：2026-11-09。テストケースは research/nenshu-no-kabe-test.md
+// 判定は給与収入のみの場合。「超える」は金額を上回ること。130万円の壁だけは
+// 「130万円未満」が扶養の要件のため、130万円ちょうどで扶養から外れる（>= で判定）。
+var WALLS = [
+  {amount: 1100000, name: "住民税の壁", desc: "住民税がかかり始める目安（単身・1級地。令和9年度分は119万円）", over: function(y){ return y > 1100000; }, single: true},
+  {amount: 1300000, name: "社会保険の扶養の壁", desc: "配偶者の健康保険・厚生年金の扶養から外れる", over: function(y){ return y >= 1300000; }, single: false},
+  {amount: 1360000, name: "配偶者控除・扶養控除の壁", desc: "配偶者控除・扶養控除の対象でなくなる（合計所得62万円）", over: function(y){ return y > 1360000; }, single: false},
+  {amount: 1690000, name: "配偶者特別控除の満額の壁", desc: "配偶者特別控除の満額38万円が減り始める（配偶者の合計所得95万円）", over: function(y){ return y > 1690000; }, single: false},
+  {amount: 1780000, name: "所得税の壁", desc: "所得税がかかり始める（単身・給与のみ。令和8年分から）", over: function(y){ return y > 1780000; }, single: true},
+  {amount: 1970000, name: "特定親族特別控除の壁", desc: "特定親族特別控除（19歳以上23歳未満）の上限（合計所得123万円）", over: function(y){ return y > 1970000; }, single: false},
+  {amount: 2070000, name: "配偶者特別控除の終了の壁", desc: "配偶者特別控除がなくなる（配偶者の合計所得133万円）", over: function(y){ return y > 2070000; }, single: false}
+];
+//CORE-END
+var modeSeg=document.getElementById("modeSeg");
+modeSeg.dataset.mode="fuyo";
+setSeg("modeSeg","mode",calc);
+document.getElementById("income").addEventListener("input",calc);
+function calc(){
+  var income = Math.max(0, num("income"));
+  var mode = modeSeg.dataset.mode;
+  var walls = WALLS.filter(function(w){ return mode === "fuyo" || w.single; });
+  var overCount = 0;
+  var rowsHtml = "<table>";
+  walls.forEach(function(w){
+    var over = w.over(income);
+    if(over) overCount++;
+    var status = over ? "超えている" : "超えていない（あと " + yen(w.amount - income) + " 円）";
+    rowsHtml += "<tr><td>" + w.name + "（" + yen(w.amount) + "円）</td><td>" + status + "</td></tr>" +
+      "<tr><td colspan='2'>" + w.desc + "</td></tr>";
+  });
+  rowsHtml += "</table>";
+  var html = "<div>超えている壁</div><div class='big'>" + overCount + " 個</div>" + rowsHtml;
+  if(mode === "tanshin"){
+    html += "<p>単身・世帯主の場合、配偶者控除・扶養控除の壁は関係ありません。社会保険の加入は年収だけでなく、週の所定労働時間20時間以上などの勤務先の要件でも判定されます。106万円の壁（月額賃金8.8万円要件）は2026年10月1日に撤廃されました。</p>";
+  }
+  document.getElementById("resultBox").innerHTML = html;
+  document.getElementById("premiseNote").textContent =
+   "前提：年収 " + yen(income) + "円（給与収入のみ）、" + (mode === "fuyo" ? "配偶者の扶養内で働く場合" : "単身・世帯主の場合") + "の判定です。住民税の壁は令和8年度分の110万円で判定しています（令和9年度分は119万円）。";
+}
+calc();
+</script>
+</body>
+</html>
