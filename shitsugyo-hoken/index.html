@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>失業保険計算｜失業手当（基本手当）の金額と日数を計算</title>
+<meta name="description" content="退職前の賃金・年齢・離職理由・雇用保険の加入期間を入れると、失業手当（雇用保険の基本手当）の1日あたりの金額・もらえる日数・受給総額の目安を計算。令和8年8月1日改定の上限・下限額に対応。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/shitsugyo-hoken/">
+<meta property="og:title" content="失業保険計算｜計算ラボ">
+<meta property="og:description" content="失業手当（基本手当）の1日あたりの金額と、もらえる日数・総額の目安を計算。令和8年8月改定対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"失業保険計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/shitsugyo-hoken/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"失業保険計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"失業保険（基本手当）はいつからもらえますか？","acceptedAnswer":{"@type":"Answer","text":"ハローワークで求職の申込みをした日から7日間の「待期期間」があり、その後に支給が始まります。自己都合で退職した場合は、待期期間の後に原則1か月の「給付制限」があり、受給開始は手続きから約1か月と1週間後になります。会社都合で退職した場合は給付制限がないため、待期期間の7日後から支給されます。"}},
+{"@type":"Question","name":"自己都合で退職した場合でも失業保険はもらえますか？","acceptedAnswer":{"@type":"Answer","text":"もらえます。ただし条件が2つあります。1つは、離職する前の2年間に雇用保険の被保険者期間が通算で12か月以上あることです。もう1つは、離職日が2025年4月1日以降の場合、原則1か月の給付制限があることです。もらえる日数は、被保険者であった期間で決まり、10年未満なら90日、10年以上20年未満なら120日、20年以上なら150日です。"}},
+{"@type":"Question","name":"賞与（ボーナス）は賃金日額の計算に入りますか？","acceptedAnswer":{"@type":"Answer","text":"入りません。賃金日額は、離職した日の直前の6か月に「毎月きまって支払われた賃金」の合計を180で割って求めます。賞与や臨時の手当は含まれません。月給が毎月同じなら、月給を30で割った額が賃金日額の目安になります。"}},
+{"@type":"Question","name":"失業保険をもらえる期間に期限はありますか？","acceptedAnswer":{"@type":"Answer","text":"あります。基本手当を受けられる期間は、原則として離職日の翌日から1年間です。この「受給期間」を過ぎると、所定給付日数が残っていても支給されなくなります。60歳以上や就職が難しい事情がある場合は、受給期間の延長が認められることがあります。詳しくはハローワークにご相談ください。"}},
+{"@type":"Question","name":"65歳以上で退職した場合はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"65歳以上の方が離職した場合は、基本手当ではなく「高年齢求職者給付金」が一時金として支給されます。被保険者であった期間が1年未満なら基本手当日額の30日分、1年以上なら50日分が目安です。このページの計算は65歳未満の基本手当が対象です。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 失業保険計算</nav>
+<h1>失業保険計算</h1>
+<p class="lead">退職前の賃金・離職時の年齢・離職理由・雇用保険の加入期間を入れると、失業手当（雇用保険の基本手当）の1日あたりの金額、もらえる日数、受給総額の目安を計算します。令和8年8月1日改定の上限・下限額に対応しています。</p>
+<div class="badges"><span class="badge">令和8年8月1日改定対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">賃金の入力方法</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="monthly">月給から計算</button><button type="button" data-v="sum">6か月合計を直接入力</button></div></div>
+<div id="monthlyWrap"><label class="flabel" for="salary">月給（毎月きまって支払われる賃金）<small>円／賞与を除く</small></label><input type="number" id="salary" value="300000" min="0" step="10000" inputmode="numeric"></div>
+<div id="sumWrap" style="display:none"><label class="flabel" for="sum6">離職前6か月の賃金合計<small>円／賞与を除く</small></label><input type="number" id="sum6" value="1800000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel" for="age">離職時の年齢<small>歳（65歳未満）</small></label><input type="number" id="age" value="35" min="18" max="64" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="period">雇用保険の被保険者であった期間</label><select id="period">
+<option value="0">6か月未満</option>
+<option value="1">6か月以上1年未満</option>
+<option value="2" selected>1年以上5年未満</option>
+<option value="3">5年以上10年未満</option>
+<option value="4">10年以上20年未満</option>
+<option value="5">20年以上</option>
+</select></div>
+<div class="full"><label class="flabel">離職理由</label>
+<div class="seg" id="reasonSeg"><button type="button" class="on" data-v="company">会社都合（倒産・解雇など）</button><button type="button" data-v="self">自己都合（正当な理由なし）</button><button type="button" data-v="tokutei">特定理由（契約満了・転勤など）</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。賃金日額は離職票の記載をもとにハローワークが決定します。月給に変動がある場合は「6か月合計を直接入力」をお選びください。65歳以上の方は基本手当ではなく高年齢求職者給付金（一時金）の対象です。</p>
+</div>
+
+<h2>失業保険（基本手当）の計算の流れ</h2>
+<p>失業手当の正式名称は「基本手当」です。金額は「基本手当日額 × 所定給付日数」で決まります。基本手当日額は退職前の賃金から、所定給付日数は離職理由・年齢・雇用保険の加入期間から決まります。</p>
+<h3>1. 賃金日額を求める</h3>
+<p>離職した日の直前の6か月に毎月きまって支払われた賃金の合計を180で割ったものが「賃金日額」です。賞与は含まれません。月給が毎月同じなら、月給を30で割った額が賃金日額になります。賃金日額には年齢別の上限と、全年齢共通の下限（3,203円）があります。</p>
+<h3>2. 基本手当日額を求める</h3>
+<p>賃金日額に「給付率」をかけたものが、1日あたりの支給額「基本手当日額」です。給付率は賃金の低い人ほど高く、80％から50％（60〜64歳は45％）の間で変わります。賃金日額が5,480円未満なら給付率は80％、13,490円を超えると50％で固定され、その間は賃金が上がるほど少しずつ下がります。60〜64歳は区切りが異なり、12,120円を超えると45％になります。基本手当日額にも年齢別の上限と、全年齢共通の下限（2,562円）があります。</p>
+<h3>3. 所定給付日数を決める</h3>
+<p>基本手当を受けられる日数は、離職理由と年齢、雇用保険の被保険者であった期間で決まります。会社都合（特定受給資格者）は年齢が高いほど、加入期間が長いほど日数が多くなり、最長で330日です。自己都合の場合は年齢に関係なく、加入期間だけで決まり、最長で150日です。契約期間の満了や転勤など正当な理由がある自己都合（特定理由離職者）は、会社都合と同じ日数になります。</p>
+<h3>4. いつからもらえるか</h3>
+<p>ハローワークで求職の申込みをした日から7日間は「待期期間」で、支給されません。会社都合の場合は待期期間のあとすぐに支給が始まります。自己都合の場合は、待期期間のあとに原則1か月の「給付制限」があり、支給開始は手続きから約1か月と1週間後になります。なお、離職日が2025年3月31日以前の場合は給付制限は原則2か月でした。</p>
+
+<h2>基本手当日額の上限・下限（令和8年8月1日以降）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>離職時の年齢</th><th>賃金日額の上限</th><th>基本手当日額の上限</th></tr></thead>
+<tbody>
+<tr><td>29歳以下</td><td>14,900円</td><td>7,450円</td></tr>
+<tr><td>30〜44歳</td><td>16,540円</td><td>8,270円</td></tr>
+<tr><td>45〜59歳</td><td>18,220円</td><td>9,110円</td></tr>
+<tr><td>60〜64歳</td><td>17,400円</td><td>7,830円</td></tr>
+<tr><td>下限（全年齢共通）</td><td>3,203円</td><td>2,562円</td></tr>
+</tbody></table></div>
+<p class="note">※上限・下限は毎年8月1日に、平均給与額の変動などに応じて見直されます。</p>
+
+<h2>月給別 基本手当日額の早見表</h2>
+<p>月給が6か月とも同じ場合の目安です。賃金日額は月給÷30で計算しています。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>月給</th><th>賃金日額</th><th>29歳以下</th><th>30〜44歳</th><th>45〜59歳</th><th>60〜64歳</th></tr></thead>
+<tbody>
+<tr><td>150,000円</td><td>5,000円</td><td>4,000円</td><td>4,000円</td><td>4,000円</td><td>4,000円</td></tr>
+<tr><td>200,000円</td><td>6,666円</td><td>5,036円</td><td>5,036円</td><td>5,036円</td><td>4,916円</td></tr>
+<tr><td>250,000円</td><td>8,333円</td><td>5,775円</td><td>5,775円</td><td>5,775円</td><td>5,264円</td></tr>
+<tr><td>300,000円</td><td>10,000円</td><td>6,307円</td><td>6,307円</td><td>6,307円</td><td>5,348円</td></tr>
+<tr><td>350,000円</td><td>11,666円</td><td>6,629円</td><td>6,629円</td><td>6,629円</td><td>5,431円</td></tr>
+<tr><td>400,000円</td><td>13,333円</td><td>6,744円</td><td>6,744円</td><td>6,744円</td><td>5,999円</td></tr>
+<tr><td>450,000円</td><td>15,000円</td><td>7,450円</td><td>7,500円</td><td>7,500円</td><td>6,750円</td></tr>
+<tr><td>500,000円</td><td>16,666円</td><td>7,450円</td><td>8,270円</td><td>8,333円</td><td>7,499円</td></tr>
+</tbody></table></div>
+<p class="note">※この早見表は、このページの計算式（令和8年8月1日以降の額）と同じ計算で作成しています。月給が高いほど給付率が下がるため、日額の伸びは賃金の伸びより小さくなります。</p>
+
+<h2>所定給付日数の早見表</h2>
+<p>会社都合（特定受給資格者）と、特定理由離職者の日数です。自己都合の場合は年齢に関係なく、被保険者期間だけで決まります。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>離職時の年齢</th><th>1年未満</th><th>1年以上<br>5年未満</th><th>5年以上<br>10年未満</th><th>10年以上<br>20年未満</th><th>20年以上</th></tr></thead>
+<tbody>
+<tr><td>30歳未満</td><td>90日</td><td>90日</td><td>120日</td><td>180日</td><td>—</td></tr>
+<tr><td>30歳以上35歳未満</td><td>90日</td><td>120日</td><td>180日</td><td>210日</td><td>240日</td></tr>
+<tr><td>35歳以上45歳未満</td><td>90日</td><td>150日</td><td>180日</td><td>240日</td><td>270日</td></tr>
+<tr><td>45歳以上60歳未満</td><td>90日</td><td>180日</td><td>240日</td><td>270日</td><td>330日</td></tr>
+<tr><td>60歳以上65歳未満</td><td>90日</td><td>150日</td><td>180日</td><td>210日</td><td>240日</td></tr>
+<tr><td>自己都合（全年齢）</td><td>—</td><td>90日</td><td>90日</td><td>120日</td><td>150日</td></tr>
+</tbody></table></div>
+<p class="note">※会社都合の「1年未満」は、離職前1年間に被保険者期間が6か月以上ある場合の日数です。自己都合は離職前2年間に12か月以上ないと受給資格がありません。「—」は該当なしです。</p>
+
+<h3>計算例：月給30万円・35歳・会社都合・被保険者期間10年以上20年未満</h3>
+<table class="data"><tbody>
+<tr><td>離職前6か月の賃金合計</td><td>1,800,000円（月給30万円×6か月）</td></tr>
+<tr><td>賃金日額</td><td>10,000円（1,800,000円÷180）</td></tr>
+<tr><td>基本手当日額</td><td>6,307円（給付率 約63.1％）</td></tr>
+<tr><td>所定給付日数</td><td>240日</td></tr>
+<tr><td>受給総額の目安</td><td>1,513,680円（6,307円×240日）</td></tr>
+<tr><td>28日分（4週間分）の目安</td><td>176,596円（6,307円×28日）</td></tr>
+<tr><td>支給開始の目安</td><td>手続きから約7日後（待期期間のみ）</td></tr>
+</tbody></table>
+<p>同じ条件で自己都合の場合は、所定給付日数は120日で受給総額は756,840円になり、給付制限1か月があるため支給開始は手続きから約1か月と1週間後になります。離職理由と加入期間で、もらえる総額が大きく変わるのが分かります。退職後の生活設計には、<a href="/tedori/">手取り計算</a>で再就職後の手取りを確認するのも役立ちます。</p>
+
+<h2>受給の条件と手続きの流れ</h2>
+<p>基本手当を受けるには、ハローワークで求職の申込みを行い、働く意思と能力があるのに就職できない「失業の状態」にあることと、離職する前の2年間に雇用保険の被保険者期間が通算で12か月以上あることが必要です。倒産・解雇などで離職した方や、契約期間の満了など正当な理由がある方は、離職する前の1年間に被保険者期間が通算で6か月以上あれば受給できます。</p>
+<p>手続きの流れは、（1）離職票を受け取る、（2）住所を管轄するハローワークで求職の申込みと受給資格の決定を受ける、（3）待期期間7日間を経る、（4）雇用保険説明会と失業認定を受ける、（5）認定日から約1週間後に指定口座へ振り込まれる、という順です。失業認定は原則として4週間に1回あり、その都度、求職活動の実績を申告します。</p>
+<p>受給期間は原則として離職日の翌日から1年間です。この期間を過ぎると、所定給付日数が残っていても支給されません。再就職が決まった場合は、所定給付日数の残りなどに応じて「再就職手当」が支給されることがあります。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>失業保険（基本手当）はいつからもらえますか？</summary><p>ハローワークで求職の申込みをした日から7日間の「待期期間」があり、その後に支給が始まります。自己都合で退職した場合は、待期期間の後に原則1か月の「給付制限」があり、受給開始は手続きから約1か月と1週間後になります。会社都合で退職した場合は給付制限がないため、待期期間の7日後から支給されます。</p></details>
+<details class="faq"><summary>自己都合で退職した場合でも失業保険はもらえますか？</summary><p>もらえます。ただし条件が2つあります。1つは、離職する前の2年間に雇用保険の被保険者期間が通算で12か月以上あることです。もう1つは、離職日が2025年4月1日以降の場合、原則1か月の給付制限があることです。もらえる日数は、被保険者であった期間で決まり、10年未満なら90日、10年以上20年未満なら120日、20年以上なら150日です。</p></details>
+<details class="faq"><summary>賞与（ボーナス）は賃金日額の計算に入りますか？</summary><p>入りません。賃金日額は、離職した日の直前の6か月に「毎月きまって支払われた賃金」の合計を180で割って求めます。賞与や臨時の手当は含まれません。月給が毎月同じなら、月給を30で割った額が賃金日額の目安になります。</p></details>
+<details class="faq"><summary>失業保険をもらえる期間に期限はありますか？</summary><p>あります。基本手当を受けられる期間は、原則として離職日の翌日から1年間です。この「受給期間」を過ぎると、所定給付日数が残っていても支給されなくなります。60歳以上や就職が難しい事情がある場合は、受給期間の延長が認められることがあります。詳しくはハローワークにご相談ください。</p></details>
+<details class="faq"><summary>65歳以上で退職した場合はどうなりますか？</summary><p>65歳以上の方が離職した場合は、基本手当ではなく「高年齢求職者給付金」が一時金として支給されます。被保険者であった期間が1年未満なら基本手当日額の30日分、1年以上なら50日分が目安です。このページの計算は65歳未満の基本手当が対象です。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/jikyu/"><span class="t">時給換算</span><div class="d">年収・月収から時給を計算。時給から年収への逆算と、残業代の目安も。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。逆算も可能。</div></a>
+<a class="toolcard" href="/money/"><span class="t">お金の計算ツール一覧</span><div class="d">手取り・所得税・住民税・時給・消費税・割引など、お金の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-09／更新日：2026-11-09<br>出典：厚生労働省「雇用保険の基本手当日額の変更（令和8年8月1日から実施）」、厚生労働省・都道府県労働局「雇用保険の基本手当日額が変更になります（令和8年8月1日から）」、ハローワークインターネットサービス「よくあるご質問（雇用保険について）」を確認（2026-11-09）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+//CORE-START
+// 計算ラボ 失業保険（基本手当）計算エンジン（令和8年8月1日以降の額）
+// 根拠：厚生労働省「雇用保険の基本手当日額の変更（令和8年8月1日から実施）」
+//       厚生労働省リーフレット「雇用保険の基本手当日額が変更になります」
+//       ハローワークインターネットサービス「よくあるご質問（雇用保険について）」
+// 確認日：2026-11-09。テストケースは research/shitsugyo-hoken-test.md
+var W_MIN = 3203;   // 賃金日額の下限額（全年齢共通）
+var Y_MIN = 2562;   // 基本手当日額の下限額（全年齢共通）
+var W_MAX = {u30:14900, s30:16540, s45:18220, s60:17400};
+var Y_MAX = {u30:7450, s30:8270, s45:9110, s60:7830};
+function ageBand(age){ if(age<30) return "u30"; if(age<45) return "s30"; if(age<60) return "s45"; return "s60"; }
+function ageBandName(age){ if(age<30) return "29歳以下"; if(age<45) return "30〜44歳"; if(age<60) return "45〜59歳"; return "60〜64歳"; }
+function chinginNichi(sum6){ return Math.floor(sum6/180); } // 賃金日額（1円未満切り捨て）
+function kihonNichi(w, band){
+  var wc = Math.min(Math.max(w, W_MIN), W_MAX[band]); // 上限・下限を適用
+  var y;
+  if(band==="s60"){
+    if(wc<5480) y = 0.8*wc;
+    else if(wc<=12120) y = Math.min(0.8*wc - 0.35*((wc-5480)/6640)*wc, 0.05*wc + 4848);
+    else y = 0.45*wc;
+  } else {
+    if(wc<5480) y = 0.8*wc;
+    else if(wc<=13490) y = 0.8*wc - 0.3*((wc-5480)/8010)*wc;
+    else y = 0.5*wc;
+  }
+  y = Math.floor(y); // 1円未満切り捨て
+  return Math.min(Math.max(y, Y_MIN), Y_MAX[band]);
+}
+// 所定給付日数表（期間バンド: 0=6か月未満 1=6か月以上1年未満 2=1-5年 3=5-10年 4=10-20年 5=20年以上）
+// 特定受給資格者・特定理由離職者（年齢バンド別）
+var DAYS_TOKUTEI = {
+  u30: [null, 90, 90, 120, 180, null],
+  s30: [null, 90, 120, 180, 210, 240],
+  s35: [null, 90, 150, 180, 240, 270],
+  s45: [null, 90, 180, 240, 270, 330],
+  s60: [null, 90, 150, 180, 210, 240]
+};
+// 一般の離職者（自己都合）
+var DAYS_IPPAN = [null, null, 90, 90, 120, 150];
+function tokuteiAgeBand(age){ if(age<30) return "u30"; if(age<35) return "s30"; if(age<45) return "s35"; if(age<60) return "s45"; return "s60"; }
+function shoteiDays(age, period, reason){
+  if(reason==="self") return DAYS_IPPAN[period];
+  return DAYS_TOKUTEI[tokuteiAgeBand(age)][period];
+}
+function eligible(period, reason){
+  if(reason==="self") return period>=2; // 一般は12か月以上
+  return period>=1; // 特定・特定理由は6か月以上
+}
+//CORE-END
+var modeSeg=document.getElementById("modeSeg"), reasonSeg=document.getElementById("reasonSeg");
+var periodSel=document.getElementById("period");
+modeSeg.dataset.mode="monthly"; reasonSeg.dataset.reason="company";
+setSeg("modeSeg","mode",calc); setSeg("reasonSeg","reason",calc);
+["salary","sum6","age"].forEach(function(id){ document.getElementById(id).addEventListener("input",calc); });
+periodSel.addEventListener("change",calc);
+function reasonName(r){ return r==="company"?"会社都合（倒産・解雇など）":(r==="self"?"自己都合（正当な理由なし）":"特定理由離職者（契約満了・転勤など）"); }
+function calc(){
+  var mode=modeSeg.dataset.mode;
+  document.getElementById("monthlyWrap").style.display = mode==="monthly"?"":"none";
+  document.getElementById("sumWrap").style.display = mode==="sum"?"":"none";
+  var sum6 = mode==="monthly" ? num("salary")*6 : num("sum6");
+  var age = Math.floor(num("age"));
+  var period = parseInt(periodSel.value,10);
+  var reason = reasonSeg.dataset.reason;
+  var band = ageBand(age);
+  var w = chinginNichi(sum6);
+  var y = kihonNichi(w, band);
+  var days = shoteiDays(age, period, reason);
+  var ok = eligible(period, reason);
+  var rate = (w>0)? (y/Math.min(Math.max(w,W_MIN),W_MAX[band])*100) : 0;
+  var html="";
+  if(!ok){
+    html="<div>受給資格がありません</div><div class='big'>受給できません</div>"+
+    "<table>"+
+    "<tr><td>賃金日額（参考）</td><td>"+yen(w)+" 円</td></tr>"+
+    "<tr><td>基本手当日額（参考）</td><td>"+yen(y)+" 円</td></tr>"+
+    "</table>"+
+    "<p>"+(reason==="self"?"自己都合で退職した場合は、離職する前の2年間に雇用保険の被保険者期間が通算で12か月以上あることが受給の条件です。":"会社都合・特定理由で退職した場合は、離職する前の1年間に雇用保険の被保険者期間が通算で6か月以上あることが受給の条件です。")+"</p>";
+  } else {
+    var total = y*days;
+    var limit = reason==="self" ? "約1か月と1週間後（待期7日間＋給付制限1か月）" : "約7日後（待期期間のみ）";
+    html="<div>基本手当日額（1日あたり）</div><div class='big'>"+yen(y)+" 円</div>"+
+    "<table>"+
+    "<tr><td>賃金日額</td><td>"+yen(w)+" 円"+(w>W_MAX[band]?"（上限 "+yen(W_MAX[band])+" 円を適用）":(w<W_MIN?"（下限 "+yen(W_MIN)+" 円を適用）":""))+"</td></tr>"+
+    "<tr><td>給付率</td><td>約 "+rate.toFixed(1)+" ％</td></tr>"+
+    "<tr><td>所定給付日数</td><td>"+days+" 日</td></tr>"+
+    "<tr><td>受給総額の目安</td><td>"+yen(total)+" 円</td></tr>"+
+    "<tr><td>28日分（4週間分）の目安</td><td>"+yen(y*28)+" 円</td></tr>"+
+    "<tr><td>支給開始の目安</td><td>"+limit+"</td></tr>"+
+    "</table>";
+  }
+  document.getElementById("resultBox").innerHTML=html;
+  document.getElementById("premiseNote").textContent=
+   "前提：離職時の年齢 "+age+"歳（"+ageBandName(age)+"）、"+reasonName(reason)+"、被保険者期間「"+periodSel.options[periodSel.selectedIndex].text+"」。離職前6か月の賃金合計 "+yen(sum6)+" 円で計算しています。金額は令和8年8月1日以降の額です。";
+}
+calc();
+</script>
+</body>
+</html>
