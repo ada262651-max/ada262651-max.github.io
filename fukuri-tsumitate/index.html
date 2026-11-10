@@ -142,17 +142,22 @@ var gain=bal-principalTotal;
 var html="";
 if(mode==="rev"){
 html="<div>必要な毎月積立額</div><div class='big'>"+yen(pmt)+" 円</div>"+
+(gain>0? stackBar([{label:"元本", value:principalTotal, cls:"sg-base"},{label:"運用益", value:gain, cls:"sg-gain"}]) : "")+
 "<table><tr><td>目標額</td><td>"+yen(num("target"))+" 円</td></tr>"+
 "<tr><td>元本合計</td><td>"+yen(principalTotal)+" 円</td></tr>"+
 "<tr><td>運用益（見込み）</td><td>"+yen(gain)+" 円</td></tr></table>";
 }else{
 html="<div>"+yrs+"年後の評価額</div><div class='big'>"+yen(bal)+" 円</div>"+
+(gain>0? stackBar([{label:"元本", value:principalTotal, cls:"sg-base"},{label:"運用益", value:gain, cls:"sg-gain"}]) : "")+
 "<table><tr><td>元本合計</td><td>"+yen(principalTotal)+" 円</td></tr>"+
 "<tr><td>運用益</td><td>"+yen(gain)+" 円</td></tr>"+
 "<tr><td>元本に対する増加率</td><td>"+(principalTotal>0? (gain/principalTotal*100).toFixed(1): "0")+" ％</td></tr></table>";
 }
 document.getElementById("resultBox").innerHTML=html;
 }
+presets("principal",[0,500000,1000000,3000000],function(v){return v===0?"0円":(v/10000)+"万円";});
+presets("pmt",[10000,20000,30000,50000,100000],function(v){return (v/10000)+"万円";});
+presets("target",[5000000,10000000,20000000,30000000],function(v){return (v/10000)+"万円";});
 calc();
 </script>
 </body>

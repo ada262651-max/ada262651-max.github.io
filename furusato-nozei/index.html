@@ -354,6 +354,12 @@ var basicPart=Math.round(base*0.10);
 var tokureiPart=Math.min(Math.round(base*(0.90-rate*1.021)), Math.round(wari*0.20));
 var safe=Math.floor(limit*0.9/100)*100;
 html="<div>ふるさと納税の上限額（自己負担2,000円の目安）</div><div class='big'>"+yen(limit)+" 円</div>"+
+stackBar([
+{label:"所得税からの控除", value:taxPart, cls:"sg-tax1"},
+{label:"住民税（基本分）", value:basicPart, cls:"sg-tax2"},
+{label:"住民税（特例分）", value:tokureiPart, cls:"sg-shaho"},
+{label:"自己負担", value:2000, cls:"sg-self"}
+])+
 "<table>"+
 "<tr><td>住民税所得割額</td><td>"+yen(wari)+" 円</td></tr>"+
 "<tr><td>特例分の上限（所得割額の20％）</td><td>"+yen(wari*0.20)+" 円</td></tr>"+
@@ -370,6 +376,7 @@ html="<div>ふるさと納税の上限額（自己負担2,000円の目安）</di
 document.getElementById("resultBox").innerHTML=html;
 document.getElementById("premiseNote").textContent=premise;
 }
+presets("income",[3000000,4000000,5000000,6000000,8000000],function(v){return (v/10000)+"万円";});
 calc();
 </script>
 </body>

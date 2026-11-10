@@ -316,6 +316,12 @@ function calc(){
   var r=computeTedori(readOpt());
   var prefName=KENPO_PREFS[prefSel.selectedIndex];
   var html="<div>手取り年額</div><div class='big'>"+yen(r.tedori)+" 円</div>"+
+  stackBar([
+    {label:"手取り", value:r.tedori, cls:"sg-net"},
+    {label:"社会保険料", value:r.shaho, cls:"sg-shaho"},
+    {label:"所得税", value:r.shotokuzei, cls:"sg-tax1"},
+    {label:"住民税", value:r.juminzei, cls:"sg-tax2"}
+  ])+
   "<table>"+
   "<tr><td>手取り月額（年額÷12）</td><td>"+yen(r.monthly)+" 円</td></tr>"+
   "<tr><td>手取り率</td><td>"+r.rate.toFixed(1)+" ％</td></tr>"+
@@ -332,6 +338,7 @@ function calc(){
   document.getElementById("premiseNote").textContent=
    "前提：会社員・協会けんぽ（"+prefName+"、令和8年度 健康保険料率"+parseFloat(prefSel.value).toFixed(2)+"％）・賞与なし（年収＝月給×12）で計算しています。所得税は令和8年分です。";
 }
+presets("income",[3000000,4000000,5000000,6000000,8000000,10000000],function(v){return (v/10000)+"万円";});
 calc();
 </script>
 </body>
