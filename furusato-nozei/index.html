@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ふるさと納税 上限計算｜自己負担2,000円の寄附上限額を計算</title>
+<meta name="description" content="年収または住民税決定通知書の所得割額から、ふるさと納税で自己負担2,000円に収まる寄附上限額の目安を計算。控除の内訳（所得税分・住民税基本分・特例分）と年収別早見表つき。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/furusato-nozei/">
+<meta property="og:title" content="ふるさと納税 上限計算｜計算ラボ">
+<meta property="og:description" content="年収または住民税決定通知書の所得割額から、自己負担2,000円で寄附できる上限額の目安を計算。令和8年対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ふるさと納税 上限計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/furusato-nozei/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"ふるさと納税 上限計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"ふるさと納税の上限額を超えて寄附するとどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"上限額を超えた分は、所得税と住民税からの控除を受けられません。超えた分はそのまま実質負担になるため、たとえば上限が6万円の人が10万円寄附した場合、差額の約4万円は戻ってこない寄附になります。返礼品は受け取れますが、節税の意味では損になるため、上限額の範囲内で寄附するのが基本です。年末に年収が確定していない場合は、上限の9割程度に留めておくと安全です。"}},
+{"@type":"Question","name":"ワンストップ特例と確定申告はどちらを選べばいいですか？","acceptedAnswer":{"@type":"Answer","text":"寄附先が5団体以内で、確定申告をしない給与所得者であれば、ワンストップ特例制度が使えます。寄附先の自治体に申請書を出すだけで、確定申告なしに翌年度の住民税から全額が控除されます。寄附先が6団体以上ある人、医療費控除や住宅ローン控除で確定申告をする人、自営業者などは、確定申告で寄附金控除を申告します。その場合は所得税からも還付を受けられます。"}},
+{"@type":"Question","name":"住民税決定通知書の所得割額はどこに書いてありますか？","acceptedAnswer":{"@type":"Answer","text":"毎年6月ごろに会社から配られる「給与所得等に係る市民税・県民税 特別徴収税額の決定・変更通知書」に書かれています。通知書の「税額」の欄に、市町村民税と道府県民税の「所得割額」がそれぞれ記載されています。このページの「決定通知書の所得割額から計算」モードでは、2つの所得割額を合計した金額を入力します。所得割額は前年の所得で決まるため、今年の収入が大きく変わる人は年収モードと併せて確認してください。"}},
+{"@type":"Question","name":"住宅ローン控除や医療費控除を受けていると上限額は下がりますか？","acceptedAnswer":{"@type":"Answer","text":"下がります。ふるさと納税の上限は住民税の所得割額の大きさで決まるため、住宅ローン控除などの税額控除で所得割額が小さくなると、上限額も小さくなります。医療費控除や生命保険料控除、iDeCoの掛金なども、課税所得を小さくするため同じ方向に働きます。こうした控除を受けている人は、年収モードではなく決定通知書モードで、実際の所得割額を入力して計算するのが正確です。"}},
+{"@type":"Question","name":"2027年からふるさと納税の上限は変わりますか？","acceptedAnswer":{"@type":"Answer","text":"2027年1月1日以降の寄附分から、住民税の特例分に193万円の絶対上限が新設されます。これは給与収入で約1億円、寄附額で約438万円に相当する水準のため、一般の給与所得者にはほぼ影響しません。2026年12月31日までの寄附分は従来どおりの計算です。なお、2025年10月1日からはポータルサイトによるポイント付与が禁止されており、返礼品の価値は寄附額の3割以下と定められています。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ ふるさと納税 上限計算</nav>
+<h1>ふるさと納税 上限計算</h1>
+<p class="lead">年収、または住民税決定通知書に書かれた所得割額から、ふるさと納税で自己負担2,000円に収まる寄附上限額の目安を計算します。控除の内訳（所得税分・住民税基本分・特例分）まで表示します。令和8年（2026年分）の寄附に対応しています。</p>
+<div class="badges"><span class="badge">令和8年対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">計算方法</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="annual">年収から計算</button><button type="button" data-v="notice">決定通知書の所得割額から計算</button></div></div>
+<div id="annualWrap">
+<div><label class="flabel" for="income">年収（給与）<small>円／賞与を含む年間の給与収入</small></label><input type="number" id="income" value="5000000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel" for="pref">勤務地の都道府県<small>健康保険料率</small></label><select id="pref"></select></div>
+<div class="full"><label class="flabel">年齢区分<small>介護保険料の有無</small></label>
+<div class="seg" id="ageSeg"><button type="button" class="on" data-v="u40">40歳未満</button><button type="button" data-v="mid">40歳〜64歳</button><button type="button" data-v="o65">65歳以上</button></div></div>
+<div class="full"><label class="flabel">配偶者</label>
+<div class="seg" id="spouseSeg"><button type="button" class="on" data-v="none">なし</button><button type="button" data-v="ari">あり</button></div></div>
+<div id="spouseWrap" class="full" style="display:none;grid-template-columns:1fr 1fr;gap:.8rem 1rem">
+<div><label class="flabel" for="spouseIncome">配偶者の年収（給与）<small>円</small></label><input type="number" id="spouseIncome" value="1030000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel">配偶者の年齢</label>
+<div class="seg" id="spouseAgeSeg"><button type="button" class="on" data-v="u70">70歳未満</button><button type="button" data-v="o70">70歳以上</button></div></div>
+</div>
+<div><label class="flabel" for="depG16">扶養親族 16〜18歳<small>人</small></label><input type="number" id="depG16" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depS19">扶養親族 19〜22歳<small>人</small></label><input type="number" id="depS19" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depG23">扶養親族 23〜69歳<small>人</small></label><input type="number" id="depG23" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depO70">扶養親族 70歳以上<small>人</small></label><input type="number" id="depO70" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depD70">同居老親等 70歳以上<small>人</small></label><input type="number" id="depD70" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+</div>
+<div id="noticeWrap" style="display:none">
+<div><label class="flabel" for="wari">住民税の所得割額<small>円／決定通知書の市町村民税＋道府県民税の所得割額の合計</small></label><input type="number" id="wari" value="238100" min="0" step="100" inputmode="numeric"></div>
+<div><label class="flabel" for="taxRate">所得税の税率<small>源泉徴収票の課税所得から求めた税率</small></label><select id="taxRate">
+<option value="0.05">5％（課税所得 195万円以下）</option>
+<option value="0.10" selected>10％（課税所得 195万円超〜330万円以下）</option>
+<option value="0.20">20％（課税所得 330万円超〜695万円以下）</option>
+<option value="0.23">23％（課税所得 695万円超〜900万円以下）</option>
+<option value="0.33">33％（課税所得 900万円超〜1,800万円以下）</option>
+<option value="0.40">40％（課税所得 1,800万円超〜4,000万円以下）</option>
+<option value="0.45">45％（課税所得 4,000万円超）</option>
+</select></div>
+<p class="note">※厳密には、住民税の課税総所得から人的控除差調整額を差し引いた金額で求めた税率を使います。源泉徴収票の課税所得から求めた税率と異なる場合があります。境界付近では1段階下の税率で見積もるのが安全です。</p>
+</div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。住宅ローン控除・医療費控除・iDeCoなど他の控除を受けている場合は、上限額がこの計算より下がります。正確な上限額は、お住まいの市区町村または寄附先ポータルの詳細シミュレーションでご確認ください。年末に年収が確定していない場合は、上限の9割程度に留めておくと安全です。</p>
+</div>
+
+<h2>ふるさと納税の控除の仕組み</h2>
+<p>ふるさと納税は、好きな自治体に寄附をすると、寄附額から2,000円を引いた分が、所得税と住民税から控除される制度です。控除は次の3つに分かれています。</p>
+<h3>1. 所得税からの控除</h3>
+<p>（寄附額 − 2,000円）× 所得税の税率が、その年の所得税から控除（還付）されます。所得税の税率は課税所得によって5％〜45％で、復興特別所得税として2.1％が上乗せされます（令和19年中の寄附まで）。確定申告をしないでワンストップ特例を使った場合は、所得税からの控除は行われず、その分も含めて翌年度の住民税から控除されます。</p>
+<h3>2. 住民税からの控除（基本分）</h3>
+<p>（寄附額 − 2,000円）× 10％が、翌年度の住民税から控除されます。基本分は寄附額に関係なく、常に寄附額の1割が控除されます。</p>
+<h3>3. 住民税からの控除（特例分）</h3>
+<p>（寄附額 − 2,000円）×（100％ − 10％ − 所得税の税率）が、翌年度の住民税から控除されます。ただし特例分には「住民税所得割額の20％まで」という上限があります。この上限こそが、ふるさと納税の「上限額」の正体です。特例分が所得割額の2割にちょうど届く寄附額が、自己負担2,000円で寄附できる上限額になります。</p>
+<p>上限額の計算式は次のとおりです（総務省の控除の計算式から導いたものです）。</p>
+<p><strong>上限額 ＝ 住民税所得割額 × 20％ ÷（90％ − 所得税の税率 × 1.021）＋ 2,000円</strong></p>
+<p>90％は、100％から住民税基本分の10％を引いた値です。所得税の税率に1.021をかけているのは、復興特別所得税の分です。なお、2027年1月1日以降の寄附分からは、特例分に193万円の絶対上限が新設されますが、一般の給与所得者にはほぼ影響しません。</p>
+
+<h2>寄附の期限と手続き</h2>
+<p>その年の控除の対象になるのは、1月1日から12月31日までに決済が完了した寄附です。12月31日の駆け込み寄附は、決済のタイミングによっては翌年分になることがあるため、余裕を持って手続きするのが安全です。寄附先が5団体以内の給与所得者であれば、ワンストップ特例制度により確定申告なしで控除を受けられます。寄附先が6団体以上ある人や、医療費控除などで確定申告をする人は、確定申告で寄附金控除を申告します。なお、2025年10月1日からポータルサイトによるポイント付与は禁止されており、返礼品の価値は寄附額の3割以下と定められています。</p>
+
+<h2>年収別 ふるさと納税の上限額 早見表</h2>
+<p>東京都・40歳未満・給与収入のみ・賞与なし・他の控除なしの場合の試算です。このページの計算エンジンと同じ計算（令和8年仕様）で作成しています。総務省が公表する目安表（独身の年収500万円で約61,000円、年収700万円で約108,000円）とほぼ一致します。条件が違う場合は上の計算フォームで確認してください。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>年収</th><th>独身または共働き</th><th>夫婦（配偶者控除あり）</th><th>夫婦＋子1人（高校生）</th></tr></thead>
+<tbody>
+<tr><td>300万円</td><td>28,000円</td><td>19,700円</td><td>11,300円</td></tr>
+<tr><td>400万円</td><td>42,100円</td><td>33,800円</td><td>25,400円</td></tr>
+<tr><td>500万円</td><td>61,600円</td><td>53,400円</td><td>41,300円</td></tr>
+<tr><td>600万円</td><td>77,700円</td><td>69,500円</td><td>61,200円</td></tr>
+<tr><td>700万円</td><td>108,400円</td><td>99,000円</td><td>78,300円</td></tr>
+<tr><td>800万円</td><td>130,700円</td><td>121,200円</td><td>111,800円</td></tr>
+<tr><td>900万円</td><td>156,600円</td><td>147,200円</td><td>137,700円</td></tr>
+<tr><td>1,000万円</td><td>183,900円</td><td>174,400円</td><td>164,900円</td></tr>
+</tbody></table></div>
+<p class="note">※「夫婦（配偶者控除あり）」は配偶者の年収が103万円の場合、「夫婦＋子1人（高校生）」は配偶者の年収103万円＋16〜18歳の扶養親族1人の場合です。配偶者や扶養親族がいると課税所得が小さくなり、所得割額も小さくなるため、上限額は独身の場合より下がります。</p>
+
+<h3>計算例：年収500万円・独身・東京・40歳未満</h3>
+<table class="data"><tbody>
+<tr><td>年収</td><td>5,000,000円</td></tr>
+<tr><td>給与所得控除</td><td>1,440,000円（年収×20％＋44万円）</td></tr>
+<tr><td>給与所得</td><td>3,560,000円</td></tr>
+<tr><td>社会保険料（控除対象）</td><td>723,148円</td></tr>
+<tr><td>住民税の課税標準額</td><td>2,406,000円</td></tr>
+<tr><td>住民税所得割額（調整控除後）</td><td>238,100円</td></tr>
+<tr><td>特例分の上限（所得割額の20％）</td><td>47,620円</td></tr>
+<tr><td>所得税の税率（住民税ベース）</td><td>10％</td></tr>
+<tr><td>控除上限額</td><td>61,600円（238,100円×20％÷(90％−10％×1.021)＋2,000円、100円未満切り捨て）</td></tr>
+</tbody></table>
+<p>上限額の61,600円を寄附した場合、寄附額から2,000円を引いた59,600円の控除内訳は、所得税分 6,085円、住民税基本分 5,960円、住民税特例分 47,555円で、合計59,600円が控除され、実質負担は2,000円になります。同じ年収でも、<a href="/tedori/">手取り計算</a>で手取りを確認すると、税金と社会保険料の全体像が分かります。</p>
+
+<h2>上限額が目安より下がるケース</h2>
+<p>早見表や年収モードの計算は、「他の控除を受けていない給与所得者」の標準形です。次のいずれかに当てはまる人は、実際の上限額が計算結果より下がります。</p>
+<p><strong>住宅ローン控除を受けている人。</strong>住宅ローン控除は税額控除のため、住民税の所得割額がそのまま小さくなります。所得割額が小さくなれば、特例分の上限（所得割額の20％）も小さくなります。</p>
+<p><strong>医療費控除・生命保険料控除・iDeCoを受けている人。</strong>これらは課税所得を小さくするため、所得割額が小さくなり、上限額も下がります。iDeCoの掛金は全額が所得控除になるため、掛金が大きいほど影響も大きくなります。</p>
+<p><strong>副業収入や事業所得がある人。</strong>年収モードは給与収入のみが前提です。副業の所得があると課税所得が変わるため、年収モードの計算は当てはまりません。決定通知書モードで実際の所得割額を入力してください。</p>
+<p><strong>今年の収入が前年と大きく違う人。</strong>決定通知書の所得割額は前年の所得で決まります。今年の収入が前年より大きく増えた人や減った人は、決定通知書モードの計算と年収モードの計算で結果が異なります。年末の見込み年収で計算した年収モードのほうが、今年の寄附の上限には近くなります。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>ふるさと納税の上限額を超えて寄附するとどうなりますか？</summary><p>上限額を超えた分は、所得税と住民税からの控除を受けられません。超えた分はそのまま実質負担になるため、たとえば上限が6万円の人が10万円寄附した場合、差額の約4万円は戻ってこない寄附になります。返礼品は受け取れますが、節税の意味では損になるため、上限額の範囲内で寄附するのが基本です。年末に年収が確定していない場合は、上限の9割程度に留めておくと安全です。</p></details>
+<details class="faq"><summary>ワンストップ特例と確定申告はどちらを選べばいいですか？</summary><p>寄附先が5団体以内で、確定申告をしない給与所得者であれば、ワンストップ特例制度が使えます。寄附先の自治体に申請書を出すだけで、確定申告なしに翌年度の住民税から全額が控除されます。寄附先が6団体以上ある人、医療費控除や住宅ローン控除で確定申告をする人、自営業者などは、確定申告で寄附金控除を申告します。その場合は所得税からも還付を受けられます。</p></details>
+<details class="faq"><summary>住民税決定通知書の所得割額はどこに書いてありますか？</summary><p>毎年6月ごろに会社から配られる「給与所得等に係る市民税・県民税 特別徴収税額の決定・変更通知書」に書かれています。通知書の「税額」の欄に、市町村民税と道府県民税の「所得割額」がそれぞれ記載されています。このページの「決定通知書の所得割額から計算」モードでは、2つの所得割額を合計した金額を入力します。所得割額は前年の所得で決まるため、今年の収入が大きく変わる人は年収モードと併せて確認してください。</p></details>
+<details class="faq"><summary>住宅ローン控除や医療費控除を受けていると上限額は下がりますか？</summary><p>下がります。ふるさと納税の上限は住民税の所得割額の大きさで決まるため、住宅ローン控除などの税額控除で所得割額が小さくなると、上限額も小さくなります。医療費控除や生命保険料控除、iDeCoの掛金なども、課税所得を小さくするため同じ方向に働きます。こうした控除を受けている人は、年収モードではなく決定通知書モードで、実際の所得割額を入力して計算するのが正確です。</p></details>
+<details class="faq"><summary>2027年からふるさと納税の上限は変わりますか？</summary><p>2027年1月1日以降の寄附分から、住民税の特例分に193万円の絶対上限が新設されます。これは給与収入で約1億円、寄附額で約438万円に相当する水準のため、一般の給与所得者にはほぼ影響しません。2026年12月31日までの寄附分は従来どおりの計算です。なお、2025年10月1日からはポータルサイトによるポイント付与が禁止されており、返礼品の価値は寄附額の3割以下と定められています。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/shotokuzei-juminzei/"><span class="t">所得税・住民税計算</span><div class="d">年収から所得税と住民税をそれぞれ計算。課税所得と税額の内訳まで表示。</div></a>
+<a class="toolcard" href="/nenshu-no-kabe/"><span class="t">年収の壁シミュレーション</span><div class="d">年収から、住民税・社保扶養・配偶者控除・所得税の「年収の壁」のどれを超えているか判定。</div></a>
+<a class="toolcard" href="/money/"><span class="t">お金の計算ツール一覧</span><div class="d">手取り・所得税・住民税・時給・消費税・割引など、お金の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-10／更新日：2026-11-10<br>出典：総務省 ふるさと納税ポータル「税金の控除について」、国税庁 タックスアンサー No.1155「ふるさと納税（寄附金控除）」・No.2260「所得税の税率」、総務省「全額控除されるふるさと納税額（年間上限）の目安」を確認（2026-11-10）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js"></script>
+<script>
+//CORE-START
+// 計算ラボ 手取り計算エンジン（令和8年／2026年仕様）を流用
+// 前提：会社員・協会けんぽ・給与収入のみ・賞与なし（年収＝月給×12）
+// 料率出典：協会けんぽ令和8年度都道府県単位保険料率／国税庁タックスアンサー（確認日2026-11-08）
+// ふるさと納税の上限計算では、住民税所得割額（調整控除後）と人的控除差調整額（diff）を使う
+var KENPO_PREFS = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+var KENPO_RATES = [10.28,9.85,9.51,10.10,10.01,9.75,9.50,9.52,9.82,9.68,9.67,9.73,9.85,9.92,9.21,9.59,9.70,9.71,9.55,9.63,9.80,9.61,9.93,9.77,9.88,9.89,10.13,10.12,9.91,10.06,9.86,9.94,10.05,9.78,10.15,10.24,10.02,9.98,10.05,10.11,10.55,10.06,10.08,10.08,9.77,10.13,9.44];
+var KAIGO_RATE = 1.62; // 介護保険料率（40〜64歳・全国一律）
+var SHIEN_RATE = 0.23; // 子ども・子育て支援金率（令和8年4月分から）
+var NENKIN_RATE = 18.3; // 厚生年金保険料率
+var KOYO_RATE = 0.5; // 雇用保険料率（一般の事業・本人負担）
+// 標準報酬月額の等級表（下限の報酬月額 → 標準報酬月額）
+var H_GRADE_MIN = [0,63000,73000,83000,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000,665000,695000,730000,770000,810000,855000,905000,955000,1005000,1055000,1115000,1175000,1235000,1295000,1355000];
+var H_GRADE = [58000,68000,78000,88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000,680000,710000,750000,790000,830000,880000,930000,980000,1030000,1090000,1150000,1210000,1270000,1330000,1390000];
+var P_GRADE_MIN = [0,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000];
+var P_GRADE = [88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000];
+function gradeOf(mins, grades, monthly){
+var g = grades[0];
+for(var i=0;i<mins.length;i++){ if(monthly >= mins[i]) g = grades[i];}
+return g;
+}
+function rhu(x){ return Math.floor(x+0.5);} // 1円未満を四捨五入
+function kyuyoDed(income){ // 給与所得控除（令和8年分）
+if(income<=0) return 0;
+var d;
+if(income<=2200000) d=740000;
+else if(income<=3600000) d=income*0.3+80000;
+else if(income<=6600000) d=income*0.2+440000;
+else if(income<=8500000) d=income*0.1+1100000;
+else d=1950000;
+return Math.min(d, income);
+}
+function kisoShotoku(gokei){ // 所得税の基礎控除（令和8年分・特例加算込み）
+if(gokei<=4890000) return 1040000;
+if(gokei<=6550000) return 670000;
+if(gokei<=23500000) return 620000;
+if(gokei<=24000000) return 480000;
+if(gokei<=24500000) return 320000;
+if(gokei<=25000000) return 160000;
+return 0;
+}
+function kisoJumin(gokei){ // 住民税の基礎控除
+if(gokei<=24000000) return 430000;
+if(gokei<=24500000) return 290000;
+if(gokei<=25000000) return 150000;
+return 0;
+}
+function shotokuTax(base){ // 所得税の速算表
+if(base<=0) return 0;
+if(base<=1949000) return Math.round(base*0.05);
+if(base<=3299000) return Math.round(base*0.10)-97500;
+if(base<=6949000) return Math.round(base*0.20)-427500;
+if(base<=8999000) return Math.round(base*0.23)-636000;
+if(base<=17999000) return Math.round(base*0.33)-1536000;
+if(base<=39999000) return Math.round(base*0.40)-2796000;
+return Math.round(base*0.45)-4796000;
+}
+function spouseDedShotoku(honninGokei, spouseShotoku, roujin){
+if(honninGokei>10000000) return 0;
+var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+if(spouseShotoku<=620000){
+var t = roujin? [480000,320000,160000]: [380000,260000,130000];
+return t[band];
+}
+if(spouseShotoku>1330000) return 0;
+var bands=[950000,1000000,1050000,1100000,1150000,1200000,1250000,1300000,1330000];
+var tbl=[[380000,360000,310000,260000,210000,160000,110000,60000,30000],
+[260000,240000,210000,180000,140000,110000,80000,40000,20000],
+[130000,120000,110000,90000,70000,60000,40000,20000,10000]];
+for(var i=0;i<bands.length;i++){ if(spouseShotoku<=bands[i]) return tbl[band][i];}
+return 0;
+}
+function spouseDedJumin(honninGokei, spouseShotoku, roujin, shotokuDed){
+if(honninGokei>10000000) return 0;
+var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+if(spouseShotoku<=620000){
+var t = roujin? [380000,260000,130000]: [330000,220000,110000];
+return t[band];
+}
+if(spouseShotoku>1330000) return 0;
+// 住民税の配偶者特別控除は最高額（33万円等）を上限に、所得税の逓減に準じて簡易計算
+var cap=[330000,220000,110000][band];
+return Math.min(shotokuDed, cap);
+}
+// o: {income, kenpoRate, kaigo, spouse:null|{income,roujin}, dep:{g16,s19,g23,o70,d70}}
+function computeTedori(o){
+var income=o.income, monthly=income/12;
+var hStd=gradeOf(H_GRADE_MIN,H_GRADE,monthly);
+var pStd=gradeOf(P_GRADE_MIN,P_GRADE,monthly);
+var combRate=o.kenpoRate + (o.kaigo?KAIGO_RATE:0) + SHIEN_RATE;
+var kenkoMonthly=rhu(hStd*combRate/100/2);
+var shienMonthly=rhu(hStd*SHIEN_RATE/100/2);
+var kaigoMonthly=o.kaigo? rhu(hStd*KAIGO_RATE/100/2): 0;
+var kenkoOnlyMonthly=kenkoMonthly-shienMonthly-kaigoMonthly;
+var nenkinMonthly=rhu(pStd*NENKIN_RATE/100/2);
+var koyoY=rhu(income*KOYO_RATE/100);
+var kenkoY=kenkoOnlyMonthly*12, kaigoY=kaigoMonthly*12, shienY=shienMonthly*12, nenkinY=nenkinMonthly*12;
+var shaho=kenkoY+kaigoY+shienY+nenkinY+koyoY;
+var kyuyoD=kyuyoDed(income);
+var kyuyo=income-kyuyoD; // 給与所得（＝合計所得金額）
+var dep=o.dep;
+var fS=dep.g16*380000 + dep.s19*630000 + dep.g23*380000 + dep.o70*480000 + dep.d70*580000;
+var fJ=dep.g16*330000 + dep.s19*450000 + dep.g23*330000 + dep.o70*380000 + dep.d70*450000;
+var spS=0, spJ=0, spKyuyo=null;
+if(o.spouse){
+spKyuyo=o.spouse.income - kyuyoDed(o.spouse.income);
+spS=spouseDedShotoku(kyuyo, spKyuyo, o.spouse.roujin);
+spJ=spouseDedJumin(kyuyo, spKyuyo, o.spouse.roujin, spS);
+}
+// 所得税
+var kisoS=kisoShotoku(kyuyo);
+var baseS=Math.max(0, kyuyo-shaho-kisoS-spS-fS);
+baseS=Math.floor(baseS/1000)*1000;
+var baseTax=shotokuTax(baseS);
+var fukko=Math.floor(baseTax*0.021);
+var shotokuzei=baseTax+fukko;
+// 住民税（同じ年収が前年も続いた場合の年額）
+var kisoJ=kisoJumin(kyuyo);
+var baseJ=Math.max(0, kyuyo-shaho-kisoJ-spJ-fJ);
+baseJ=Math.floor(baseJ/1000)*1000;
+var wari=0, chousei=0, kinto=0, juminzei=0, diff=0;
+if(kyuyo>450000){
+wari=baseJ*0.10;
+kinto=5000; // 均等割4,000円＋森林環境税1,000円
+diff=50000 + dep.g16*50000 + dep.s19*180000 + dep.g23*50000 + dep.o70*100000 + dep.d70*180000;
+if(o.spouse){
+if(spKyuyo!==null && spKyuyo<=620000) diff+=50000;
+else if(spS>0) diff+=Math.min(50000, Math.max(0, spS-spJ));
+}
+if(kyuyo<=25000000){
+if(baseJ<=2000000) chousei=Math.min(diff, baseJ)*0.05;
+else chousei=Math.max((diff-(baseJ-2000000))*0.05, 2500);
+}
+juminzei=Math.max(wari-chousei,0)+kinto;
+}
+var tedori=income-shaho-shotokuzei-juminzei;
+return {income:income, hStd:hStd, pStd:pStd,
+kenkoY:kenkoY, kaigoY:kaigoY, shienY:shienY, nenkinY:nenkinY, koyoY:koyoY, shaho:shaho,
+kyuyoDed:kyuyoD, kyuyo:kyuyo, kisoS:kisoS, spS:spS, fS:fS, baseS:baseS, baseTax:baseTax, fukko:fukko, shotokuzei:shotokuzei,
+kisoJ:kisoJ, spJ:spJ, fJ:fJ, baseJ:baseJ, diff:diff, wari:wari, chousei:chousei, kinto:kinto, juminzei:juminzei,
+tedori:tedori, monthly:Math.round(tedori/12), rate:(income>0? tedori/income*100: 0)};
+}
+//CORE-END
+// ふるさと納税 上限計算
+// 根拠：総務省 ふるさと納税ポータル「税金の控除について」
+// 上限額 ＝ 住民税所得割額 × 20% ÷（90% − 所得税の税率 × 1.021）＋ 2,000円
+// 所得税の税率は、住民税の課税総所得から人的控除差調整額を差し引いた金額で求める（総務省の注記）
+// 確認日：2026-11-10。テストケースは research/furusato-nozei-test.md
+function marginalRate(base){
+if(base<=1949000) return 0.05;
+if(base<=3299000) return 0.10;
+if(base<=6949000) return 0.20;
+if(base<=8999000) return 0.23;
+if(base<=17999000) return 0.33;
+if(base<=39999000) return 0.40;
+return 0.45;
+}
+function furusatoLimit(wari, rate){
+if(wari<=0) return 0;
+var x = wari*0.20/(0.90-rate*1.021)+2000;
+return Math.floor(x/100)*100; // 100円未満切り捨て
+}
+var modeSeg=document.getElementById("modeSeg"), ageSeg=document.getElementById("ageSeg"),
+spouseSeg=document.getElementById("spouseSeg"), spouseAgeSeg=document.getElementById("spouseAgeSeg");
+var prefSel=document.getElementById("pref"), rateSel=document.getElementById("taxRate");
+(function(){ var h=""; for(var i=0;i<KENPO_PREFS.length;i++){ h+="<option value='"+KENPO_RATES[i]+"'"+(i===12?" selected":"")+">"+KENPO_PREFS[i]+"（"+KENPO_RATES[i].toFixed(2)+"％）</option>";} prefSel.innerHTML=h;})();
+modeSeg.dataset.mode="annual"; ageSeg.dataset.age="u40"; spouseSeg.dataset.spouse="none"; spouseAgeSeg.dataset.spage="u70";
+setSeg("modeSeg","mode",calc); setSeg("ageSeg","age",calc); setSeg("spouseSeg","spouse",calc); setSeg("spouseAgeSeg","spage",calc);
+["income","spouseIncome","depG16","depS19","depG23","depO70","depD70","wari"].forEach(function(id){
+document.getElementById(id).addEventListener("input",calc);
+});
+prefSel.addEventListener("change",calc);
+rateSel.addEventListener("change",calc);
+function calc(){
+var mode=modeSeg.dataset.mode;
+document.getElementById("annualWrap").style.display = mode==="annual"?"":"none";
+document.getElementById("noticeWrap").style.display = mode==="notice"?"":"none";
+document.getElementById("spouseWrap").style.display = spouseSeg.dataset.spouse==="ari"? "grid": "none";
+var wari, rate, premise;
+if(mode==="annual"){
+var r=computeTedori({ income: num("income"), kenpoRate: parseFloat(prefSel.value),
+kaigo: ageSeg.dataset.age==="mid",
+spouse: spouseSeg.dataset.spouse==="ari"? {income:num("spouseIncome"), roujin: spouseAgeSeg.dataset.spage==="o70"}: null,
+dep:{ g16:Math.floor(num("depG16")), s19:Math.floor(num("depS19")), g23:Math.floor(num("depG23")), o70:Math.floor(num("depO70")), d70:Math.floor(num("depD70"))}});
+wari=Math.max(0, r.wari-r.chousei);
+rate=marginalRate(Math.max(0, r.baseJ-r.diff));
+var prefName=KENPO_PREFS[prefSel.selectedIndex];
+premise="前提：年収 "+yen(r.income)+" 円、会社員・協会けんぽ（"+prefName+"、令和8年度 健康保険料率"+parseFloat(prefSel.value).toFixed(2)+"％）・賞与なし（年収＝月給×12）で計算しています。住民税は「前年も同じ年収だった場合」の年額です。";
+} else {
+wari=num("wari");
+rate=parseFloat(rateSel.value);
+premise="前提：決定通知書の住民税所得割額 "+yen(wari)+" 円、所得税の税率 "+(rate*100)+"％で計算しています。";
+}
+var limit=furusatoLimit(wari, rate);
+var html="";
+if(wari<=0 || limit<=0){
+html="<div>上限額を計算できません</div><div class='big'>0 円</div>"+
+"<p>住民税の所得割額が0円の場合、ふるさと納税の控除上限額は2,000円（自己負担分）のみで、実質負担2,000円で寄附できる枠はありません。住民税が非課税の方は、ふるさと納税をしても税金は戻ってきません。</p>";
+} else {
+var base=limit-2000;
+var taxPart=Math.round(base*rate*1.021);
+var basicPart=Math.round(base*0.10);
+var tokureiPart=Math.min(Math.round(base*(0.90-rate*1.021)), Math.round(wari*0.20));
+var safe=Math.floor(limit*0.9/100)*100;
+html="<div>ふるさと納税の上限額（自己負担2,000円の目安）</div><div class='big'>"+yen(limit)+" 円</div>"+
+"<table>"+
+"<tr><td>住民税所得割額</td><td>"+yen(wari)+" 円</td></tr>"+
+"<tr><td>特例分の上限（所得割額の20％）</td><td>"+yen(wari*0.20)+" 円</td></tr>"+
+"<tr><td>所得税の税率</td><td>"+(rate*100)+" ％</td></tr>"+
+"<tr><td>所得税からの控除</td><td>"+yen(taxPart)+" 円</td></tr>"+
+"<tr><td>住民税からの控除（基本分）</td><td>"+yen(basicPart)+" 円</td></tr>"+
+"<tr><td>住民税からの控除（特例分）</td><td>"+yen(tokureiPart)+" 円</td></tr>"+
+"<tr><td>控除額の合計</td><td>"+yen(taxPart+basicPart+tokureiPart)+" 円</td></tr>"+
+"<tr><td>実質負担</td><td>2,000 円</td></tr>"+
+"<tr><td>安全ライン（上限の9割）</td><td>"+yen(safe)+" 円</td></tr>"+
+"</table>"+
+"<p>上限額の "+yen(limit)+" 円まで寄附すれば、2,000円を除いた "+yen(base)+" 円が所得税と住民税から控除され、実質負担は2,000円です。年収が年末まで確定しない場合は、安全ラインの "+yen(safe)+" 円程度に留めておくと安心です。</p>";
+}
+document.getElementById("resultBox").innerHTML=html;
+document.getElementById("premiseNote").textContent=premise;
+}
+calc();
+</script>
+</body>
+</html>
