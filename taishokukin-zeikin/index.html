@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>退職金の税金計算｜退職所得控除と手取り額を計算</title>
+<meta name="description" content="退職金と勤続年数を入れると、退職所得控除・課税退職所得金額・所得税＋復興特別所得税・住民税を計算し、手取り額の目安を表示。短期退職手当等（勤続5年以下）や役員等の特例にも対応。国税庁の計算方法に基づく目安。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/taishokukin-zeikin/">
+<meta property="og:title" content="退職金の税金計算｜計算ラボ">
+<meta property="og:description" content="退職金と勤続年数から、退職所得控除・所得税・住民税を計算し、手取り額の目安を表示します。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"退職金の税金計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/taishokukin-zeikin/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"退職金の税金計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"退職金に社会保険料はかかりますか？","acceptedAnswer":{"@type":"Answer","text":"かかりません。退職金（退職所得）は健康保険料・厚生年金保険料・雇用保険料の対象外です。退職金にかかるのは所得税・復興特別所得税と住民税だけで、このページではその2つを計算しています。"}},
+{"@type":"Question","name":"退職金が退職所得控除額以下なら税金はかかりませんか？","acceptedAnswer":{"@type":"Answer","text":"かかりません。退職金が退職所得控除額以下なら、課税退職所得金額は0円になり、所得税も住民税もかかりません。たとえば勤続30年なら控除額は1,500万円なので、退職金が1,500万円までなら税金は0円です。"}},
+{"@type":"Question","name":"勤続年数の端数（月数）はどう扱われますか？","acceptedAnswer":{"@type":"Answer","text":"1年未満の端数は1年に切り上げます。たとえば勤続10年2か月なら11年として計算し、退職所得控除額は440万円になります。入社日と退職日の関係で1日でも次の年に食い込めば、まるまる1年分です。"}},
+{"@type":"Question","name":"勤続5年以下で退職すると税金が高くなるのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"勤続5年以下の場合、退職所得控除額を引いた残りのうち300万円を超える部分には2分の1課税が適用されない「短期退職手当等」の特例があるためです。たとえば勤続5年・退職金2,000万円の場合、一般の計算なら課税退職所得金額は900万円のところ、特例では1,650万円になり、税金は約564万円になります。"}},
+{"@type":"Question","name":"「退職所得の受給に関する申告書」を出さないとどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"会社は退職所得控除を引かずに、退職金の支給額の20.42％を所得税・復興特別所得税として源泉徴収します。多く引かれすぎた分は、確定申告をすれば精算できます。申告書を出していれば、会社が正しい税額を計算して源泉徴収するため、原則として確定申告は必要ありません。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 退職金の税金計算</nav>
+<h1>退職金の税金計算</h1>
+<p class="lead">たとえば勤続30年・退職金2,000万円の場合、税金は405,702円、手取りは19,594,298円が目安です。退職金と勤続年数を入れると、退職所得控除・課税退職所得金額・所得税＋復興特別所得税・住民税を計算し、手取り額の目安を表示します。勤続5年以下の短期退職手当等や、役員等の特例にも対応しています。</p>
+<div class="badges"><span class="badge">国税庁 No.1420 に基づく計算</span><span class="badge">令和8年対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="amount">退職金（税引き前の支給額）<small>円</small></label><input type="number" id="amount" value="20000000" min="0" step="100000" inputmode="numeric"></div>
+<div><label class="flabel" for="years">勤続年数<small>年／入社日から退職日までの期間</small></label><input type="number" id="years" value="30" min="0" max="60" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="months">勤続月数の端数<small>か月／1年未満の端数は1年に切り上げて計算します</small></label><input type="number" id="months" value="0" min="0" max="11" step="1" inputmode="numeric"></div>
+<div><label class="flabel">区分</label><div class="seg" id="typeSeg"><button type="button" data-v="general" class="on">一般（会社員・公務員等）</button><button type="button" data-v="officer">役員等（役員としての勤続5年以下）</button></div></div>
+<div><label class="flabel" for="disability"><input type="checkbox" id="disability"> 障害が原因で退職した（退職所得控除額に100万円加算）</label></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。「退職所得の受給に関する申告書」を会社に提出している場合の税額で、会社が退職金の支払時に源泉徴収（特別徴収）する金額を計算しています。退職所得は分離課税のため、給与所得など他の所得とは別に計算します。退職金に社会保険料はかかりません。前年以前4年以内に別の退職金を受け取った場合や、同じ年に2か所以上から退職金を受け取る場合は控除額の調整があり、このページの計算では対象外です。</p>
+</div>
+
+<h2>退職金の税金の計算の流れ</h2>
+<p>退職金にかかる税金は、退職金の全額ではなく「退職所得控除額」を引いて半分にした金額（課税退職所得金額）にかかります。長く勤めた人ほど控除が大きく、税金が軽くなる仕組みです。</p>
+<h3>1. 退職所得控除額を求める</h3>
+<p>勤続年数で決まる控除額です。勤続20年以下なら「40万円×勤続年数」（80万円に満たないときは80万円）、勤続20年超なら「800万円＋70万円×（勤続年数−20年）」です。勤続年数の1年未満の端数は1年に切り上げます。障害が原因で退職した場合は、さらに100万円が加算されます。</p>
+<h3>2. 課税退職所得金額を求める</h3>
+<p>退職金から退職所得控除額を引き、残りの金額に2分の1をかけます。ただし、役員等で勤続5年以下の「特定役員退職手当等」は2分の1が適用されず、残りの全額が課税対象です。役員等以外で勤続5年以下の「短期退職手当等」は、残りのうち300万円を超える部分に2分の1が適用されません。求めた金額は1,000円未満を切り捨てます。</p>
+<h3>3. 所得税と復興特別所得税を計算する</h3>
+<p>課税退職所得金額に所得税の速算表（5％〜45％）を当てはめて所得税額を求め、さらに復興特別所得税（所得税額の2.1％）を加えます。令和9年以後は防衛特別所得税1％が創設され、復興特別所得税は1.1％に引き下げられますが、合計2.1％で変わらないため、税額は変わりません。</p>
+<h3>4. 住民税を計算する</h3>
+<p>課税退職所得金額に10％（市町村民税6％＋道府県民税4％）をかけます。退職所得の住民税に均等割はかかりません。住民税も退職金の支払時に会社が差し引く（特別徴収）ため、原則として確定申告は必要ありません。</p>
+
+<h2>退職所得控除額の一覧</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>勤続年数</th><th>退職所得控除額</th></tr></thead>
+<tbody>
+<tr><td>1年</td><td>80万円（最低保障額）</td></tr>
+<tr><td>5年</td><td>200万円</td></tr>
+<tr><td>10年</td><td>400万円</td></tr>
+<tr><td>15年</td><td>600万円</td></tr>
+<tr><td>20年</td><td>800万円</td></tr>
+<tr><td>25年</td><td>1,150万円</td></tr>
+<tr><td>30年</td><td>1,500万円</td></tr>
+<tr><td>35年</td><td>1,850万円</td></tr>
+<tr><td>40年</td><td>2,200万円</td></tr>
+</tbody></table></div>
+<p class="note">※20年以下は40万円×勤続年数（80万円に満たないときは80万円）、20年超は800万円＋70万円×（勤続年数−20年）。障害が原因の退職はさらに100万円加算。</p>
+
+<h2>所得税の速算表（退職所得・分離課税）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>課税退職所得金額</th><th>税率</th><th>控除額</th></tr></thead>
+<tbody>
+<tr><td>1,949,000円まで</td><td>5％</td><td>0円</td></tr>
+<tr><td>1,950,000円〜3,299,000円</td><td>10％</td><td>97,500円</td></tr>
+<tr><td>3,300,000円〜6,949,000円</td><td>20％</td><td>427,500円</td></tr>
+<tr><td>6,950,000円〜8,999,000円</td><td>23％</td><td>636,000円</td></tr>
+<tr><td>9,000,000円〜17,999,000円</td><td>33％</td><td>1,536,000円</td></tr>
+<tr><td>18,000,000円〜39,999,000円</td><td>40％</td><td>2,796,000円</td></tr>
+<tr><td>40,000,000円以上</td><td>45％</td><td>4,796,000円</td></tr>
+</tbody></table></div>
+<p class="note">※所得税額＝課税退職所得金額×税率−控除額。さらに復興特別所得税（所得税額の2.1％）が加わります。</p>
+
+<h2>退職金2,000万円の場合の早見表（勤続年数別）</h2>
+<p>退職金2,000万円を受け取る場合の、勤続年数ごとの税金と手取りの目安です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>勤続年数</th><th>退職所得控除</th><th>課税退職所得</th><th>所得税等</th><th>住民税</th><th>税金合計</th><th>手取り</th></tr></thead>
+<tbody>
+<tr><td>5年</td><td>200万円</td><td>1,650万円</td><td>3,991,089円</td><td>1,650,000円</td><td>5,641,089円</td><td>14,358,911円</td></tr>
+<tr><td>10年</td><td>400万円</td><td>800万円</td><td>1,229,284円</td><td>800,000円</td><td>2,029,284円</td><td>17,970,716円</td></tr>
+<tr><td>15年</td><td>600万円</td><td>700万円</td><td>994,454円</td><td>700,000円</td><td>1,694,454円</td><td>18,305,546円</td></tr>
+<tr><td>20年</td><td>800万円</td><td>600万円</td><td>788,722円</td><td>600,000円</td><td>1,388,722円</td><td>18,611,278円</td></tr>
+<tr><td>25年</td><td>1,150万円</td><td>425万円</td><td>431,372円</td><td>425,000円</td><td>856,372円</td><td>19,143,628円</td></tr>
+<tr><td>30年</td><td>1,500万円</td><td>250万円</td><td>155,702円</td><td>250,000円</td><td>405,702円</td><td>19,594,298円</td></tr>
+<tr><td>35年</td><td>1,850万円</td><td>75万円</td><td>38,287円</td><td>75,000円</td><td>113,287円</td><td>19,886,713円</td></tr>
+</tbody></table></div>
+<p class="note">※この早見表は、このページの計算式と同じ計算で作成しています。5年は短期退職手当等の特例が適用されています。所得税等は所得税＋復興特別所得税の合計です。</p>
+
+<h2>勤続30年の場合の早見表（退職金額別）</h2>
+<p>勤続30年（退職所得控除額1,500万円）で退職金を受け取る場合の、金額ごとの税金と手取りの目安です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>退職金</th><th>課税退職所得</th><th>所得税等</th><th>住民税</th><th>税金合計</th><th>手取り</th></tr></thead>
+<tbody>
+<tr><td>1,000万円</td><td>0円</td><td>0円</td><td>0円</td><td>0円</td><td>10,000,000円</td></tr>
+<tr><td>1,500万円</td><td>0円</td><td>0円</td><td>0円</td><td>0円</td><td>15,000,000円</td></tr>
+<tr><td>2,000万円</td><td>250万円</td><td>155,702円</td><td>250,000円</td><td>405,702円</td><td>19,594,298円</td></tr>
+<tr><td>2,500万円</td><td>500万円</td><td>584,522円</td><td>500,000円</td><td>1,084,522円</td><td>23,915,478円</td></tr>
+<tr><td>3,000万円</td><td>750万円</td><td>1,111,869円</td><td>750,000円</td><td>1,861,869円</td><td>28,138,131円</td></tr>
+</tbody></table></div>
+<p class="note">※この早見表は、このページの計算式と同じ計算で作成しています。所得税等は所得税＋復興特別所得税の合計です。</p>
+
+<h3>計算例：勤続30年・退職金2,000万円</h3>
+<table class="data"><tbody>
+<tr><td>退職所得控除額</td><td>1,500万円（800万円＋70万円×10年）</td></tr>
+<tr><td>控除後の残額</td><td>500万円（2,000万円−1,500万円）</td></tr>
+<tr><td>課税退職所得金額</td><td>250万円（500万円×1/2）</td></tr>
+<tr><td>所得税</td><td>152,500円（250万円×10％−97,500円）</td></tr>
+<tr><td>復興特別所得税</td><td>3,202円（152,500円×2.1％）</td></tr>
+<tr><td>住民税</td><td>250,000円（市町村民税150,000円＋道府県民税100,000円）</td></tr>
+<tr><td>税金の合計</td><td>405,702円</td></tr>
+<tr><td>手取り額</td><td>19,594,298円</td></tr>
+</tbody></table>
+
+<h3>計算例：勤続5年・退職金2,000万円（短期退職手当等）</h3>
+<table class="data"><tbody>
+<tr><td>退職所得控除額</td><td>200万円（40万円×5年）</td></tr>
+<tr><td>控除後の残額</td><td>1,800万円（2,000万円−200万円）</td></tr>
+<tr><td>課税退職所得金額</td><td>1,650万円（300万円×1/2＋1,500万円）</td></tr>
+<tr><td>所得税</td><td>3,909,000円（1,650万円×33％−1,536,000円）</td></tr>
+<tr><td>復興特別所得税</td><td>82,089円（3,909,000円×2.1％）</td></tr>
+<tr><td>住民税</td><td>1,650,000円（市町村民税990,000円＋道府県民税660,000円）</td></tr>
+<tr><td>税金の合計</td><td>5,641,089円</td></tr>
+<tr><td>手取り額</td><td>14,358,911円</td></tr>
+</tbody></table>
+<p>勤続5年以下では、300万円を超える部分に2分の1課税が適用されないため、同じ2,000万円でも勤続30年の場合より約523万円も税金が多くなります。退職のタイミングが近い場合は、勤続年数が6年になるのを待つと税負担が大きく変わることがあります。</p>
+
+<h2>注意点</h2>
+<p>退職所得は分離課税のため、退職した年の給与所得や年金がどれだけあっても、退職金の税額には影響しません。企業年金や確定拠出年金の一時金も退職所得になりますが、支給の仕組みが異なるため、このページの計算とは別に扱われることがあります。退職金のほかに、退職後に受け取る失業手当（基本手当）は非課税です。退職後に国民健康保険や国民年金への切替えが必要な場合の保険料は、このページの計算には含まれていません。退職金の受取り方法（一時金か年金か）や、iDeCoの受取時の扱いも税額に影響します。個別の判断は、税務署や税理士にご相談ください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>退職金に社会保険料はかかりますか？</summary><p>かかりません。退職金（退職所得）は健康保険料・厚生年金保険料・雇用保険料の対象外です。退職金にかかるのは所得税・復興特別所得税と住民税だけで、このページではその2つを計算しています。</p></details>
+<details class="faq"><summary>退職金が退職所得控除額以下なら税金はかかりませんか？</summary><p>かかりません。退職金が退職所得控除額以下なら、課税退職所得金額は0円になり、所得税も住民税もかかりません。たとえば勤続30年なら控除額は1,500万円なので、退職金が1,500万円までなら税金は0円です。</p></details>
+<details class="faq"><summary>勤続年数の端数（月数）はどう扱われますか？</summary><p>1年未満の端数は1年に切り上げます。たとえば勤続10年2か月なら11年として計算し、退職所得控除額は440万円になります。入社日と退職日の関係で1日でも次の年に食い込めば、まるまる1年分です。</p></details>
+<details class="faq"><summary>勤続5年以下で退職すると税金が高くなるのはなぜですか？</summary><p>勤続5年以下の場合、退職所得控除額を引いた残りのうち300万円を超える部分には2分の1課税が適用されない「短期退職手当等」の特例があるためです。たとえば勤続5年・退職金2,000万円の場合、一般の計算なら課税退職所得金額は900万円のところ、特例では1,650万円になり、税金は約564万円になります。</p></details>
+<details class="faq"><summary>「退職所得の受給に関する申告書」を出さないとどうなりますか？</summary><p>会社は退職所得控除を引かずに、退職金の支給額の20.42％を所得税・復興特別所得税として源泉徴収します。多く引かれすぎた分は、確定申告をすれば精算できます。申告書を出していれば、会社が正しい税額を計算して源泉徴収するため、原則として確定申告は必要ありません。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-work" href="/shitsugyo-hoken/"><span class="ic">給</span><span class="t">失業保険計算</span><div class="d">失業手当（基本手当）の1日あたりの金額・もらえる日数・受給総額の目安を計算。</div></a>
+<a class="toolcard c-work" href="/zangyodai/"><span class="ic">残</span><span class="t">残業代計算</span><div class="d">月給と残業時間から、時間外・深夜・休日・月60時間超の割増賃金を計算。</div></a>
+<a class="toolcard" href="/tedori/"><span class="ic">手</span><span class="t">手取り計算</span><div class="d">年収から手取りを計算。再就職後の手取りを確認するのに。</div></a>
+<a class="toolcard" href="/shotokuzei-juminzei/"><span class="ic">税</span><span class="t">所得税・住民税計算</span><div class="d">年収から所得税と住民税をそれぞれ計算。課税所得と税額の内訳まで表示します。</div></a>
+<a class="toolcard" href="/work/"><span class="ic">働</span><span class="t">給付・労働の計算ツール一覧</span><div class="d">失業保険・残業代・退職金の税金など、働くこと・辞めることに関わるお金の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-11／更新日：2026-11-11<br>出典：国税庁タックスアンサー No.1420「退職金を受け取ったとき（退職所得）」、国税庁タックスアンサー No.2260「所得税の税率」、国税庁 No.2732「退職手当等に対する源泉徴収」、地方税法（住民税所得割の標準税率10％）を確認（2026-11-11）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 計算ラボ 退職金の税金計算エンジン
+// 根拠：国税庁 No.1420（令和8年4月1日現在法令等）— 退職所得控除額の表、一般／特定役員／短期退職手当等の3区分、障害加算100万円、端数切上げ
+// 国税庁 No.2260 所得税速算表（5％〜45％）／ No.2732（課税退職所得金額は1,000円未満切捨て）
+// 地方税法（住民税所得割の標準税率10％＝市町村民税6％＋道府県民税4％、各100円未満切捨て）
+// 確認日：2026-11-11。テストケースは research/taishokukin-zeikin-test.md
+// 端数処理：課税退職所得金額は1,000円未満切捨て。所得税＋復興特別所得税は基準所得税額×1.021の1円未満切捨て
+// （整数演算 floor(base*1021/1000) で浮動小数点誤差を回避）。住民税は市町村民税・道府県民税ごとに100円未満切捨て。
+function taishokuCalc(amount, years, months, type, disability){
+var y = Math.floor(years) + (months > 0? 1: 0); // 勤続年数（1年未満の端数は1年に切上げ）
+if (y < 1) y = 1;
+var ded = y <= 20? Math.max(400000*y, 800000): 8000000 + 700000*(y-20);
+if (disability) ded += 1000000;
+var excess = Math.max(0, amount - ded);
+var taxable, kind;
+if (type === "officer") { taxable = excess; kind = "特定役員退職手当等（2分の1課税なし）";}
+else if (y <= 5) { taxable = Math.min(excess, 3000000)/2 + Math.max(0, excess-3000000); kind = "短期退職手当等（300万円超は2分の1課税なし）";}
+else { taxable = excess/2; kind = "一般退職手当等（2分の1課税）";}
+taxable = Math.floor(taxable/1000)*1000; // 課税退職所得金額は1,000円未満切捨て
+var rate, ctrl;
+if (taxable <= 1949000) { rate=0.05; ctrl=0;}
+else if (taxable <= 3299000) { rate=0.10; ctrl=97500;}
+else if (taxable <= 6949000) { rate=0.20; ctrl=427500;}
+else if (taxable <= 8999000) { rate=0.23; ctrl=636000;}
+else if (taxable <= 17999000) { rate=0.33; ctrl=1536000;}
+else if (taxable <= 39999000) { rate=0.40; ctrl=2796000;}
+else { rate=0.45; ctrl=4796000;}
+var baseTax = Math.max(0, Math.round(taxable*rate - ctrl)); // 所得税（基準）
+var combined = Math.floor(baseTax*1021/1000); // 所得税＋復興特別所得税
+var jCity = Math.floor(taxable*0.06/100)*100; // 市町村民税6％
+var jPref = Math.floor(taxable*0.04/100)*100; // 道府県民税4％
+var jumin = jCity + jPref;
+var total = combined + jumin;
+return {y:y, ded:ded, excess:excess, taxable:taxable, kind:kind, rate:rate,
+baseTax:baseTax, fukko:combined-baseTax, combined:combined,
+jCity:jCity, jPref:jPref, jumin:jumin, total:total, net:amount-total};
+}
+//CORE-END
+var typeSeg = document.getElementById("typeSeg");
+typeSeg.dataset.type = "general";
+setSeg("typeSeg", "type", calc);
+["amount","years","months"].forEach(function(id){ document.getElementById(id).addEventListener("input", calc);});
+document.getElementById("disability").addEventListener("change", calc);
+function calc(){
+var amount = Math.max(0, num("amount"));
+var years = Math.max(0, Math.floor(num("years")));
+var months = Math.min(11, Math.max(0, Math.floor(num("months"))));
+document.getElementById("months").value = months;
+var type = typeSeg.dataset.type;
+var disability = document.getElementById("disability").checked;
+var r = taishokuCalc(amount, years, months, type, disability);
+var html = "";
+if (r.taxable <= 0) {
+html = "<div>退職金の手取り額</div><div class='big'>" + yen(amount) + " 円</div>" +
+"<p>退職金 " + yen(amount) + " 円は退職所得控除額 " + yen(r.ded) + " 円の範囲内のため、課税退職所得金額は0円で、所得税・住民税ともにかかりません。退職金は全額そのまま受け取れます。</p>";
+} else {
+html = "<div>退職金の手取り額</div><div class='big'>" + yen(r.net) + " 円</div>" +
+stackBar([
+{label:"手取り", value:r.net, cls:"sg-net"},
+{label:"所得税・復興特別所得税", value:r.combined, cls:"sg-tax1"},
+{label:"住民税", value:r.jumin, cls:"sg-tax2"}
+]) +
+"<table>" +
+"<tr><td>退職金</td><td>" + yen(amount) + " 円</td></tr>" +
+"<tr><td>勤続年数</td><td>" + r.y + " 年（端数切上げ後）</td></tr>" +
+"<tr><td>退職所得控除額</td><td>− " + yen(r.ded) + " 円</td></tr>" +
+"<tr><td>控除後の残額</td><td>" + yen(r.excess) + " 円</td></tr>" +
+"<tr><td>課税退職所得金額</td><td>" + yen(r.taxable) + " 円（" + r.kind + "）</td></tr>" +
+"<tr><td>所得税（" + (r.rate*100) + "％）</td><td>" + yen(r.baseTax) + " 円</td></tr>" +
+"<tr><td>復興特別所得税（2.1％）</td><td>" + yen(r.fukko) + " 円</td></tr>" +
+"<tr><td>住民税（市町村民税 " + yen(r.jCity) + " 円＋道府県民税 " + yen(r.jPref) + " 円）</td><td>" + yen(r.jumin) + " 円</td></tr>" +
+"<tr><td>税金の合計</td><td>" + yen(r.total) + " 円</td></tr>" +
+"<tr><td>手取り額</td><td>" + yen(r.net) + " 円</td></tr>" +
+"</table>" +
+"<p>退職金 " + yen(amount) + " 円から税金 " + yen(r.total) + " 円が差し引かれ、手取りは " + yen(r.net) + " 円です。税金の負担率は " + (amount > 0? (r.total/amount*100).toFixed(1): "0.0") + "％です。</p>";
+}
+document.getElementById("resultBox").innerHTML = html;
+document.getElementById("premiseNote").textContent =
+"前提：退職金 " + yen(amount) + " 円、勤続 " + years + "年" + months + "か月（計算上の勤続年数 " + r.y + " 年）、" +
+(type === "officer"? "役員等（役員としての勤続5年以下）": "一般") +
+(disability? "、障害が原因の退職": "") +
+"、「退職所得の受給に関する申告書」を提出している場合の税額で計算しています。課税退職所得金額は1,000円未満切捨て、住民税は市町村民税・道府県民税ごとに100円未満切捨てです。";
+}
+presets("amount", [5000000, 10000000, 15000000, 20000000, 30000000], function(v){ return (v/10000) + "万円";});
+calc();
+</script>
+</body>
+</html>
