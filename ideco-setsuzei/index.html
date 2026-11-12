@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iDeCo節税シミュレーション｜年収と掛金で所得税・住民税の軽減額を計算</title>
+<meta name="description" content="年収と毎月の掛金を入れると、iDeCo（個人型確定拠出年金）の掛金全額所得控除による所得税・住民税の軽減額（節税額）を計算。手取り計算と同じエンジンで税額の差分を計算します。2026年12月分の上限引上げ（会社員は月6万2,000円へ）に対応。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/ideco-setsuzei/">
+<meta property="og:title" content="iDeCo節税シミュレーション｜計算ラボ">
+<meta property="og:description" content="年収と掛金から、iDeCoで減る所得税・住民税の目安を計算。2026年12月の上限引上げ対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"iDeCo節税シミュレーション","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/ideco-setsuzei/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"投資・積立","item":"https://ada262651-max.github.io/invest/"},{"@type":"ListItem","position":3,"name":"iDeCo節税シミュレーション"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"iDeCoの節税額はどうやって計算しますか？","acceptedAnswer":{"@type":"Answer","text":"iDeCoの掛金は全額が小規模企業共済等掛金控除として所得から差し引かれるため、節税額は「iDeCoがない場合の所得税・住民税」と「iDeCoがある場合の所得税・住民税」の差額です。このページでは手取り計算と同じエンジンで両方を計算して差を取っているため、税率の区分をまたぐ場合や、課税所得が掛金より小さい場合でも実額に近い目安になります。単純に「掛金×税率」で計算すると、こうした場合に実額とずれます。"}},
+{"@type":"Question","name":"年収が低いとiDeCoの節税効果は小さくなりますか？","acceptedAnswer":{"@type":"Answer","text":"なります。所得控除は課税所得を減らす仕組みなので、もともとの課税所得が小さい人は減らせる幅も小さくなります。たとえば年収300万円で月6万2,000円（年74万4,000円）を掛けても、所得税の軽減は課税所得の範囲で頭打ちになり、年間の節税額は約10万1,000円です。所得税がかからない人は所得税の軽減はなく、住民税の軽減だけになります。"}},
+{"@type":"Question","name":"2026年12月に上限が上がると、掛金は自動で増えますか？","acceptedAnswer":{"@type":"Answer","text":"増えません。厚生労働省の案内では、上限が上がっても掛金額を変えたい人は「加入者掛金額変更届」などの手続きが必要とされています。2026年12月分（2027年1月引き落とし分）からの変更は、運営管理機関ごとに2026年9月頃から受付が始まっています。手続きをしない限り、今の掛金額のままです。"}},
+{"@type":"Question","name":"iDeCoの節税は掛金を増やした2026年から受けられますか？","acceptedAnswer":{"@type":"Answer","text":"新しい上限が使えるのは2026年12月分の掛金からです。そのため月6万2,000円を12か月続けた場合の節税額がそのまま当てはまるのは、2027年分以降の1年間です。2026年分は11月分まで旧上限のため、増額の効果は12月分の1か月分だけにとどまります。このページの年間の節税額は「その掛金を12か月続けた場合」の目安としてご覧ください。"}},
+{"@type":"Question","name":"iDeCoには節税以外の注意点がありますか？","acceptedAnswer":{"@type":"Answer","text":"あります。積み立てたお金は原則として60歳まで引き出せません。また、受け取るときには一時金なら退職所得、年金なら雑所得（公的年金等控除の対象）として課税されます。運用商品によっては元本を下回る可能性があり、口座管理手数料等のコストもかかります。節税額だけで判断せず、60歳まで使わないお金かどうかを前提に掛金額を決めてください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/invest/">投資・積立</a> ＞ iDeCo節税シミュレーション</nav>
+<h1>iDeCo節税シミュレーション</h1>
+<p class="lead">たとえば年収500万円・勤務先に企業年金なし・毎月の掛金23,000円の場合、年間の節税額は41,689円（所得税14,089円＋住民税27,600円）が目安です。年収と掛金を入れると、iDeCoの掛金が全額所得控除になることで減る所得税と住民税を、<a href="/tedori/">手取り計算</a>と同じエンジンで税額の差分から計算します。2026年12月分の掛金からの拠出限度額の引き上げにも対応しています。</p>
+<div class="badges"><span class="badge">令和8年対応</span><span class="badge">2026年12月の上限引上げ対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="income">年収（額面）<small>円</small></label><input type="number" id="income" value="5000000" min="0" step="100000" inputmode="numeric"></div>
+<div><label class="flabel" for="pref">勤務先の都道府県<small>協会けんぽの料率</small></label><select id="pref"></select></div>
+<div class="full"><label class="flabel">年齢区分<small>介護保険料の有無</small></label>
+<div class="seg" id="ageSeg"><button type="button" class="on" data-v="u40">40歳未満</button><button type="button" data-v="mid">40歳〜64歳</button></div></div>
+<div class="full"><label class="flabel">加入区分<small>拠出限度額の判定に使います</small></label>
+<div class="seg" id="kubunSeg"><button type="button" class="on" data-v="none">会社員・企業年金なし</button><button type="button" data-v="corp">会社員・企業年金あり</button><button type="button" data-v="public">公務員</button></div></div>
+<div id="otherWrap" style="display:none"><label class="flabel" for="other">企業年金等の掛金・掛金相当額<small>円／月・事業主掛金＋他制度分</small></label><input type="number" id="other" value="20000" min="0" step="1000" inputmode="numeric"></div>
+<div><label class="flabel" for="monthly">毎月の掛金<small>円／5,000円以上・1,000円単位</small></label><input type="number" id="monthly" value="23000" min="0" step="1000" inputmode="numeric"></div>
+<div><label class="flabel" for="years">この掛金を続ける年数<small>年／累計節税額の試算用</small></label><input type="number" id="years" value="20" min="1" max="50" step="1" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="limitNote"></p>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。このページの節税額の試算は会社員（給与所得のみ）を前提にしています。自営業・フリーランス（第1号被保険者）の方は所得の計算方法が異なるため、節税額はこのページでは試算できません（拠出限度額は下の表で確認できます）。年間の節税額は「その掛金を12か月続けた場合」の金額です。新しい上限による増額は2026年12月分の掛金から対象になるため、月62,000円の節税額が12か月分そのまま当てはまるのは2027年分以降です。</p>
+</div>
+
+<h2>iDeCoで税金が減る仕組み</h2>
+<p>iDeCo（個人型確定拠出年金）は、自分で掛金を出し、自分で選んだ商品で運用して、原則60歳以降に受け取る私的年金です。税制上のメリットは3つあります。①掛金の全額が所得控除になる、②運用益が非課税、③受け取るときに一時金なら退職所得控除、年金なら公的年金等控除が使える。このページで計算するのは①の効果です。</p>
+<p>掛金は「小規模企業共済等掛金控除」として、その年に支払った全額が所得から差し引かれます（国税庁タックスアンサー No.1135）。所得税も住民税も「所得から控除を引いた残り（課税所得）」に税率をかけて計算するため、課税所得が下がれば両方の税金が下がります。下がる金額は、あなたの所得税率が高いほど大きくなります。所得税率は課税所得に応じて5％〜45％の7段階で、住民税の所得割は一律10％です。このため同じ掛金でも、年収（正確には課税所得）によって節税額が変わります。</p>
+<p>なお、節税になるのは「税金が減る」のであって「掛金が戻ってくる」わけではありません。掛金は60歳まで引き出せないお金として積み立てられます。節税額とあわせて、実質的な負担額（掛金−節税額）も結果に表示しています。</p>
+
+<h2>節税額の計算方法</h2>
+<p>このページでは、次の手順で計算しています。「掛金×税率」という単純な掛け算はしません。税率の区分をまたぐ場合や、課税所得が掛金より小さい場合に実額とずれるためです。</p>
+<h3>1. iDeCoがない場合の税額を計算する</h3>
+<p>年収から給与所得控除・社会保険料控除・基礎控除などを差し引いて課税所得を求め、所得税（復興特別所得税込み）と住民税を計算します。計算方法は<a href="/shotokuzei-juminzei/">所得税・住民税計算</a>と同じです。</p>
+<h3>2. iDeCoがある場合の税額を計算する</h3>
+<p>課税所得から、年間の掛金（月額×12）をさらに差し引いて、同じ手順で税額を計算します。</p>
+<h3>3. 差額が年間の節税額</h3>
+<span class="formula">年間の節税額 ＝（iDeCoなしの所得税＋住民税）−（iDeCoありの所得税＋住民税）</span>
+<p>たとえば年収500万円・月23,000円（年276,000円）の場合、所得税の課税所得は1,796,000円から1,520,000円に下がり、所得税は91,685円から77,596円へ14,089円減ります。住民税の課税標準額は2,406,000円から2,130,000円に下がり、住民税は243,100円から215,500円へ27,600円減ります。合計の節税額は41,689円です。</p>
+
+<h2>拠出限度額（2026年12月分から引き上げ）</h2>
+<p>掛金は月5,000円以上・1,000円単位で、加入区分ごとに拠出限度額（上限）があります。2026年12月分の掛金（2027年1月引き落とし分）から、この上限が大きく引き上げられます。第2号被保険者は企業年金の有無による違いがなくなり、iDeCoと企業年金等を合わせた共通の上限が月62,000円になります。第3号被保険者（専業主婦・主夫）だけは月23,000円のまま据え置きです。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>加入区分</th><th>2026年11月分まで</th><th>2026年12月分から</th></tr></thead>
+<tbody>
+<tr><td>自営業者・フリーランスなど（第1号）</td><td>月68,000円</td><td>月75,000円</td></tr>
+<tr><td>会社員・企業年金なし（第2号）</td><td>月23,000円</td><td>月62,000円</td></tr>
+<tr><td>会社員・企業年金あり（第2号）</td><td>企業年金等と合わせて月55,000円（iDeCoは月20,000円まで）</td><td>企業年金等と合わせて月62,000円（iDeCo単独の上限は撤廃）</td></tr>
+<tr><td>公務員（第2号）</td><td>月20,000円</td><td>月54,000円（62,000円−共済掛金相当額8,000円）</td></tr>
+<tr><td>専業主婦・主夫（第3号）</td><td>月23,000円</td><td>月23,000円（据え置き）</td></tr>
+</tbody></table></div>
+<p class="note">※第1号の上限は国民年金基金の掛金・付加保険料と合わせた金額です。企業年金ありの会社員は、62,000円から勤務先の事業主掛金額や他制度掛金相当額を差し引いた残りが自分の上限になります。上限が上がっても掛金は自動では増えず、増額には掛金額変更の手続きが必要です。あわせて2026年12月からは、一定の要件を満たせば70歳になるまで加入・拠出できるようになります。</p>
+
+<h2>早見表：月23,000円を掛けた場合の節税額（年額）</h2>
+<p>会社員・企業年金なし・東京都・40歳未満・扶養なしの場合の試算です。月23,000円は2026年11月分までの上限額です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>年収</th><th>所得税の軽減</th><th>住民税の軽減</th><th>年間の節税額</th></tr></thead>
+<tbody>
+<tr><td>300万円</td><td>14,090円</td><td>27,600円</td><td>41,690円</td></tr>
+<tr><td>400万円</td><td>14,090円</td><td>27,600円</td><td>41,690円</td></tr>
+<tr><td>500万円</td><td>14,089円</td><td>27,600円</td><td>41,689円</td></tr>
+<tr><td>600万円</td><td>28,180円</td><td>27,600円</td><td>55,780円</td></tr>
+<tr><td>700万円</td><td>47,579円</td><td>27,600円</td><td>75,179円</td></tr>
+<tr><td>800万円</td><td>56,359円</td><td>27,600円</td><td>83,959円</td></tr>
+<tr><td>1,000万円</td><td>56,359円</td><td>27,600円</td><td>83,959円</td></tr>
+</tbody></table></div>
+<p class="note">※住民税の軽減が年収によらず27,600円（掛金276,000円×10％）なのは、所得割の税率が一律10％だからです。所得税の軽減は課税所得の税率区分で変わり、年収700万円前後で区分が上がるため大きく増えます。</p>
+
+<h2>早見表：月62,000円を掛けた場合の節税額（年額）</h2>
+<p>2026年12月分からの新しい上限（会社員・企業年金なし）で12か月掛けた場合の試算です。前提は上の表と同じです。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>年収</th><th>所得税の軽減</th><th>住民税の軽減</th><th>年間の節税額</th></tr></thead>
+<tbody>
+<tr><td>300万円</td><td>26,648円</td><td>74,400円</td><td>101,048円</td></tr>
+<tr><td>400万円</td><td>37,982円</td><td>74,400円</td><td>112,382円</td></tr>
+<tr><td>500万円</td><td>37,981円</td><td>74,400円</td><td>112,381円</td></tr>
+<tr><td>600万円</td><td>62,894円</td><td>74,400円</td><td>137,294円</td></tr>
+<tr><td>700万円</td><td>95,361円</td><td>74,400円</td><td>169,761円</td></tr>
+<tr><td>800万円</td><td>151,925円</td><td>74,400円</td><td>226,325円</td></tr>
+<tr><td>1,000万円</td><td>151,925円</td><td>74,400円</td><td>226,325円</td></tr>
+</tbody></table></div>
+<p class="note">※年収300万円では年間の掛金744,000円に対して所得税の課税所得が522,000円しかないため、所得税の軽減は頭打ちになります。掛金を増やすほど節税額が増えるとは限らない典型例です。無理のない掛金額で続けることが大切です。</p>
+
+<h2>注意点</h2>
+<p>iDeCoの掛金は、原則として60歳まで引き出せません。途中でお金が必要になっても解約して取り出すことはできないため、生活費や近い将来に使う予定のお金を回さないでください。また、節税は「課税所得がある人」に効く仕組みです。所得税・住民税がもともと少ない人は軽減額も小さくなります。受け取るときの課税（一時金は退職所得、年金は雑所得）や口座の手数料も含めて、総合的に判断してください。積み立てたお金の運用結果そのものは、このページでは試算していません。運用した場合の将来額は<a href="/fukuri-tsumitate/">複利・積立シミュレーション</a>で確認できます。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>iDeCoの節税額はどうやって計算しますか？</summary><p>iDeCoの掛金は全額が小規模企業共済等掛金控除として所得から差し引かれるため、節税額は「iDeCoがない場合の所得税・住民税」と「iDeCoがある場合の所得税・住民税」の差額です。このページでは手取り計算と同じエンジンで両方を計算して差を取っているため、税率の区分をまたぐ場合や、課税所得が掛金より小さい場合でも実額に近い目安になります。単純に「掛金×税率」で計算すると、こうした場合に実額とずれます。</p></details>
+<details class="faq"><summary>年収が低いとiDeCoの節税効果は小さくなりますか？</summary><p>なります。所得控除は課税所得を減らす仕組みなので、もともとの課税所得が小さい人は減らせる幅も小さくなります。たとえば年収300万円で月6万2,000円（年74万4,000円）を掛けても、所得税の軽減は課税所得の範囲で頭打ちになり、年間の節税額は約10万1,000円です。所得税がかからない人は所得税の軽減はなく、住民税の軽減だけになります。</p></details>
+<details class="faq"><summary>2026年12月に上限が上がると、掛金は自動で増えますか？</summary><p>増えません。厚生労働省の案内では、上限が上がっても掛金額を変えたい人は「加入者掛金額変更届」などの手続きが必要とされています。2026年12月分（2027年1月引き落とし分）からの変更は、運営管理機関ごとに2026年9月頃から受付が始まっています。手続きをしない限り、今の掛金額のままです。</p></details>
+<details class="faq"><summary>iDeCoの節税は掛金を増やした2026年から受けられますか？</summary><p>新しい上限が使えるのは2026年12月分の掛金からです。そのため月6万2,000円を12か月続けた場合の節税額がそのまま当てはまるのは、2027年分以降の1年間です。2026年分は11月分まで旧上限のため、増額の効果は12月分の1か月分だけにとどまります。このページの年間の節税額は「その掛金を12か月続けた場合」の目安としてご覧ください。</p></details>
+<details class="faq"><summary>iDeCoには節税以外の注意点がありますか？</summary><p>あります。積み立てたお金は原則として60歳まで引き出せません。また、受け取るときには一時金なら退職所得、年金なら雑所得（公的年金等控除の対象）として課税されます。運用商品によっては元本を下回る可能性があり、口座管理手数料等のコストもかかります。節税額だけで判断せず、60歳まで使わないお金かどうかを前提に掛金額を決めてください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-invest" href="/fukuri-tsumitate/"><span class="ic">積</span><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。iDeCoで積み立てた場合の運用イメージに。</div></a>
+<a class="toolcard" href="/shotokuzei-juminzei/"><span class="ic">税</span><span class="t">所得税・住民税計算</span><div class="d">年収から所得税と住民税をそれぞれ計算。節税前の税額の内訳を確認できます。</div></a>
+<a class="toolcard" href="/tedori/"><span class="ic">手</span><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と早見表つき。</div></a>
+<a class="toolcard" href="/furusato-nozei/"><span class="ic">納</span><span class="t">ふるさと納税 上限計算</span><div class="d">自己負担2,000円で寄附できる上限額の目安を計算。iDeCoと併用する人も多い制度です。</div></a>
+<a class="toolcard c-invest" href="/invest/"><span class="ic">投</span><span class="t">投資・積立の計算ツール一覧</span><div class="d">複利・積立やiDeCoなど、資産づくりの計画に使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-12／更新日：2026-11-12<br>出典：国税庁タックスアンサー No.1135「小規模企業共済等掛金控除」、厚生労働省 Webマガジン「2026年12月からiDeCoがパワーアップ！制度改正の3つのポイント」（2026-10-20）、厚生労働省「2026年12月（2027年1月引き落とし分）から iDeCoの拠出限度額と加入可能年齢が引き上げられます」、国税庁タックスアンサー No.1410・No.1199・No.2260、総務省「個人住民税」、協会けんぽ「令和8年度保険料率」を確認（2026-11-12）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 計算ラボ iDeCo節税エンジン（令和8年／2026年仕様）
+// 手取り計算エンジン（tedori-spec-2026.md で照合済み）と同一の計算に、小規模企業共済等掛金控除（iDeCo掛金の全額）を追加し、
+// 「掛金なしの税額 − 掛金ありの税額」の差分を節税額とする。国税庁 No.1135（控除額は支払った掛金の全額）。
+// 拠出限度額：厚生労働省（2026-12分から第1号75,000円／第2号は企業年金等と合わせて62,000円／公務員54,000円／第3号23,000円据置）
+// 確認日：2026-11-12。テストケースは research/ideco-setsuzei-test.md
+var KENPO_PREFS = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+var KENPO_RATES = [10.28,9.85,9.51,10.10,10.01,9.75,9.50,9.52,9.82,9.68,9.67,9.73,9.85,9.92,9.21,9.59,9.70,9.71,9.55,9.63,9.80,9.61,9.93,9.77,9.88,9.89,10.13,10.12,9.91,10.06,9.86,9.94,10.05,9.78,10.15,10.24,10.02,9.98,10.05,10.11,10.55,10.06,10.08,10.08,9.77,10.13,9.44];
+var KAIGO_RATE = 1.62;
+var SHIEN_RATE = 0.23;
+var NENKIN_RATE = 18.3;
+var KOYO_RATE = 0.5;
+var H_GRADE_MIN = [0,63000,73000,83000,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000,665000,695000,730000,770000,810000,855000,905000,955000,1005000,1055000,1115000,1175000,1235000,1295000,1355000];
+var H_GRADE = [58000,68000,78000,88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000,680000,710000,750000,790000,830000,880000,930000,980000,1030000,1090000,1150000,1210000,1270000,1330000,1390000];
+var P_GRADE_MIN = [0,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000];
+var P_GRADE = [88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000];
+function gradeOf(mins, grades, monthly){
+var g = grades[0];
+for(var i=0;i<mins.length;i++){ if(monthly >= mins[i]) g = grades[i];}
+return g;
+}
+function rhu(x){ return Math.floor(x+0.5);}
+function kyuyoDed(income){
+if(income<=0) return 0;
+var d;
+if(income<=2200000) d=740000;
+else if(income<=3600000) d=income*0.3+80000;
+else if(income<=6600000) d=income*0.2+440000;
+else if(income<=8500000) d=income*0.1+1100000;
+else d=1950000;
+return Math.min(d, income);
+}
+function kisoShotoku(gokei){
+if(gokei<=4890000) return 1040000;
+if(gokei<=6550000) return 670000;
+if(gokei<=23500000) return 620000;
+if(gokei<=24000000) return 480000;
+if(gokei<=24500000) return 320000;
+if(gokei<=25000000) return 160000;
+return 0;
+}
+function kisoJumin(gokei){
+if(gokei<=24000000) return 430000;
+if(gokei<=24500000) return 290000;
+if(gokei<=25000000) return 150000;
+return 0;
+}
+function shotokuTax(base){
+if(base<=0) return 0;
+if(base<=1949000) return Math.round(base*0.05);
+if(base<=3299000) return Math.round(base*0.10)-97500;
+if(base<=6949000) return Math.round(base*0.20)-427500;
+if(base<=8999000) return Math.round(base*0.23)-636000;
+if(base<=17999000) return Math.round(base*0.33)-1536000;
+if(base<=39999000) return Math.round(base*0.40)-2796000;
+return Math.round(base*0.45)-4796000;
+}
+// o: {income, kenpoRate, kaigo, ideco} idecoは年間の掛金（小規模企業共済等掛金控除）
+function computeTax(o){
+var income=o.income, monthly=income/12;
+var hStd=gradeOf(H_GRADE_MIN,H_GRADE,monthly);
+var pStd=gradeOf(P_GRADE_MIN,P_GRADE,monthly);
+var combRate=o.kenpoRate + (o.kaigo?KAIGO_RATE:0) + SHIEN_RATE;
+var kenkoMonthly=rhu(hStd*combRate/100/2);
+var shienMonthly=rhu(hStd*SHIEN_RATE/100/2);
+var kaigoMonthly=o.kaigo? rhu(hStd*KAIGO_RATE/100/2): 0;
+var kenkoOnlyMonthly=kenkoMonthly-shienMonthly-kaigoMonthly;
+var nenkinMonthly=rhu(pStd*NENKIN_RATE/100/2);
+var koyoY=rhu(income*KOYO_RATE/100);
+var shaho=kenkoOnlyMonthly*12 + kaigoMonthly*12 + shienMonthly*12 + nenkinMonthly*12 + koyoY;
+var kyuyo=income-kyuyoDed(income);
+var ideco=o.ideco||0;
+var baseS=Math.max(0, kyuyo-shaho-ideco-kisoShotoku(kyuyo));
+baseS=Math.floor(baseS/1000)*1000;
+var baseTax=shotokuTax(baseS);
+var fukko=Math.floor(baseTax*0.021);
+var shotokuzei=baseTax+fukko;
+var baseJ=Math.max(0, kyuyo-shaho-ideco-kisoJumin(kyuyo));
+baseJ=Math.floor(baseJ/1000)*1000;
+var wari=0, chousei=0, kinto=0, juminzei=0;
+if(kyuyo>450000){
+wari=baseJ*0.10;
+kinto=5000;
+var diff=50000;
+if(kyuyo<=25000000){
+if(baseJ<=2000000) chousei=Math.min(diff, baseJ)*0.05;
+else chousei=Math.max((diff-(baseJ-2000000))*0.05, 2500);
+}
+juminzei=Math.max(wari-chousei,0)+kinto;
+}
+return {shaho:shaho, kyuyo:kyuyo, baseS:baseS, shotokuzei:shotokuzei, baseJ:baseJ, juminzei:juminzei, total:shotokuzei+juminzei};
+}
+function idecoLimits(kubun, other){
+if(kubun==="corp") return {old: Math.max(0, Math.min(20000, 55000-other)), nw: Math.max(0, 62000-other)};
+if(kubun==="public") return {old: 20000, nw: 54000};
+return {old: 23000, nw: 62000};
+}
+//CORE-END
+var ageSeg=document.getElementById("ageSeg"), kubunSeg=document.getElementById("kubunSeg");
+var prefSel=document.getElementById("pref");
+(function(){ var h=""; for(var i=0;i<KENPO_PREFS.length;i++){ h+="<option value='"+KENPO_RATES[i]+"'"+(i===12?" selected":"")+">"+KENPO_PREFS[i]+"（"+KENPO_RATES[i].toFixed(2)+"％）</option>";} prefSel.innerHTML=h;})();
+ageSeg.dataset.age="u40"; kubunSeg.dataset.kubun="none";
+setSeg("ageSeg","age",calc); setSeg("kubunSeg","kubun",calc);
+["income","monthly","years","other"].forEach(function(id){ document.getElementById(id).addEventListener("input", calc);});
+prefSel.addEventListener("change",calc);
+function calc(){
+var isCorp = kubunSeg.dataset.kubun==="corp";
+document.getElementById("otherWrap").style.display = isCorp? "block": "none";
+var income=Math.max(0, num("income"));
+var monthly=Math.max(0, num("monthly"));
+var years=Math.min(50, Math.max(1, Math.floor(num("years")||1)));
+var other=Math.max(0, num("other"));
+var annual=monthly*12;
+var opt={income:income, kenpoRate:parseFloat(prefSel.value), kaigo:ageSeg.dataset.age==="mid", ideco:0};
+var r0=computeTax(opt);
+opt.ideco=annual;
+var r1=computeTax(opt);
+var saveS=r0.shotokuzei-r1.shotokuzei, saveJ=r0.juminzei-r1.juminzei, save=saveS+saveJ;
+var net=annual-save;
+var html="<div>年間の節税額（所得税＋住民税の軽減）</div><div class='big'>"+yen(save)+" 円</div>"+
+stackBar([
+{label:"所得税の軽減", value:saveS, cls:"sg-tax1"},
+{label:"住民税の軽減", value:saveJ, cls:"sg-tax2"},
+{label:"節税後の実質負担", value:Math.max(0,net), cls:"sg-self"}
+])+
+"<table>"+
+"<tr><td>年間の掛金（月"+yen(monthly)+"円×12か月）</td><td>"+yen(annual)+" 円</td></tr>"+
+"<tr><td>所得税（iDeCoなし → あり）</td><td>"+yen(r0.shotokuzei)+" 円 → "+yen(r1.shotokuzei)+" 円</td></tr>"+
+"<tr><td>所得税の軽減額</td><td>−"+yen(saveS)+" 円</td></tr>"+
+"<tr><td>住民税（iDeCoなし → あり）</td><td>"+yen(r0.juminzei)+" 円 → "+yen(r1.juminzei)+" 円</td></tr>"+
+"<tr><td>住民税の軽減額</td><td>−"+yen(saveJ)+" 円</td></tr>"+
+"<tr><td>年間の節税額 合計</td><td>"+yen(save)+" 円</td></tr>"+
+"<tr><td>節税後の実質負担（掛金−節税額）</td><td>"+yen(net)+" 円／年</td></tr>"+
+"<tr><td>所得税の課税所得（なし → あり）</td><td>"+yen(r0.baseS)+" 円 → "+yen(r1.baseS)+" 円</td></tr>"+
+"<tr><td>"+years+"年間続けた場合の節税累計（単純合計）</td><td>"+yen(save*years)+" 円</td></tr>"+
+"</table>"+
+"<p>年収 "+yen(income)+" 円・月 "+yen(monthly)+" 円の掛金では、年間 "+yen(save)+" 円の税金が軽くなります。掛金は60歳まで引き出せない積立であり、節税分だけが戻ってくるわけではありません。</p>";
+document.getElementById("resultBox").innerHTML=html;
+var lim=idecoLimits(kubunSeg.dataset.kubun, other);
+var lt;
+if(monthly>lim.nw) lt="拠出限度額の判定：月 "+yen(monthly)+" 円は、2026年12月分からの上限（月 "+yen(lim.nw)+" 円）も超えています。上限の範囲内に下げて計算し直してください（この結果は上限超過分を含む試算です）。";
+else if(monthly>lim.old) lt="拠出限度額の判定：月 "+yen(monthly)+" 円は現在の上限（2026年11月分まで月 "+yen(lim.old)+" 円）を超えていますが、2026年12月分からの上限（月 "+yen(lim.nw)+" 円）の範囲内です。増額には掛金額変更の手続きが必要です。";
+else lt="拠出限度額の判定：月 "+yen(monthly)+" 円は現在の上限（2026年11月分まで月 "+yen(lim.old)+" 円）の範囲内です。2026年12月分からの上限は月 "+yen(lim.nw)+" 円です。";
+if(kubunSeg.dataset.kubun==="corp") lt+=" 企業年金ありの上限は、62,000円（旧制度は55,000円）から企業年金等の掛金・掛金相当額（月 "+yen(other)+" 円）を差し引いて判定しています。";
+if(monthly>0 && monthly<5000) lt+=" 掛金は月5,000円以上が制度上のルールです。";
+document.getElementById("limitNote").textContent=lt;
+document.getElementById("premiseNote").textContent=
+"前提：会社員・協会けんぽ（"+KENPO_PREFS[prefSel.selectedIndex]+"、令和8年度 健康保険料率"+parseFloat(prefSel.value).toFixed(2)+"％）・賞与なし（年収＝月給×12）・配偶者控除／扶養控除なしで計算しています。所得税は令和8年分、住民税はその所得に対して翌年度に課税される年額です。節税累計は年収・掛金が変わらない前提の単純合計で、運用益は含みません。";
+}
+presets("income",[3000000,4000000,5000000,6000000,8000000,10000000],function(v){return (v/10000)+"万円";});
+presets("monthly",[5000,10000,20000,23000,62000],function(v){return yen(v)+"円";});
+calc();
+</script>
+</body>
+</html>
