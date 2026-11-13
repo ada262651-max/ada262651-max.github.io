@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電気代計算｜家電の消費電力（W）と使用時間から1か月・1年の電気代を計算</title>
+<meta name="description" content="家電の消費電力（W）と1日の使用時間・日数を入れると、電気代を1時間・1日・1か月・1年で計算。単価は家電公取協の目安単価31円/kWh（税込）が初期値で、自分の契約単価にも変更可能。早見表と家電別の目安つき。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/denkidai/">
+<meta property="og:title" content="電気代計算｜計算ラボ">
+<meta property="og:description" content="消費電力（W）と使用時間から、家電の電気代を1か月・1年で計算。目安単価31円/kWh対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"電気代計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/denkidai/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"電気代計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"電気代の計算式を教えてください","acceptedAnswer":{"@type":"Answer","text":"電気代は「消費電力（W）÷ 1,000 × 使用時間（時間）× 1kWhあたりの単価（円）」で計算します。たとえば消費電力1,000Wの家電を3時間使うと使用量は3kWhになり、単価31円/kWhでは93円です。Wを1,000で割るのは、単価が1kW（=1,000W）を1時間使った量＝1kWhに対する金額だからです。"}},
+{"@type":"Question","name":"1kWhあたり31円という単価は何ですか？","acceptedAnswer":{"@type":"Answer","text":"全国家庭電気製品公正取引協議会（家電公取協）が定めた「電力料金目安単価」で、現在の値は2022年7月22日に改定された31円/kWh（税込）です。電力料金は契約する小売電気事業者によって異なるため、経済産業省の電力取引報の集計値などをもとに、家電の電気代を比べるための共通の目安として算出されています。自分の契約の単価そのものではないため、請求額に近づけたい場合は検針票などから出した自分の単価に変更して計算してください。"}},
+{"@type":"Question","name":"自分の家の電気代の単価（1kWhいくら）はどう調べますか？","acceptedAnswer":{"@type":"Answer","text":"目安としては、検針票（電気ご使用量のお知らせ）やWeb明細の「請求金額 ÷ 使用量（kWh）」で出せます。ただし請求金額には基本料金や燃料費調整額、再エネ賦課金が含まれるため、この割り算は契約の従量単価そのものではなく、平均単価の目安です。契約プランの従量単価は、電力会社の料金表で使用量の段階（第1〜第3段階など）ごとに確認できます。"}},
+{"@type":"Question","name":"計算した金額と実際の請求がずれるのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"このツールが計算するのは、使った電力量に応じた金額だけだからです。実際の請求には、契約アンペア等で決まる基本料金、月ごとに変わる燃料費調整額、再生可能エネルギー発電促進賦課金（再エネ賦課金）が加わります。また、多くの料金プランは使用量に応じて単価が上がる段階制です。さらにエアコンなどは設定温度や室温で消費電力が大きく変わり、カタログの定格消費電力のまま動き続けるわけではないため、その点でも差が出ます。"}},
+{"@type":"Question","name":"消費電力（W）と消費電力量（kWh）は何が違いますか？","acceptedAnswer":{"@type":"Answer","text":"消費電力（W）は、その家電が動いている瞬間に使う電気の大きさです。消費電力量（kWh）は、消費電力を時間分積み上げた「使った電気の量」で、電気代はこのkWhに対してかかります。たとえば500Wの家電を2時間使うと0.5kW×2時間＝1kWhです。短時間しか使わない家電は、Wが大きくても電気代は意外に小さい、ということが起きます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ 電気代計算</nav>
+<h1>電気代計算</h1>
+<p class="lead">たとえば消費電力1,000Wの家電を1日3時間・月30日使うと、使用量は月90kWh、電気代は月2,790円（目安単価31円/kWh）が目安です。家電の消費電力（W）と使用時間を入れると、電気代を1時間・1日・1か月・1年で計算します。単価は変更できるので、自分の契約単価でも計算できます。</p>
+<div class="badges"><span class="badge">目安単価31円/kWh対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="watt">消費電力 <small>W（ワット）</small></label><input type="number" id="watt" value="1000" min="0" step="10" inputmode="numeric"></div>
+<div><label class="flabel" for="price">1kWhあたりの単価 <small>円／初期値は目安単価31円</small></label><input type="number" id="price" value="31" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="hours">1日の使用時間 <small>時間（15分＝0.25、10分≒0.17）</small></label><input type="number" id="hours" value="3" min="0" step="0.5" inputmode="decimal"></div>
+<div><label class="flabel" for="days">1か月の使用日数 <small>日</small></label><input type="number" id="days" value="30" min="0" max="31" step="1" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※このツールが計算するのは、使った電力量（kWh）に応じた金額のみです。実際の請求に加わる基本料金・燃料費調整額・再エネ賦課金は含みません。消費電力は家電の本体表示や取扱説明書で確認できます。</p>
+</div>
+
+<h2>電気代の計算方法</h2>
+<span class="formula">電気代 ＝ 消費電力（W）÷ 1,000 × 使用時間（時間）× 1kWhあたりの単価（円）</span>
+<p>ポイントは、W（ワット）を1,000で割ってkW（キロワット）に直すことです。電気料金の単価は「1kWの電力を1時間使った量＝1kWh」に対して決められているため、まず使った電気の量（kWh）を出し、それに単価を掛けます。1,000Wの家電なら1時間でちょうど1kWh、500Wなら2時間で1kWhになります。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>使用量</th><th>電気代（単価31円）</th></tr></thead>
+<tbody>
+<tr><td>1,000Wを1日3時間・月30日</td><td>1日3kWh／月90kWh</td><td>1日93円／月2,790円／年33,480円</td></tr>
+<tr><td>500Wを1日8時間・月30日</td><td>1日4kWh／月120kWh</td><td>1日124円／月3,720円／年44,640円</td></tr>
+<tr><td>100Wを1日5時間・月30日</td><td>1日0.5kWh／月15kWh</td><td>1日15.5円／月465円／年5,580円</td></tr>
+<tr><td>1,200Wを1日15分（0.25時間）・月30日</td><td>1日0.3kWh／月9kWh</td><td>1日9.3円／月279円／年3,348円</td></tr>
+</tbody></table></div>
+<p>最後の例のように、消費電力が大きい家電でも使う時間が短ければ電気代は小さくなります。逆に、Wが小さくても24時間つけっぱなしの家電は、使用時間が効いて月単位では無視できない金額になります。</p>
+
+<h2>目安単価31円/kWhとは（自分の単価との違い）</h2>
+<p>このツールの初期値31円/kWhは、全国家庭電気製品公正取引協議会（家電公取協）が定めた電力料金の目安単価（税込）です。電力料金は契約する小売電気事業者によって異なるため、経済産業省 電力・ガス取引監視等委員会が公表する「電力取引報」の集計値などをもとに算出された、家電の電気代を比べるための共通の物差しで、現在の値は2022年7月22日に改定されたものです。家電のカタログに載っている「電気代 約○円」という表示も、この単価で計算されています。</p>
+<p>ただし、これは全国の目安であって、あなたの契約の単価そのものではありません。多くの家庭向けプランでは、使用量が増えるほど単価が上がる3段階制になっており、さらに基本料金・燃料費調整額・再エネ賦課金が別に加わります。自分の請求に近い数字で計算したいときは、検針票の「請求金額 ÷ 使用量（kWh）」で出した平均単価を単価欄に入れてみてください（基本料金等を含む平均の目安になります）。契約プランの従量単価そのものは、電力会社の料金表で確認できます。</p>
+
+<h2>早見表：消費電力別の電気代（単価31円/kWh）</h2>
+<p>1日3時間・月30日使った場合の目安です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>消費電力</th><th>1時間の電気代</th><th>1か月の使用量</th><th>1か月の電気代</th></tr></thead>
+<tbody>
+<tr><td>10W</td><td>0.31円</td><td>0.9kWh</td><td>27.9円</td></tr>
+<tr><td>50W</td><td>1.55円</td><td>4.5kWh</td><td>139.5円</td></tr>
+<tr><td>100W</td><td>3.1円</td><td>9kWh</td><td>279円</td></tr>
+<tr><td>300W</td><td>9.3円</td><td>27kWh</td><td>837円</td></tr>
+<tr><td>500W</td><td>15.5円</td><td>45kWh</td><td>1,395円</td></tr>
+<tr><td>1,000W</td><td>31円</td><td>90kWh</td><td>2,790円</td></tr>
+<tr><td>1,200W</td><td>37.2円</td><td>108kWh</td><td>3,348円</td></tr>
+<tr><td>1,500W</td><td>46.5円</td><td>135kWh</td><td>4,185円</td></tr>
+</tbody></table></div>
+
+<h2>家電別の目安：消費電力と1か月の電気代の例</h2>
+<p>下の消費電力は一般的な目安の例です。機種や使い方で大きく変わるため、正確にはお使いの家電の表示値で上の計算機に入れ直してください。エアコンは設定温度や室温で消費電力が変動し、表示値のまま動き続けるわけではありません。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>家電（目安の消費電力）</th><th>1日の使用の例</th><th>1か月の使用量</th><th>1か月の電気代</th></tr></thead>
+<tbody>
+<tr><td>LED照明（10W）</td><td>5時間</td><td>1.5kWh</td><td>約47円</td></tr>
+<tr><td>ノートパソコン（50W）</td><td>8時間</td><td>12kWh</td><td>372円</td></tr>
+<tr><td>液晶テレビ（100W）</td><td>5時間</td><td>15kWh</td><td>465円</td></tr>
+<tr><td>電子レンジ（1,200W）</td><td>15分</td><td>9kWh</td><td>279円</td></tr>
+<tr><td>ヘアドライヤー（1,200W）</td><td>10分</td><td>6kWh</td><td>186円</td></tr>
+<tr><td>エアコン冷房（500W）</td><td>8時間</td><td>120kWh</td><td>3,720円</td></tr>
+<tr><td>電気ストーブ（1,000W）</td><td>3時間</td><td>90kWh</td><td>2,790円</td></tr>
+</tbody></table></div>
+<p class="note">※単価31円/kWh・月30日で計算。冷蔵庫のように24時間動く家電は、製品表示の「年間消費電力量（kWh/年）」に単価を掛けると年間の電気代が出ます（例：年間300kWhなら年9,300円）。</p>
+
+<h2>注意点</h2>
+<p>結果は目安です。実際の電気代は、契約プランの段階料金、基本料金、燃料費調整額（月ごとに変動）、再エネ賦課金（年度ごとに変動）によって変わります。また、家電の消費電力は運転状況で変動します。とくにエアコン・冷蔵庫などのインバーター機は、部屋が適温に近づくと消費電力が下がるため、定格値で計算すると高めに出ます。逆に電気ストーブやドライヤーのように出力がほぼ一定の家電は、この計算が実額に近くなります。待機電力（コンセントにつないでいるだけで消費する電力）も別途かかりますが、1台あたりは小さく、このツールでは扱っていません。</p>
+<p>節電を考えるときは、「Wが大きい家電」より「W × 時間が大きい家電」から見直すのが近道です。暖房器具やエアコンの使用時間、つけっぱなしの照明などが効きます。金額の感覚を掴んだら、日常のお金の計算には<a href="/shohizei/">消費税計算</a>や<a href="/waribiki/">割引計算</a>もあわせてどうぞ。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>電気代の計算式を教えてください</summary><p>電気代は「消費電力（W）÷ 1,000 × 使用時間（時間）× 1kWhあたりの単価（円）」で計算します。たとえば消費電力1,000Wの家電を3時間使うと使用量は3kWhになり、単価31円/kWhでは93円です。Wを1,000で割るのは、単価が1kW（=1,000W）を1時間使った量＝1kWhに対する金額だからです。</p></details>
+<details class="faq"><summary>1kWhあたり31円という単価は何ですか？</summary><p>全国家庭電気製品公正取引協議会（家電公取協）が定めた「電力料金目安単価」で、現在の値は2022年7月22日に改定された31円/kWh（税込）です。電力料金は契約する小売電気事業者によって異なるため、経済産業省の電力取引報の集計値などをもとに、家電の電気代を比べるための共通の目安として算出されています。自分の契約の単価そのものではないため、請求額に近づけたい場合は検針票などから出した自分の単価に変更して計算してください。</p></details>
+<details class="faq"><summary>自分の家の電気代の単価（1kWhいくら）はどう調べますか？</summary><p>目安としては、検針票（電気ご使用量のお知らせ）やWeb明細の「請求金額 ÷ 使用量（kWh）」で出せます。ただし請求金額には基本料金や燃料費調整額、再エネ賦課金が含まれるため、この割り算は契約の従量単価そのものではなく、平均単価の目安です。契約プランの従量単価は、電力会社の料金表で使用量の段階（第1〜第3段階など）ごとに確認できます。</p></details>
+<details class="faq"><summary>計算した金額と実際の請求がずれるのはなぜですか？</summary><p>このツールが計算するのは、使った電力量に応じた金額だけだからです。実際の請求には、契約アンペア等で決まる基本料金、月ごとに変わる燃料費調整額、再生可能エネルギー発電促進賦課金（再エネ賦課金）が加わります。また、多くの料金プランは使用量に応じて単価が上がる段階制です。さらにエアコンなどは設定温度や室温で消費電力が大きく変わり、カタログの定格消費電力のまま動き続けるわけではないため、その点でも差が出ます。</p></details>
+<details class="faq"><summary>消費電力（W）と消費電力量（kWh）は何が違いますか？</summary><p>消費電力（W）は、その家電が動いている瞬間に使う電気の大きさです。消費電力量（kWh）は、消費電力を時間分積み上げた「使った電気の量」で、電気代はこのkWhに対してかかります。たとえば500Wの家電を2時間使うと0.5kW×2時間＝1kWhです。短時間しか使わない家電は、Wが大きくても電気代は意外に小さい、ということが起きます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/nenrei/"><span class="ic">齢</span><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・生まれてからの日数を計算します。</div></a>
+<a class="toolcard" href="/shohizei/"><span class="ic">消</span><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。10%と軽減税率8%の切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/waribiki/"><span class="ic">割</span><span class="t">割引計算</span><div class="d">「30%オフはいくら？」「2割5分引きは？」を即計算。割引額と実際に払う割合も分かります。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-13／更新日：2026-11-13<br>出典：公益社団法人 全国家庭電気製品公正取引協議会「よくある質問」Q7（電力料金の目安単価は令和4年7月22日改定の31円/kWh・税込、算出根拠は経済産業省 電力・ガス取引監視等委員会公表「電力取引報」の集計値など）を確認（2026-11-13）。計算例は research/denkidai-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+["watt","price","hours","days"].forEach(function(id){ document.getElementById(id).addEventListener("input", calc);});
+function fmtYen(x){
+var r=Math.round(x*100)/100;
+return r.toLocaleString("ja-JP",{minimumFractionDigits:0, maximumFractionDigits:2})+" 円";
+}
+function fmtKwh(x){
+var r=Math.round(x*1000)/1000;
+return r.toLocaleString("ja-JP",{minimumFractionDigits:0, maximumFractionDigits:3})+" kWh";
+}
+function calc(){
+var watt=Math.max(0, num("watt"));
+var price=Math.max(0, num("price"));
+var hours=Math.max(0, num("hours"));
+var days=Math.min(31, Math.max(0, num("days")));
+var kwhH=watt/1000;
+var kwhD=kwhH*hours;
+var kwhM=kwhD*days;
+var kwhY=kwhM*12;
+var cH=kwhH*price, cD=kwhD*price, cM=kwhM*price, cY=kwhY*price;
+document.getElementById("resultBox").innerHTML=
+"<div>1か月の電気代（"+days+"日）</div><div class='big'>"+fmtYen(cM)+"</div>"+
+"<table>"+
+"<tr><td>1時間あたり</td><td>"+fmtKwh(kwhH)+" ／ "+fmtYen(cH)+"</td></tr>"+
+"<tr><td>1日あたり（"+hours+"時間）</td><td>"+fmtKwh(kwhD)+" ／ "+fmtYen(cD)+"</td></tr>"+
+"<tr><td>1か月あたり（"+days+"日）</td><td>"+fmtKwh(kwhM)+" ／ "+fmtYen(cM)+"</td></tr>"+
+"<tr><td>1年あたり（1か月×12）</td><td>"+fmtKwh(kwhY)+" ／ "+fmtYen(cY)+"</td></tr>"+
+"<tr><td>計算に使った単価</td><td>1kWhあたり "+fmtYen(price)+"</td></tr>"+
+"</table>"+
+"<p>消費電力 "+yen(watt)+" Wの家電を1日 "+hours+" 時間・月 "+days+" 日使うと、電気代は月 "+fmtYen(cM)+"、年 "+fmtYen(cY)+" が目安です（基本料金・燃料費調整額・再エネ賦課金は含みません）。</p>";
+}
+presets("watt",[50,100,500,1000,1200,1500],function(v){return yen(v)+"W";});
+presets("price",[27,31,35,40],function(v){return yen(v)+"円";});
+calc();
+</script>
+</body>
+</html>
