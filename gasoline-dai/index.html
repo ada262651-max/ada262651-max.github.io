@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ガソリン代計算｜距離と燃費から燃料代・使用量・割り勘・月額を計算</title>
+<meta name="description" content="走行距離と燃費、ガソリン単価を入れると、ガソリン代と使用量を1回・1か月・1年で計算。往復対応、割り勘（1人あたり）、1kmあたりの単価も表示。単価の初期値はレギュラー全国平均170.0円/L（資源エネルギー庁・2026年11月2日調査）。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/gasoline-dai/">
+<meta property="og:title" content="ガソリン代計算｜計算ラボ">
+<meta property="og:description" content="距離÷燃費×単価でガソリン代を計算。往復・割り勘・通勤の月額にも対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ガソリン代計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/gasoline-dai/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"ガソリン代計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"ガソリン代の計算式を教えてください","acceptedAnswer":{"@type":"Answer","text":"ガソリン代は「走行距離（km）÷ 燃費（km/L）× ガソリン単価（円/L）」で計算します。まず距離を燃費で割って使うガソリンの量（L）を出し、それに1リットルあたりの単価を掛けます。たとえば100kmを燃費15km/Lの車で走り、単価が170円/Lなら、使用量は約6.67L、ガソリン代は約1,133円です。"}},
+{"@type":"Question","name":"燃費はカタログの値（WLTCモード）で計算してよいですか？","acceptedAnswer":{"@type":"Answer","text":"目安にはなりますが、実際の燃費はカタログ値より低くなるのが普通です。カタログ燃費は国土交通省が審査するWLTCモードという決まった条件で測った値で、渋滞、エアコン、荷物、急な加減速がある実走行とは条件が違います。実燃費はカタログ値の7〜8割程度になることも多いため、予算を少し余裕を持って見積もるなら、車のメーターに表示される実燃費か、カタログ値より低めの値で計算してください。"}},
+{"@type":"Question","name":"ガソリンの全国平均価格はいくらですか？","acceptedAnswer":{"@type":"Answer","text":"資源エネルギー庁の石油製品価格調査（給油所小売価格調査）では、レギュラーガソリンの全国平均は2026年11月2日調査で170.0円/L（税込・現金価格）、2026年11月9日調査で169.9円/Lでした。この調査は全国の給油所を対象に毎週行われ、価格は地域や店舗で大きく異なります。このツールの初期値は170円にしていますが、実際に給油する店舗の価格に変えて計算してください。"}},
+{"@type":"Question","name":"ハイオクや軽油でも計算できますか？","acceptedAnswer":{"@type":"Answer","text":"できます。計算式は燃料の種類によらず同じです。単価欄をハイオクや軽油の価格に変えてください。参考として、2026年11月2日調査の全国平均はハイオク180.9円/L、軽油159.5円/Lでした。燃費欄には、その燃料で走る車の燃費を入れてください。"}},
+{"@type":"Question","name":"高速料金や駐車料金は含まれますか？","acceptedAnswer":{"@type":"Answer","text":"含まれません。このツールが計算するのは燃料代だけです。ドライブの総額を見積もる場合は、出たガソリン代に高速料金・駐車料金・レンタカー代などを別に加えてください。割り勘の人数欄はガソリン代だけを割る計算なので、高速料金などを一緒に割りたい場合は、その分を加えたうえで人数で割ってください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ ガソリン代計算</nav>
+<h1>ガソリン代計算</h1>
+<p class="lead">たとえば100kmを燃費15km/Lの車で走ると、使用量は約6.67L、ガソリン代は約1,133円（単価170円/L）、1kmあたり約11.33円が目安です。片道距離と燃費・単価を入れると、ガソリン代と使用量を1回・1か月・1年で計算します。往復と割り勘、通勤のような毎月の繰り返しにも対応します。</p>
+<div class="badges"><span class="badge">全国平均170円/Lが初期値</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="dist">片道の走行距離 <small>km</small></label><input type="number" id="dist" value="100" min="0" step="10" inputmode="decimal"></div>
+<div><label class="flabel">片道／往復</label><div class="seg" id="tripSeg"><button type="button" class="on" data-v="1">片道</button><button type="button" data-v="2">往復</button></div></div>
+<div><label class="flabel" for="nenpi">燃費 <small>km/L・1Lで走れる距離</small></label><input type="number" id="nenpi" value="15" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="price">ガソリン単価 <small>円/L・初期値は全国平均170円</small></label><input type="number" id="price" value="170" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="times">1か月にこの走行をする回数 <small>回・通勤は出勤日数など</small></label><input type="number" id="times" value="1" min="0" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="people">割り勘の人数 <small>人・自分だけなら1人</small></label><input type="number" id="people" value="1" min="1" step="1" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※このツールが計算するのは燃料代のみです。高速料金・駐車料金・車検や保険などの維持費は含みません。燃費と単価は実際の値に変えて計算してください。</p>
+</div>
+
+<h2>ガソリン代の計算方法</h2>
+<span class="formula">ガソリン代 ＝ 走行距離（km）÷ 燃費（km/L）× ガソリン単価（円/L）</span>
+<p>手順は2段階です。まず「走行距離 ÷ 燃費」で、使うガソリンの量（リットル）を出します。燃費は「ガソリン1リットルで何km走れるか」という数字なので、走りたい距離をその数字で割れば、必要なリットル数が分かります。次に、そのリットル数に1リットルあたりの単価を掛けるとガソリン代になります。あわせて覚えておくと便利なのが「1kmあたりの燃料代 ＝ 単価 ÷ 燃費」で、距離が分からない段階でも、燃費と単価だけで大まかな移動コストを見積もれます。</p>
+<p>端数処理は、途中の使用量を丸めずに最後まで計算し、金額は円未満を四捨五入して1円単位で表示します。使用量は小数第2位まで、1kmあたりは小数第2位まで表示します。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>使用量</th><th>ガソリン代（単価170円/L）</th></tr></thead>
+<tbody>
+<tr><td>100km・燃費15km/L（片道）</td><td>6.67L</td><td>1,133円／1kmあたり11.33円</td></tr>
+<tr><td>片道100kmの往復200km・燃費15km/L・4人</td><td>13.33L</td><td>2,267円／1人あたり567円</td></tr>
+<tr><td>500km・燃費20km/L（片道）</td><td>25.00L</td><td>4,250円／1kmあたり8.50円</td></tr>
+<tr><td>片道15kmの通勤を往復・月20回・燃費15km/L</td><td>1回2.00L</td><td>1回340円／月6,800円／年81,600円</td></tr>
+</tbody></table></div>
+<p>通勤の例のように、1回あたりは小さく見えても、月に何十回も繰り返すと大きな金額になります。逆に長距離ドライブは1回の金額が大きくても、人数で割れば1人あたりは抑えられます。どちらの使い方でも、この計算機は同じ入力の組み替えで対応できます。</p>
+
+<h2>燃費はどの値を使うか（カタログ燃費と実燃費）</h2>
+<p>車のカタログや諸元表に載っている燃費は、国土交通省が審査するWLTCモードという国際的な試験条件で測った値です。市街地・郊外・高速道路の走り方を組み合わせた総合値のほか、それぞれのモード別の値も表示されています。ただし試験は決まった条件で行われるため、渋滞の多い道、エアコンの使用、荷物や乗員、タイヤの空気圧、急な加減速といった実際の条件は反映されません。そのため実燃費はカタログ値の7〜8割程度になることも珍しくありません。</p>
+<p>正確に見積もるなら、自分の車の実燃費を使うのがいちばんです。最近の車はメーター内に平均燃費が表示されますし、満タン法（満タンにして走り、次の給油量とその間に走った距離から割る）でも出せます。実燃費が分からない段階では、カタログ値から少し低めの数字を入れて、予算に余裕を持たせるのが無難です。燃費が1km/L違うだけで、長距離や月単位では金額がはっきり変わります。下の燃費別早見表で、その差の大きさを確認できます。</p>
+
+<h2>ガソリン単価について（全国平均と自分の店舗価格）</h2>
+<p>このツールの初期値170円/Lは、資源エネルギー庁が毎週公表する「石油製品価格調査（給油所小売価格調査）」のレギュラーガソリン全国平均をもとにしています。直近では2026年11月2日調査で170.0円/L（税込・現金価格）、2026年11月9日調査で169.9円/Lでした。同じ調査の2026年11月2日時点では、ハイオクが180.9円/L、軽油が159.5円/Lです。</p>
+<p>全国平均はあくまで水準を知るための目安で、実際の価格は都道府県や店舗、会員価格・カード割引の有無で数円から十円以上変わります。自分の支出に近づけたい場合は、いつも給油する店舗の表示価格を単価欄に入れてください。価格は毎週動くため、少し前の価格で計算した結果と実際の給油額がずれることもあります。</p>
+
+<h2>早見表：距離別のガソリン代（燃費15km/L・単価170円/L）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>走行距離</th><th>使用量</th><th>ガソリン代</th></tr></thead>
+<tbody>
+<tr><td>10km</td><td>0.67L</td><td>113円</td></tr>
+<tr><td>30km</td><td>2.00L</td><td>340円</td></tr>
+<tr><td>50km</td><td>3.33L</td><td>567円</td></tr>
+<tr><td>100km</td><td>6.67L</td><td>1,133円</td></tr>
+<tr><td>200km</td><td>13.33L</td><td>2,267円</td></tr>
+<tr><td>300km</td><td>20.00L</td><td>3,400円</td></tr>
+<tr><td>500km</td><td>33.33L</td><td>5,667円</td></tr>
+<tr><td>1,000km</td><td>66.67L</td><td>11,333円</td></tr>
+</tbody></table></div>
+
+<h2>早見表：燃費別のガソリン代（100km・単価170円/L）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>燃費</th><th>使用量</th><th>ガソリン代</th><th>1kmあたり</th></tr></thead>
+<tbody>
+<tr><td>8km/L</td><td>12.50L</td><td>2,125円</td><td>21.25円</td></tr>
+<tr><td>10km/L</td><td>10.00L</td><td>1,700円</td><td>17.00円</td></tr>
+<tr><td>12km/L</td><td>8.33L</td><td>1,417円</td><td>14.17円</td></tr>
+<tr><td>15km/L</td><td>6.67L</td><td>1,133円</td><td>11.33円</td></tr>
+<tr><td>18km/L</td><td>5.56L</td><td>944円</td><td>9.44円</td></tr>
+<tr><td>20km/L</td><td>5.00L</td><td>850円</td><td>8.50円</td></tr>
+<tr><td>25km/L</td><td>4.00L</td><td>680円</td><td>6.80円</td></tr>
+</tbody></table></div>
+<p>同じ100kmでも、燃費8km/Lの車と25km/Lの車ではガソリン代が3倍以上違います。車選びや買い替えを考えるときは、車両価格だけでなく、この「1kmあたり」の差に年間走行距離を掛けた年間の差で比べると、総額の感覚がつかみやすくなります。家計の固定費という点では、電気代も同じ考え方で見直せます。<a href="/denkidai/">電気代計算</a>もあわせてどうぞ。</p>
+
+<h2>注意点</h2>
+<p>結果は目安です。実際の使用量は、渋滞やエアコン、勾配、荷物、運転の仕方で変わり、カタログ燃費で計算すると実額より低めに出ることがあります。また、ガソリン価格は週ごとに変動し、地域差も大きいため、単価は最新の店舗価格に合わせてください。このツールは燃料代だけを計算し、高速料金・駐車料金・オイルやタイヤなどの消耗品、車検・保険・税金といった維持費は含みません。通勤手当や経費精算の計算に使う場合は、勤務先の規程（支給単価や対象距離）が優先しますので、規程もあわせて確認してください。日常のお金の計算には<a href="/shohizei/">消費税計算</a>や<a href="/waribiki/">割引計算</a>も便利です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>ガソリン代の計算式を教えてください</summary><p>ガソリン代は「走行距離（km）÷ 燃費（km/L）× ガソリン単価（円/L）」で計算します。まず距離を燃費で割って使うガソリンの量（L）を出し、それに1リットルあたりの単価を掛けます。たとえば100kmを燃費15km/Lの車で走り、単価が170円/Lなら、使用量は約6.67L、ガソリン代は約1,133円です。</p></details>
+<details class="faq"><summary>燃費はカタログの値（WLTCモード）で計算してよいですか？</summary><p>目安にはなりますが、実際の燃費はカタログ値より低くなるのが普通です。カタログ燃費は国土交通省が審査するWLTCモードという決まった条件で測った値で、渋滞、エアコン、荷物、急な加減速がある実走行とは条件が違います。実燃費はカタログ値の7〜8割程度になることも多いため、予算を少し余裕を持って見積もるなら、車のメーターに表示される実燃費か、カタログ値より低めの値で計算してください。</p></details>
+<details class="faq"><summary>ガソリンの全国平均価格はいくらですか？</summary><p>資源エネルギー庁の石油製品価格調査（給油所小売価格調査）では、レギュラーガソリンの全国平均は2026年11月2日調査で170.0円/L（税込・現金価格）、2026年11月9日調査で169.9円/Lでした。この調査は全国の給油所を対象に毎週行われ、価格は地域や店舗で大きく異なります。このツールの初期値は170円にしていますが、実際に給油する店舗の価格に変えて計算してください。</p></details>
+<details class="faq"><summary>ハイオクや軽油でも計算できますか？</summary><p>できます。計算式は燃料の種類によらず同じです。単価欄をハイオクや軽油の価格に変えてください。参考として、2026年11月2日調査の全国平均はハイオク180.9円/L、軽油159.5円/Lでした。燃費欄には、その燃料で走る車の燃費を入れてください。</p></details>
+<details class="faq"><summary>高速料金や駐車料金は含まれますか？</summary><p>含まれません。このツールが計算するのは燃料代だけです。ドライブの総額を見積もる場合は、出たガソリン代に高速料金・駐車料金・レンタカー代などを別に加えてください。割り勘の人数欄はガソリン代だけを割る計算なので、高速料金などを一緒に割りたい場合は、その分を加えたうえで人数で割ってください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/denkidai/"><span class="ic">電</span><span class="t">電気代計算</span><div class="d">家電の消費電力（W）と使用時間から、電気代を1時間・1日・1か月・1年で計算。目安単価31円/kWh対応。</div></a>
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/nenrei/"><span class="ic">齢</span><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・生まれてからの日数を計算します。</div></a>
+<a class="toolcard" href="/shohizei/"><span class="ic">消</span><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。10%と軽減税率8%の切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/waribiki/"><span class="ic">割</span><span class="t">割引計算</span><div class="d">「30%オフはいくら？」「2割5分引きは？」を即計算。割引額と実際に払う割合も分かります。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-14／更新日：2026-11-14<br>出典：資源エネルギー庁「石油製品価格調査（給油所小売価格調査）」レギュラー全国平均170.0円/L（税込・現金価格、2026年11月2日調査・11月5日公表）および169.9円/L（2026年11月9日調査）を確認（2026-11-14）。燃費の表示（WLTCモード）は国土交通省の審査値である旨を確認。計算例は research/gasoline-dai-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+["dist","nenpi","price","times","people"].forEach(function(id){ document.getElementById(id).addEventListener("input", calc);});
+function fmtYen(x){ return Math.round(x).toLocaleString("ja-JP")+" 円"; }
+function fmtL(x){ var r=Math.round(x*100)/100; return r.toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2})+" L"; }
+function fmtKm(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{maximumFractionDigits:2})+" km"; }
+function calc(){
+var dist=Math.max(0, num("dist"));
+var nenpi=Math.max(0, num("nenpi"));
+var price=Math.max(0, num("price"));
+var times=Math.max(0, num("times"));
+var people=Math.max(1, Math.floor(num("people"))||1);
+var seg=document.getElementById("tripSeg");
+var mult=seg && seg.dataset.trip ? parseFloat(seg.dataset.trip) : 1;
+if(!(nenpi>0)){
+document.getElementById("resultBox").innerHTML="<div>1回あたりのガソリン代</div><div class='big'>—</div><p>燃費（km/L）に0より大きい値を入れてください。</p>";
+return;
+}
+var total=dist*mult;
+var useL=total/nenpi;
+var cost=useL*price;
+var perKm=price/nenpi;
+var perPerson=cost/people;
+var mDist=total*times, mUse=useL*times, mCost=cost*times;
+var yCost=mCost*12, yUse=mUse*12, yDist=mDist*12;
+var html="<div>1回あたりのガソリン代（"+(mult===2?"往復":"片道")+" "+fmtKm(total)+"）</div><div class='big'>"+fmtYen(cost)+"</div>"+
+"<table>"+
+"<tr><td>使用量（1回）</td><td>"+fmtL(useL)+"</td></tr>"+
+"<tr><td>1kmあたり</td><td>"+perKm.toFixed(2)+" 円/km</td></tr>";
+if(people>1) html+="<tr><td>1人あたり（"+people+"人で割り勘）</td><td>"+fmtYen(perPerson)+"</td></tr>";
+html+="<tr><td>1か月あたり（"+times+"回）</td><td>"+fmtKm(mDist)+" ／ "+fmtL(mUse)+" ／ "+fmtYen(mCost)+"</td></tr>"+
+"<tr><td>1年あたり（1か月×12）</td><td>"+fmtKm(yDist)+" ／ "+fmtL(yUse)+" ／ "+fmtYen(yCost)+"</td></tr>"+
+"<tr><td>計算に使った単価・燃費</td><td>"+fmtYen(price).replace(' 円','')+" 円/L ／ "+nenpi+" km/L</td></tr>"+
+"</table>"+
+"<p>片道 "+fmtKm(dist)+" を"+(mult===2?"往復":"片道")+"で走ると、ガソリン代は1回 "+fmtYen(cost)+"、月 "+times+" 回で "+fmtYen(mCost)+" が目安です（高速料金・駐車料金は含みません）。</p>";
+document.getElementById("resultBox").innerHTML=html;
+}
+setSeg("tripSeg","trip",calc);
+presets("dist",[10,30,50,100,300,500],function(v){return yen(v)+"km";});
+presets("nenpi",[10,12,15,18,20,25],function(v){return yen(v)+"km/L";});
+presets("price",[160,170,180],function(v){return yen(v)+"円";});
+presets("times",[1,4,20,22],function(v){return yen(v)+"回";});
+calc();
+</script>
+</body>
+</html>
