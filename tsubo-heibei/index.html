@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>坪・平米換算計算｜坪⇔㎡（平米）・畳への換算と早見表</title>
+<meta name="description" content="坪と平米（㎡）を双方向に換算。1坪＝3.305785㎡、1㎡＝0.3025坪で計算し、畳（1.62㎡基準）への換算と坪・平米の早見表も表示。70㎡＝21.18坪、30坪＝99.17㎡。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/tsubo-heibei/">
+<meta property="og:title" content="坪・平米換算計算｜計算ラボ">
+<meta property="og:description" content="坪⇔平米（㎡）をすぐ換算。畳への換算と早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"坪・平米換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/tsubo-heibei/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"坪・平米換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"1坪は何平米（㎡）ですか？","acceptedAnswer":{"@type":"Answer","text":"1坪は約3.31㎡です。正確には1坪＝400÷121㎡＝3.305785…㎡で、1間＝6尺、1尺＝10÷33mという定義から導かれます。逆に1㎡＝0.3025坪で、こちらは割り切れる厳密な値です。"}},
+{"@type":"Question","name":"70㎡は坪でいくつですか？","acceptedAnswer":{"@type":"Answer","text":"70㎡×0.3025＝21.175坪で、表示では約21.18坪です。賃貸や売買の広告は㎡で書かれることが多いため、坪単価と比べるときはこの換算を使います。"}},
+{"@type":"Question","name":"30坪は平米（㎡）でいくつですか？","acceptedAnswer":{"@type":"Answer","text":"30坪×400÷121＝99.1735…㎡で、表示では約99.17㎡です。畳に直すと、1畳＝1.62㎡の基準で約61.22畳に相当します。"}},
+{"@type":"Question","name":"畳への換算は地域で変わりますか？","acceptedAnswer":{"@type":"Answer","text":"変わります。このツールは不動産の表示に関する公正競争規約の基準である1畳＝1.62㎡以上を使って換算します。実際の畳の大きさは京間・中京間・江戸間・団地間などで異なり、江戸間は約1.55㎡、京間は約1.82㎡です。そのため畳数は目安としてご覧ください。"}},
+{"@type":"Question","name":"坪単価はどう計算しますか？","acceptedAnswer":{"@type":"Answer","text":"坪単価は「価格÷坪数」で計算します。たとえば99.17㎡（30坪）の土地が3,000万円なら、坪単価は3,000万円÷30坪＝100万円／坪です。㎡単価から出す場合は、㎡単価÷0.3025で坪単価に換算できます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ 坪・平米換算計算</nav>
+<h1>坪・平米換算計算</h1>
+<p class="lead">たとえば70㎡は21.18坪、30坪は99.17㎡です。坪か平米（㎡）のどちらかを入れると、もう一方と畳数（1畳＝1.62㎡基準）を同時に表示します。不動産広告の㎡と、現場や坪単価で使う坪の行き来にどうぞ。</p>
+<div class="badges"><span class="badge">1坪＝3.305785㎡</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="tsubo">坪 <small>坪</small></label><input type="number" id="tsubo" value="30" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="heibei">平米 <small>㎡</small></label><input type="number" id="heibei" value="99.17" min="0" step="1" inputmode="decimal"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※畳数は不動産の表示に関する公正競争規約の基準（1畳＝1.62㎡以上）で換算した目安です。実際の畳の大きさは地域や建物で異なります。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">平米（㎡） ＝ 坪 × 400 ÷ 121　／　坪 ＝ 平米（㎡） × 0.3025</span>
+<p>坪は尺貫法の面積の単位で、1坪は1間×1間の広さです。1間は6尺、1尺は10÷33メートルと定められているため、1坪は（60÷33）×（60÷33）＝3,600÷1,089＝400÷121㎡となり、約3.305785㎡になります。逆向きの1㎡＝121÷400坪＝0.3025坪は、割り切れる厳密な値です。概算で素早く知りたいときは「坪×3.3」「㎡×0.3」と覚えておくと便利ですが、契約や坪単価の計算では、このツールのように厳密な係数で計算してください。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。畳への換算は、平米数を1.62で割って出します。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th><th>畳（1.62㎡基準）</th></tr></thead>
+<tbody>
+<tr><td>1坪 → ㎡</td><td>3.31㎡</td><td>約2.04畳</td></tr>
+<tr><td>10坪 → ㎡</td><td>33.06㎡</td><td>約20.41畳</td></tr>
+<tr><td>30坪 → ㎡</td><td>99.17㎡</td><td>約61.22畳</td></tr>
+<tr><td>70㎡ → 坪</td><td>21.18坪</td><td>約43.21畳</td></tr>
+<tr><td>100㎡ → 坪</td><td>30.25坪</td><td>約61.73畳</td></tr>
+</tbody></table></div>
+<p>たとえば「70㎡のマンション」は坪では約21坪、「30坪の土地」は平米では約99㎡です。広告の数字だけを見比べると広さの感覚がずれることがあるため、単位をそろえてから比べるのが確実です。</p>
+
+<h2>なぜ坪と平米が両方使われるのか</h2>
+<p>不動産の広告では、宅地建物取引業法と公正競争規約により、面積は㎡で表示することが求められます。一方、土地の価格や建築費の現場では「坪単価」が今も広く使われ、注文住宅の見積もりや土地売買の会話は坪が中心です。そのため、同じ物件でも広告は㎡、価格の会話は坪という二重の表記になり、換算が必要になります。</p>
+<p>坪単価を比べるときは、まずこのツールで広告の㎡を坪に直し、「価格÷坪数」で1坪あたりの価格を出してください。逆に、坪で聞いた広さを㎡に直せば、他の物件の広告とそのまま比べられます。面積が家計に直結する場面では、住まいの維持費もあわせて見直すと全体像がつかめます。<a href="/denkidai/">電気代計算</a>や<a href="/gasoline-dai/">ガソリン代計算</a>もあわせてどうぞ。</p>
+
+<h2>畳の大きさについて</h2>
+<p>畳の大きさは地域で異なります。京間（本間）は約1.82㎡、中京間は約1.65㎡、江戸間（五八間）は約1.55㎡、団地間（五六間）は約1.44㎡が目安です。不動産広告の「帖」は、公正競争規約で1畳あたり1.62㎡以上の広さを表すこととされているため、このツールも1.62㎡を基準に換算しています。実際の部屋の畳数と広告の帖数がずれて感じることがあるのは、この基準と実際の畳サイズの違いによるものです。</p>
+
+<h2>早見表：坪 → 平米・畳</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>坪</th><th>平米（㎡）</th><th>畳（1.62㎡基準）</th></tr></thead>
+<tbody>
+<tr><td>1坪</td><td>3.31㎡</td><td>2.04畳</td></tr>
+<tr><td>2坪</td><td>6.61㎡</td><td>4.08畳</td></tr>
+<tr><td>3坪</td><td>9.92㎡</td><td>6.12畳</td></tr>
+<tr><td>5坪</td><td>16.53㎡</td><td>10.20畳</td></tr>
+<tr><td>10坪</td><td>33.06㎡</td><td>20.41畳</td></tr>
+<tr><td>15坪</td><td>49.59㎡</td><td>30.61畳</td></tr>
+<tr><td>20坪</td><td>66.12㎡</td><td>40.81畳</td></tr>
+<tr><td>25坪</td><td>82.64㎡</td><td>51.02畳</td></tr>
+<tr><td>30坪</td><td>99.17㎡</td><td>61.22畳</td></tr>
+<tr><td>35坪</td><td>115.70㎡</td><td>71.42畳</td></tr>
+<tr><td>40坪</td><td>132.23㎡</td><td>81.62畳</td></tr>
+<tr><td>50坪</td><td>165.29㎡</td><td>102.03畳</td></tr>
+<tr><td>60坪</td><td>198.35㎡</td><td>122.44畳</td></tr>
+<tr><td>70坪</td><td>231.40㎡</td><td>142.84畳</td></tr>
+<tr><td>80坪</td><td>264.46㎡</td><td>163.25畳</td></tr>
+<tr><td>100坪</td><td>330.58㎡</td><td>204.06畳</td></tr>
+</tbody></table></div>
+
+<h2>早見表：平米 → 坪・畳</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>平米（㎡）</th><th>坪</th><th>畳（1.62㎡基準）</th></tr></thead>
+<tbody>
+<tr><td>20㎡</td><td>6.05坪</td><td>12.35畳</td></tr>
+<tr><td>30㎡</td><td>9.08坪</td><td>18.52畳</td></tr>
+<tr><td>40㎡</td><td>12.10坪</td><td>24.69畳</td></tr>
+<tr><td>50㎡</td><td>15.13坪</td><td>30.86畳</td></tr>
+<tr><td>60㎡</td><td>18.15坪</td><td>37.04畳</td></tr>
+<tr><td>70㎡</td><td>21.18坪</td><td>43.21畳</td></tr>
+<tr><td>80㎡</td><td>24.20坪</td><td>49.38畳</td></tr>
+<tr><td>90㎡</td><td>27.23坪</td><td>55.56畳</td></tr>
+<tr><td>100㎡</td><td>30.25坪</td><td>61.73畳</td></tr>
+<tr><td>120㎡</td><td>36.30坪</td><td>74.07畳</td></tr>
+<tr><td>150㎡</td><td>45.38坪</td><td>92.59畳</td></tr>
+<tr><td>200㎡</td><td>60.50坪</td><td>123.46畳</td></tr>
+</tbody></table></div>
+<p>早見表の値は、厳密な係数（1坪＝400÷121㎡、1㎡＝0.3025坪）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は面積の単位換算のみです。登記簿の面積や建築確認の面積は、測量方法（公簿・実測）や壁芯・内法といった算定方法の違いで、広告の表示と異なる場合があります。契約に関わる面積の確認は、登記簿や重要事項説明書の記載が優先します。また、畳数は基準による目安であり、実際の部屋の畳の枚数とは限りません。日常の計算には<a href="/nissu/">日数計算</a>や<a href="/nenrei/">年齢計算</a>も便利です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>1坪は何平米（㎡）ですか？</summary><p>1坪は約3.31㎡です。正確には1坪＝400÷121㎡＝3.305785…㎡で、1間＝6尺、1尺＝10÷33mという定義から導かれます。逆に1㎡＝0.3025坪で、こちらは割り切れる厳密な値です。</p></details>
+<details class="faq"><summary>70㎡は坪でいくつですか？</summary><p>70㎡×0.3025＝21.175坪で、表示では約21.18坪です。賃貸や売買の広告は㎡で書かれることが多いため、坪単価と比べるときはこの換算を使います。</p></details>
+<details class="faq"><summary>30坪は平米（㎡）でいくつですか？</summary><p>30坪×400÷121＝99.1735…㎡で、表示では約99.17㎡です。畳に直すと、1畳＝1.62㎡の基準で約61.22畳に相当します。</p></details>
+<details class="faq"><summary>畳への換算は地域で変わりますか？</summary><p>変わります。このツールは不動産の表示に関する公正競争規約の基準である1畳＝1.62㎡以上を使って換算します。実際の畳の大きさは京間・中京間・江戸間・団地間などで異なり、江戸間は約1.55㎡、京間は約1.82㎡です。そのため畳数は目安としてご覧ください。</p></details>
+<details class="faq"><summary>坪単価はどう計算しますか？</summary><p>坪単価は「価格÷坪数」で計算します。たとえば99.17㎡（30坪）の土地が3,000万円なら、坪単価は3,000万円÷30坪＝100万円／坪です。㎡単価から出す場合は、㎡単価÷0.3025で坪単価に換算できます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/denkidai/"><span class="ic">電</span><span class="t">電気代計算</span><div class="d">家電の消費電力（W）と使用時間から、電気代を1時間・1日・1か月・1年で計算。目安単価31円/kWh対応。</div></a>
+<a class="toolcard c-life" href="/gasoline-dai/"><span class="ic">油</span><span class="t">ガソリン代計算</span><div class="d">走行距離と燃費からガソリン代と使用量を計算。往復・割り勘・通勤の月額対応。</div></a>
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/nenrei/"><span class="ic">齢</span><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・生まれてからの日数を計算します。</div></a>
+<a class="toolcard" href="/shohizei/"><span class="ic">消</span><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。10%と軽減税率8%の切替、端数処理の選択つき。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-14／更新日：2026-11-14<br>出典：1坪の定義は度量衡の換算（1間＝6尺、1尺＝10/33m）から導出される 1坪＝400/121㎡ を確認（2026-11-14）。畳の基準は不動産の表示に関する公正競争規約（1畳＝1.62㎡以上）を確認（2026-11-14）。計算例は research/tsubo-heibei-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function render(tsubo, heibei){
+var tatami = heibei/1.62;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(tsubo)+" 坪 ＝ "+fmt2(heibei)+" ㎡</div><div class='big'>"+fmt2(heibei)+" ㎡</div>"+
+"<table>"+
+"<tr><td>坪</td><td>"+fmt2(tsubo)+" 坪</td></tr>"+
+"<tr><td>平米（㎡）</td><td>"+fmt2(heibei)+" ㎡</td></tr>"+
+"<tr><td>畳（1畳＝1.62㎡基準）</td><td>約 "+fmt2(tatami)+" 畳</td></tr>"+
+"</table>"+
+"<p>"+fmt2(tsubo)+" 坪は "+fmt2(heibei)+" ㎡で、畳では約 "+fmt2(tatami)+" 畳分です（1坪＝400/121㎡、1㎡＝0.3025坪で計算）。</p>";
+}
+function fromTsubo(){
+if(syncing) return; syncing=true;
+var t=Math.max(0, num("tsubo"));
+var h=t*400/121;
+document.getElementById("heibei").value=Math.round(h*100)/100;
+render(t,h);
+syncing=false;
+}
+function fromHeibei(){
+if(syncing) return; syncing=true;
+var h=Math.max(0, num("heibei"));
+var t=h*0.3025;
+document.getElementById("tsubo").value=Math.round(t*100)/100;
+render(t,h);
+syncing=false;
+}
+document.getElementById("tsubo").addEventListener("input", fromTsubo);
+document.getElementById("heibei").addEventListener("input", fromHeibei);
+presets("tsubo",[10,20,30,40,50,100],function(v){return yen(v)+"坪";});
+presets("heibei",[50,70,100,150,200],function(v){return yen(v)+"㎡";});
+fromTsubo();
+</script>
+</body>
+</html>
