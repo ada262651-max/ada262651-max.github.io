@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>インチ・cm換算計算｜インチ⇔cm・フィートへの換算と早見表</title>
+<meta name="description" content="インチとcm（センチ）を双方向に換算。1インチ＝2.54cmで計算し、mm・m・フィート表示と身長換算、インチ・cmの早見表も表示。32インチ＝81.28cm、170cm＝約66.93インチ。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/inch-cm/">
+<meta property="og:title" content="インチ・cm換算計算｜計算ラボ">
+<meta property="og:description" content="インチ⇔cmをすぐ換算。フィート表示・身長換算と早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"インチ・cm換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/inch-cm/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"インチ・cm換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"1インチは何cmですか？","acceptedAnswer":{"@type":"Answer","text":"1インチは2.54cmです。1959年の国際ヤード・ポンド協定で1インチ＝25.4mmと厳密に定義されており、割り切れる値です。逆に1cm＝約0.3937インチです。"}},
+{"@type":"Question","name":"32インチは何cmですか？","acceptedAnswer":{"@type":"Answer","text":"32インチ×2.54＝81.28cmです。ただしテレビやモニターの「32インチ」は画面の対角線の長さであり、横幅は81.28cmより小さくなります（16:9画面では横幅は約70.8cmです）。"}},
+{"@type":"Question","name":"170cmはフィート・インチで何ですか？","acceptedAnswer":{"@type":"Answer","text":"170cm÷2.54＝約66.93インチで、フィートに直すと5フィート6.93インチ（5ft 6.93in）です。身長を聞かれたときは「5フィート7インチくらい」と答えるのが一般的です。"}},
+{"@type":"Question","name":"テレビのインチは横幅ですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。テレビやモニターのインチ表示は画面の対角線（左上から右下まで）の長さです。同じインチ数でも、画面比率（16:9など）によって横幅と高さは変わります。"}},
+{"@type":"Question","name":"フィートやヤード、マイルはどう換算しますか？","acceptedAnswer":{"@type":"Answer","text":"1フィート＝12インチ＝30.48cm、1ヤード＝3フィート＝91.44cm、1マイル＝1,760ヤード＝1.609344kmです。いずれも1959年協定による厳密な定義から導かれます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ インチ・cm換算計算</nav>
+<h1>インチ・cm換算計算</h1>
+<p class="lead">たとえば1インチは2.54cm、32インチは81.28cm、170cmは約66.93インチ（5フィート6.93インチ）です。インチかcmのどちらかを入れると、mm・m・フィート表示まで同時に表示します。テレビやモニターのサイズ確認、身長の換算にどうぞ。</p>
+<div class="badges"><span class="badge">1インチ＝2.54cm</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="inch">インチ <small>in</small></label><input type="number" id="inch" value="32" min="0" step="0.5" inputmode="decimal"></div>
+<div><label class="flabel" for="cm">センチ <small>cm</small></label><input type="number" id="cm" value="81.28" min="0" step="1" inputmode="decimal"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※テレビ・モニターの「○○インチ」は画面の対角線の長さです。横幅ではありません（本文で解説）。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">cm ＝ インチ × 2.54　／　インチ ＝ cm ÷ 2.54</span>
+<p>インチは1959年の国際ヤード・ポンド協定で、1インチ＝25.4mm（＝2.54cm）と厳密に定義されました。割り切れる値のため、換算に近似誤差はありません。同じ協定で1フィート＝0.3048m、1ヤード＝0.9144m、1マイル＝1,609.344mも厳密に定まっています。なお、測量用の「米測量フィート」は2022年末で廃止されており、日常の換算では国際フィートのみを使います。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。フィート＋インチの複合表示は、インチの総量を12で割ってフィートと余りのインチに分けます。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th></tr></thead>
+<tbody>
+<tr><td>1インチ → cm</td><td>2.54cm</td></tr>
+<tr><td>32インチ → cm</td><td>81.28cm</td></tr>
+<tr><td>5フィート8インチ → cm</td><td>172.72cm</td></tr>
+<tr><td>170cm → インチ</td><td>66.93インチ（5フィート6.93インチ）</td></tr>
+<tr><td>1ヤード → cm</td><td>91.44cm</td></tr>
+</tbody></table></div>
+<p>たとえば「32インチのテレビ」は対角線が約81cm、「身長170cm」はフィート・インチでは約5フィート7インチです。単位をそろえてから比べるのが確実です。</p>
+
+<h2>テレビ・モニターのインチは「対角線」です</h2>
+<p>テレビやモニター、スマートフォンの「○○インチ」は、画面の対角線（左上から右下まで）の長さをインチで表したものです。横幅ではありません。そのため、32インチ（対角81.28cm）の16:9テレビの横幅は約70.8cm、高さは約39.8cmになります。設置スペースを確認するときは、対角線の数値をそのまま横幅と勘違いしないよう注意してください。</p>
+<p>画面の大きさが暮らしに直結する場面では、置き場所の広さを<a href="/tsubo-heibei/">坪・平米換算</a>で確認したり、電気の使い方を<a href="/denkidai/">電気代計算</a>で見直したりするのも役立ちます。</p>
+
+<h2>身長の換算について</h2>
+<p>英語圏では身長をフィート＋インチで表します。たとえば5フィート8インチは（5×12＋8）＝68インチで、68×2.54＝172.72cmです。逆にcmから出すときは、cm÷2.54でインチの総量を出し、12で割ってフィートと余りに分けます。下の早見表に5フィート0インチ（152.40cm）から6フィート2インチ（187.96cm）までを載せています。</p>
+
+<h2>早見表：インチ → cm</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>インチ</th><th>cm</th></tr></thead>
+<tbody>
+<tr><td>1インチ</td><td>2.54cm</td></tr>
+<tr><td>2インチ</td><td>5.08cm</td></tr>
+<tr><td>3インチ</td><td>7.62cm</td></tr>
+<tr><td>4インチ</td><td>10.16cm</td></tr>
+<tr><td>5インチ</td><td>12.70cm</td></tr>
+<tr><td>6インチ</td><td>15.24cm</td></tr>
+<tr><td>7インチ</td><td>17.78cm</td></tr>
+<tr><td>8インチ</td><td>20.32cm</td></tr>
+<tr><td>9インチ</td><td>22.86cm</td></tr>
+<tr><td>10インチ</td><td>25.40cm</td></tr>
+<tr><td>11インチ</td><td>27.94cm</td></tr>
+<tr><td>12インチ</td><td>30.48cm</td></tr>
+<tr><td>15インチ</td><td>38.10cm</td></tr>
+<tr><td>20インチ</td><td>50.80cm</td></tr>
+<tr><td>24インチ</td><td>60.96cm</td></tr>
+<tr><td>32インチ</td><td>81.28cm</td></tr>
+<tr><td>40インチ</td><td>101.60cm</td></tr>
+<tr><td>43インチ</td><td>109.22cm</td></tr>
+<tr><td>50インチ</td><td>127.00cm</td></tr>
+<tr><td>55インチ</td><td>139.70cm</td></tr>
+<tr><td>65インチ</td><td>165.10cm</td></tr>
+<tr><td>75インチ</td><td>190.50cm</td></tr>
+<tr><td>100インチ</td><td>254.00cm</td></tr>
+</tbody></table></div>
+
+<h2>早見表：cm → インチ</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>cm</th><th>インチ</th></tr></thead>
+<tbody>
+<tr><td>10cm</td><td>3.94インチ</td></tr>
+<tr><td>30cm</td><td>11.81インチ</td></tr>
+<tr><td>50cm</td><td>19.69インチ</td></tr>
+<tr><td>100cm</td><td>39.37インチ</td></tr>
+<tr><td>150cm</td><td>59.06インチ</td></tr>
+<tr><td>160cm</td><td>62.99インチ</td></tr>
+<tr><td>170cm</td><td>66.93インチ</td></tr>
+<tr><td>180cm</td><td>70.87インチ</td></tr>
+<tr><td>200cm</td><td>78.74インチ</td></tr>
+</tbody></table></div>
+
+<h2>早見表：フィート・インチ → cm（身長）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>フィート・インチ</th><th>cm</th></tr></thead>
+<tbody>
+<tr><td>5フィート0インチ</td><td>152.40cm</td></tr>
+<tr><td>5フィート1インチ</td><td>154.94cm</td></tr>
+<tr><td>5フィート2インチ</td><td>157.48cm</td></tr>
+<tr><td>5フィート3インチ</td><td>160.02cm</td></tr>
+<tr><td>5フィート4インチ</td><td>162.56cm</td></tr>
+<tr><td>5フィート5インチ</td><td>165.10cm</td></tr>
+<tr><td>5フィート6インチ</td><td>167.64cm</td></tr>
+<tr><td>5フィート7インチ</td><td>170.18cm</td></tr>
+<tr><td>5フィート8インチ</td><td>172.72cm</td></tr>
+<tr><td>5フィート9インチ</td><td>175.26cm</td></tr>
+<tr><td>5フィート10インチ</td><td>177.80cm</td></tr>
+<tr><td>5フィート11インチ</td><td>180.34cm</td></tr>
+<tr><td>6フィート0インチ</td><td>182.88cm</td></tr>
+<tr><td>6フィート1インチ</td><td>185.42cm</td></tr>
+<tr><td>6フィート2インチ</td><td>187.96cm</td></tr>
+</tbody></table></div>
+<p>早見表の値は、厳密な係数（1インチ＝2.54cm）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は長さの単位換算のみです。タイヤの「インチ」はリム（ホイール）の直径、自転車の「インチ」も車輪径を指すなど、製品分野ごとにインチが指す部位が異なります。購入前のサイズ確認は、製品の仕様表で実寸（cm・mm表示）もあわせてご確認ください。日常の計算には<a href="/nissu/">日数計算</a>や<a href="/nenrei/">年齢計算</a>も便利です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>1インチは何cmですか？</summary><p>1インチは2.54cmです。1959年の国際ヤード・ポンド協定で1インチ＝25.4mmと厳密に定義されており、割り切れる値です。逆に1cm＝約0.3937インチです。</p></details>
+<details class="faq"><summary>32インチは何cmですか？</summary><p>32インチ×2.54＝81.28cmです。ただしテレビやモニターの「32インチ」は画面の対角線の長さであり、横幅は81.28cmより小さくなります（16:9画面では横幅は約70.8cmです）。</p></details>
+<details class="faq"><summary>170cmはフィート・インチで何ですか？</summary><p>170cm÷2.54＝約66.93インチで、フィートに直すと5フィート6.93インチ（5ft 6.93in）です。身長を聞かれたときは「5フィート7インチくらい」と答えるのが一般的です。</p></details>
+<details class="faq"><summary>テレビのインチは横幅ですか？</summary><p>いいえ。テレビやモニターのインチ表示は画面の対角線（左上から右下まで）の長さです。同じインチ数でも、画面比率（16:9など）によって横幅と高さは変わります。</p></details>
+<details class="faq"><summary>フィートやヤード、マイルはどう換算しますか？</summary><p>1フィート＝12インチ＝30.48cm、1ヤード＝3フィート＝91.44cm、1マイル＝1,760ヤード＝1.609344kmです。いずれも1959年協定による厳密な定義から導かれます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/tsubo-heibei/"><span class="ic">坪</span><span class="t">坪・平米換算計算</span><div class="d">坪⇔平米（㎡）を双方向に換算。畳への換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/denkidai/"><span class="ic">電</span><span class="t">電気代計算</span><div class="d">家電の消費電力（W）と使用時間から、電気代を1時間・1日・1か月・1年で計算。目安単価31円/kWh対応。</div></a>
+<a class="toolcard c-life" href="/gasoline-dai/"><span class="ic">油</span><span class="t">ガソリン代計算</span><div class="d">走行距離と燃費からガソリン代と使用量を計算。往復・割り勘・通勤の月額対応。</div></a>
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/nenrei/"><span class="ic">齢</span><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・生まれてからの日数を計算します。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：換算係数は国際ヤード・ポンド協定（1959年）の厳密値（1インチ＝25.4mm）で、NIST SP 811 の換算係数と一致することを確認（2026-11-15）。計算例は research/inch-cm-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function render(inch, cm){
+var mm = cm*10;
+var m = cm/100;
+var ftTotal = inch/12;
+var ft = Math.floor(ftTotal);
+var remIn = inch - ft*12;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(inch)+" インチ ＝ "+fmt2(cm)+" cm</div><div class='big'>"+fmt2(cm)+" cm</div>"+
+"<table>"+
+"<tr><td>インチ</td><td>"+fmt2(inch)+" in</td></tr>"+
+"<tr><td>センチメートル</td><td>"+fmt2(cm)+" cm</td></tr>"+
+"<tr><td>ミリメートル</td><td>"+fmt2(mm)+" mm</td></tr>"+
+"<tr><td>メートル</td><td>"+fmt2(m)+" m</td></tr>"+
+"<tr><td>フィート（小数）</td><td>"+fmt2(ftTotal)+" ft</td></tr>"+
+"<tr><td>フィート＋インチ</td><td>"+ft+" ft "+fmt2(remIn)+" in</td></tr>"+
+"</table>"+
+"<p>"+fmt2(inch)+" インチは "+fmt2(cm)+" cmで、身長なら "+ft+" フィート "+fmt2(remIn)+" インチにあたります（1インチ＝2.54cmで計算）。</p>";
+}
+function fromInch(){
+if(syncing) return; syncing=true;
+var i=Math.max(0, num("inch"));
+var c=i*2.54;
+document.getElementById("cm").value=Math.round(c*100)/100;
+render(i,c);
+syncing=false;
+}
+function fromCm(){
+if(syncing) return; syncing=true;
+var c=Math.max(0, num("cm"));
+var i=c/2.54;
+document.getElementById("inch").value=Math.round(i*100)/100;
+render(i,c);
+syncing=false;
+}
+document.getElementById("inch").addEventListener("input", fromInch);
+document.getElementById("cm").addEventListener("input", fromCm);
+presets("inch",[32,43,50,55,65],function(v){return v+"インチ";});
+presets("cm",[150,160,170,180],function(v){return v+"cm";});
+fromInch();
+</script>
+</body>
+</html>
