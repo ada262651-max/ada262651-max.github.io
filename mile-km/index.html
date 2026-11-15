@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マイル・km換算計算｜マイル⇔km・mphへの換算と早見表</title>
+<meta name="description" content="マイルとkm（キロメートル）を双方向に換算。1マイル＝1.609344kmで計算し、m・フィート表示と速度（mph→km/h）換算、マラソン距離の早見表も表示。10マイル＝16.09km、マラソン42.195km＝約26.22マイル。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/mile-km/">
+<meta property="og:title" content="マイル・km換算計算｜計算ラボ">
+<meta property="og:description" content="マイル⇔kmをすぐ換算。速度mph→km/h・マラソン距離と早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"マイル・km換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/mile-km/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"マイル・km換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"1マイルは何kmですか？","acceptedAnswer":{"@type":"Answer","text":"1マイルは1.609344km（厳密値）です。1959年の国際ヤード・ポンド協定で1ヤード＝0.9144mと厳密に定義され、1マイル＝1,760ヤードのため1,609.344mになります。逆に1km＝約0.62マイルです。"}},
+{"@type":"Question","name":"マラソンの42.195kmは何マイルですか？","acceptedAnswer":{"@type":"Answer","text":"42.195km÷1.609344＝約26.22マイルです。海外のレースで「26.2マイル」と表示されるのはこのためです。ハーフマラソン21.0975kmは約13.11マイルです。"}},
+{"@type":"Question","name":"60マイル毎時（mph）は何km/hですか？","acceptedAnswer":{"@type":"Answer","text":"速度も距離と同じ係数で換算します。60×1.609344＝約96.56km/hです。米国の制限速度60mphは約97km/hにあたります。"}},
+{"@type":"Question","name":"マイルと海里（ノーティカルマイル）は同じですか？","acceptedAnswer":{"@type":"Answer","text":"違います。陸上のマイルは1.609344km、海や空で使う海里は1.852km（厳密値）です。海里は約15%長く、船や飛行機の距離・速度（ノット）で使われます。"}},
+{"@type":"Question","name":"航空会社のマイレージのマイルは距離のマイルですか？","acceptedAnswer":{"@type":"Answer","text":"基準は陸上マイルの距離ですが、実際に付与されるマイル数は区間距離にチケットの種類ごとの積算率を掛けたものになるため、飛んだ距離そのものと一致しない場合があります。各航空会社の規定をご確認ください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ マイル・km換算計算</nav>
+<h1>マイル・km換算計算</h1>
+<p class="lead">たとえば1マイルは1.609344km、10マイルは16.09km、マラソンの42.195kmは約26.22マイルです。マイルかkmのどちらかを入れると、m・フィート・ヤードまで同時に表示します。米英の距離表示や制限速度（mph）、ランニングの距離確認にどうぞ。</p>
+<div class="badges"><span class="badge">1マイル＝1.609344km</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="mi">マイル <small>mi</small></label><input type="number" id="mi" value="10" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="km">キロメートル <small>km</small></label><input type="number" id="km" value="16.09" min="0" step="1" inputmode="decimal"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※このツールが扱うのは陸上の国際マイルです。海や空で使う海里（1海里＝1.852km）とは別単位です（本文で解説）。速度も同じ係数なので、数値をmph→km/hとして読むこともできます。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">km ＝ マイル × 1.609344　／　マイル ＝ km ÷ 1.609344</span>
+<p>マイル（国際マイル、記号 mi）は1,760ヤード＝5,280フィートです。1959年の国際ヤード・ポンド協定で1ヤード＝0.9144mと厳密に定義されたため、1マイル＝1,760×0.9144m＝1,609.344m＝1.609344kmという割り切れる定義値になります。換算に近似誤差はありません。速度も同じ係数で、1マイル毎時（mph）＝1.609344km/hです。なお、米国の測量で使われていた米測量マイル（米測量フィート基準）は2022年末で廃止され、現在は国際マイルのみが使われます。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th></tr></thead>
+<tbody>
+<tr><td>1マイル → km</td><td>1.61km（1,609.34m）</td></tr>
+<tr><td>10マイル → km</td><td>16.09km</td></tr>
+<tr><td>100マイル → km</td><td>160.93km</td></tr>
+<tr><td>42.195km → マイル</td><td>26.22マイル（マラソン）</td></tr>
+<tr><td>60mph → km/h</td><td>96.56km/h</td></tr>
+</tbody></table></div>
+<p>たとえば米国の高速道路の制限速度「65mph」は約104.61km/h、「球速100mph」は約160.93km/hです。単位をそろえてから比べるのが確実です。</p>
+
+<h2>マイルと海里の違い</h2>
+<p>船や飛行機で使う海里（ノーティカルマイル、記号 nmi）は、地球の緯度1分に由来する単位で、1海里＝1.852kmと厳密に定義されています。陸上のマイル（1.609344km）より約15%長く、混同すると距離を大きく読み違えます。速度のノットは「1時間に1海里進む速さ」です。このツールの換算は陸上のマイルのみを対象にし、海里は結果パネルで参考表示に留めています。</p>
+<p>長さの感覚をつかみたい場面では、物の大きさを<a href="/inch-cm/">インチ・cm換算</a>で確認したり、重さを<a href="/pound-kg/">ポンド・kg換算</a>で直したりするのも役立ちます。車で移動する距離なら、<a href="/gasoline-dai/">ガソリン代計算</a>で費用の目安も出せます。</p>
+
+<h2>暗算のコツ</h2>
+<p>マイルをkmにざっくり直すときは「1.6倍する」と近似できます。たとえば60マイルなら約96km（実際の値は96.56km、誤差約0.6%）です。逆にkmをマイルに直すときは「0.62倍する」と近似できます（100kmなら約62マイル、実際は62.14マイル）。正確な値が必要なときは上のフォームを使ってください。</p>
+
+<h2>早見表：マイル → km</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>マイル</th><th>km</th></tr></thead>
+<tbody>
+<tr><td>1マイル</td><td>1.61km</td></tr>
+<tr><td>2マイル</td><td>3.22km</td></tr>
+<tr><td>3マイル</td><td>4.83km</td></tr>
+<tr><td>5マイル</td><td>8.05km</td></tr>
+<tr><td>10マイル</td><td>16.09km</td></tr>
+<tr><td>15マイル</td><td>24.14km</td></tr>
+<tr><td>20マイル</td><td>32.19km</td></tr>
+<tr><td>30マイル</td><td>48.28km</td></tr>
+<tr><td>40マイル</td><td>64.37km</td></tr>
+<tr><td>50マイル</td><td>80.47km</td></tr>
+<tr><td>60マイル</td><td>96.56km</td></tr>
+<tr><td>70マイル</td><td>112.65km</td></tr>
+<tr><td>80マイル</td><td>128.75km</td></tr>
+<tr><td>90マイル</td><td>144.84km</td></tr>
+<tr><td>100マイル</td><td>160.93km</td></tr>
+</tbody></table></div>
+
+<h2>早見表：km → マイル</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>km</th><th>マイル</th></tr></thead>
+<tbody>
+<tr><td>1km</td><td>0.62マイル</td></tr>
+<tr><td>5km</td><td>3.11マイル</td></tr>
+<tr><td>10km</td><td>6.21マイル</td></tr>
+<tr><td>20km</td><td>12.43マイル</td></tr>
+<tr><td>30km</td><td>18.64マイル</td></tr>
+<tr><td>50km</td><td>31.07マイル</td></tr>
+<tr><td>100km</td><td>62.14マイル</td></tr>
+<tr><td>200km</td><td>124.27マイル</td></tr>
+<tr><td>500km</td><td>310.69マイル</td></tr>
+<tr><td>1,000km</td><td>621.37マイル</td></tr>
+</tbody></table></div>
+
+<h2>早見表：速度 mph → km/h</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>mph</th><th>km/h</th></tr></thead>
+<tbody>
+<tr><td>10mph</td><td>16.09km/h</td></tr>
+<tr><td>20mph</td><td>32.19km/h</td></tr>
+<tr><td>30mph</td><td>48.28km/h</td></tr>
+<tr><td>40mph</td><td>64.37km/h</td></tr>
+<tr><td>50mph</td><td>80.47km/h</td></tr>
+<tr><td>60mph</td><td>96.56km/h</td></tr>
+<tr><td>70mph</td><td>112.65km/h</td></tr>
+<tr><td>80mph</td><td>128.75km/h</td></tr>
+<tr><td>90mph</td><td>144.84km/h</td></tr>
+<tr><td>100mph</td><td>160.93km/h</td></tr>
+</tbody></table></div>
+
+<h2>早見表：ランニングの距離</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>距離</th><th>マイル</th></tr></thead>
+<tbody>
+<tr><td>5km</td><td>3.11マイル</td></tr>
+<tr><td>10km</td><td>6.21マイル</td></tr>
+<tr><td>ハーフマラソン 21.0975km</td><td>13.11マイル</td></tr>
+<tr><td>フルマラソン 42.195km</td><td>26.22マイル</td></tr>
+</tbody></table></div>
+<p>早見表の値は、厳密な係数（1マイル＝1.609344km）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は距離と速度の単位換算のみです。航空会社のマイレージは、飛んだ距離がそのまま付与マイル数になるとは限らず、チケットの種類ごとの積算率が掛かります。旅行やレースの計画では、各社の規定や大会要項（km表示）もあわせてご確認ください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>1マイルは何kmですか？</summary><p>1マイルは1.609344km（厳密値）です。1959年の国際ヤード・ポンド協定で1ヤード＝0.9144mと厳密に定義され、1マイル＝1,760ヤードのため1,609.344mになります。逆に1km＝約0.62マイルです。</p></details>
+<details class="faq"><summary>マラソンの42.195kmは何マイルですか？</summary><p>42.195km÷1.609344＝約26.22マイルです。海外のレースで「26.2マイル」と表示されるのはこのためです。ハーフマラソン21.0975kmは約13.11マイルです。</p></details>
+<details class="faq"><summary>60マイル毎時（mph）は何km/hですか？</summary><p>速度も距離と同じ係数で換算します。60×1.609344＝約96.56km/hです。米国の制限速度60mphは約97km/hにあたります。</p></details>
+<details class="faq"><summary>マイルと海里（ノーティカルマイル）は同じですか？</summary><p>違います。陸上のマイルは1.609344km、海や空で使う海里は1.852km（厳密値）です。海里は約15%長く、船や飛行機の距離・速度（ノット）で使われます。</p></details>
+<details class="faq"><summary>航空会社のマイレージのマイルは距離のマイルですか？</summary><p>基準は陸上マイルの距離ですが、実際に付与されるマイル数は区間距離にチケットの種類ごとの積算率を掛けたものになるため、飛んだ距離そのものと一致しない場合があります。各航空会社の規定をご確認ください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/inch-cm/"><span class="ic">イ</span><span class="t">インチ・cm換算計算</span><div class="d">インチ⇔cmを双方向に換算。1インチ＝2.54cm、フィート表示・身長換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/pound-kg/"><span class="ic">ポ</span><span class="t">ポンド・kg換算計算</span><div class="d">ポンド⇔kgを双方向に換算。1ポンド＝0.45359237kg、オンス表示・体重換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/gasoline-dai/"><span class="ic">油</span><span class="t">ガソリン代計算</span><div class="d">走行距離と燃費からガソリン代と使用量を計算。往復・割り勘・通勤の月額対応。</div></a>
+<a class="toolcard c-life" href="/tsubo-heibei/"><span class="ic">坪</span><span class="t">坪・平米換算計算</span><div class="d">坪⇔平米（㎡）を双方向に換算。畳への換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：換算係数は国際ヤード・ポンド協定（1959年）の厳密値（1マイル＝1.609344km）で、NIST SP 811 の換算係数と一致することを確認（2026-11-15）。計算例は research/mile-km-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+var K=1.609344;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmt0(x){ return Math.round(x).toLocaleString("ja-JP"); }
+function render(mi, km){
+var m = km*1000;
+var ft = mi*5280;
+var yd = mi*1760;
+var nmi = km/1.852;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(mi)+" マイル ＝ "+fmt2(km)+" km</div><div class='big'>"+fmt2(km)+" km</div>"+
+"<table>"+
+"<tr><td>マイル</td><td>"+fmt2(mi)+" mi</td></tr>"+
+"<tr><td>キロメートル</td><td>"+fmt2(km)+" km</td></tr>"+
+"<tr><td>メートル</td><td>"+fmt2(m)+" m</td></tr>"+
+"<tr><td>フィート</td><td>"+fmt2(ft)+" ft</td></tr>"+
+"<tr><td>ヤード</td><td>"+fmt2(yd)+" yd</td></tr>"+
+"<tr><td>海里（参考）</td><td>"+fmt2(nmi)+" nmi</td></tr>"+
+"<tr><td>速度として読む場合</td><td>"+fmt2(mi)+" mph ＝ "+fmt2(km)+" km/h</td></tr>"+
+"</table>"+
+"<p>"+fmt2(mi)+" マイルは "+fmt2(km)+" km（"+fmt0(m)+" m）です（1マイル＝1.609344kmで計算）。</p>";
+}
+function fromMi(){
+if(syncing) return; syncing=true;
+var p=Math.max(0, num("mi"));
+var k=p*K;
+document.getElementById("km").value=Math.round(k*100)/100;
+render(p,k);
+syncing=false;
+}
+function fromKm(){
+if(syncing) return; syncing=true;
+var k=Math.max(0, num("km"));
+var p=k/K;
+document.getElementById("mi").value=Math.round(p*100)/100;
+render(p,k);
+syncing=false;
+}
+document.getElementById("mi").addEventListener("input", fromMi);
+document.getElementById("km").addEventListener("input", fromKm);
+presets("mi",[1,10,26.2,50,100],function(v){return v+"マイル";});
+presets("km",[5,10,42.195,100],function(v){return v+"km";});
+fromMi();
+</script>
+</body>
+</html>
