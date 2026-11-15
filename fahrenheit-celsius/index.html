@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>華氏・摂氏換算計算｜℉⇔℃の換算と早見表（天気・体温・オーブン対応）</title>
+<meta name="description" content="華氏と摂氏を双方向に換算。摂氏＝（華氏−32）×5/9で計算し、ケルビン表示と早見表も表示。68℉＝20℃、98.6℉＝37℃、オーブン180℃＝356℉。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/fahrenheit-celsius/">
+<meta property="og:title" content="華氏・摂氏換算計算｜計算ラボ">
+<meta property="og:description" content="華氏⇔摂氏をすぐ換算。ケルビン表示・天気／体温／オーブンの早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"華氏・摂氏換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/fahrenheit-celsius/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"華氏・摂氏換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"華氏68度は摂氏何度ですか？","acceptedAnswer":{"@type":"Answer","text":"華氏68度は摂氏20度です。（68−32）×5/9＝20で計算できます。米国の天気予報や室温表示でよく出る値です。"}},
+{"@type":"Question","name":"華氏と摂氏が同じ温度になるのは何度ですか？","acceptedAnswer":{"@type":"Answer","text":"マイナス40度です。−40℉＝−40℃で、2つの温度目盛が交わる唯一の点です。"}},
+{"@type":"Question","name":"体温の華氏98.6度は摂氏何度ですか？","acceptedAnswer":{"@type":"Answer","text":"摂氏37.0度です。（98.6−32）×5/9＝37.0で、平熱の目安とされる値です。"}},
+{"@type":"Question","name":"オーブンの摂氏180度は華氏何度ですか？","acceptedAnswer":{"@type":"Answer","text":"華氏356度です。180×9/5＋32＝356で計算できます。海外レシピでは350℉（約177℃）と書かれることも多いです。"}},
+{"@type":"Question","name":"温度差の換算も同じ式ですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。「何度上がったか」という温度差の換算では32の引き算・足し算はしません。温度差1℃は温度差1.8℉にあたります。式の32は、絶対的な温度（読み値）を換算するときだけ使います。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ 華氏・摂氏換算計算</nav>
+<h1>華氏・摂氏換算計算</h1>
+<p class="lead">たとえば華氏68度＝摂氏20度、華氏98.6度（体温の目安）＝摂氏37.0度です。華氏・摂氏・ケルビンのどれかを入れると、残りの単位も同時に表示します。米国の天気予報や海外レシピのオーブン温度の確認にどうぞ。</p>
+<div class="badges"><span class="badge">摂氏＝（華氏−32）×5/9</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="fah">華氏 <small>℉</small></label><input type="number" id="fah" value="68" step="1" inputmode="decimal" data-nostep></div>
+<div><label class="flabel" for="cel">摂氏 <small>℃</small></label><input type="number" id="cel" value="20" step="1" inputmode="decimal" data-nostep></div>
+<div><label class="flabel" for="kel">ケルビン <small>K</small></label><input type="number" id="kel" value="293.15" step="1" inputmode="decimal" data-nostep></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※ケルビンは絶対零度（0K＝−273.15℃）を基準とする科学用の単位です。0K未満の温度は存在しないため、その場合は絶対零度として表示します。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">摂氏 ＝（華氏 − 32）× 5/9　／　華氏 ＝ 摂氏 × 9/5 ＋ 32　／　ケルビン ＝ 摂氏 ＋ 273.15</span>
+<p>華氏と摂氏は、零点と目盛の幅がどちらも違うため、長さや重さのような単純な掛け算では換算できません。水が凍る温度は摂氏0度＝華氏32度、水が沸騰する温度は摂氏100度＝華氏212度で、その間隔は摂氏で100目盛・華氏で180目盛のため、目盛の幅の比が 100：180 ＝ 5：9 になります。まず零点をそろえるために32を引き（または足し）、次に目盛の幅を 5/9 倍（または 9/5 倍）するのが換算式の意味です。この式は定義式のため、近似誤差はありません。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th></tr></thead>
+<tbody>
+<tr><td>華氏32度 → 摂氏</td><td>0.00℃（水が凍る温度）</td></tr>
+<tr><td>華氏68度 → 摂氏</td><td>20.00℃</td></tr>
+<tr><td>華氏98.6度 → 摂氏</td><td>37.00℃（体温の目安）</td></tr>
+<tr><td>摂氏100度 → 華氏</td><td>212.00℉（水が沸騰する温度）</td></tr>
+<tr><td>摂氏180度 → 華氏</td><td>356.00℉（オーブンの目安）</td></tr>
+</tbody></table></div>
+<p>長さの米国単位は<a href="/feet-meter/">フィート・メートル換算</a>や<a href="/inch-cm/">インチ・cm換算</a>でも確認できます。</p>
+
+<h2>華氏が使われる場面</h2>
+<p>華氏は米国などで天気・室温・体温の日常表示に使われます。天気予報の「80度」は華氏80度＝摂氏約26.7度で、暑さの感覚は日本と大きく違いませんが、数字だけ見ると驚く値になります。料理では海外レシピのオーブン温度が華氏で書かれることが多く、たとえば350℉は約177℃です。体積の米国単位は<a href="/gallon-liter/">ガロン・リットル換算</a>、距離は<a href="/mile-km/">マイル・km換算</a>もあわせてどうぞ。</p>
+<p>なお「何度上がったか」という<strong>温度差</strong>の換算は読み値の換算と違い、32の足し引きをしません。温度差1℃は温度差1.8℉にあたります（例：10℃の上昇は18℉の上昇）。</p>
+
+<h2>暗算のコツ</h2>
+<p>華氏を摂氏にざっくり直すときは「32を引いて、半分にする」と近似できます。たとえば華氏80度なら（80−32）÷2＝24℃（実際の値は26.67℃）です。目盛の比 5/9（約0.556）の代わりに 1/2 を使うため、実際の値より少し小さめに出ます。もう少し正確にしたいときは、半分にした値にその約1割を足します（24＋2.4＝26.4℃）。正確な値が必要なときは上のフォームを使ってください。</p>
+
+<h2>早見表：華氏 → 摂氏</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>華氏</th><th>摂氏</th></tr></thead>
+<tbody>
+<tr><td>-20℉</td><td>-28.89℃</td></tr>
+<tr><td>-10℉</td><td>-23.33℃</td></tr>
+<tr><td>0℉</td><td>-17.78℃</td></tr>
+<tr><td>10℉</td><td>-12.22℃</td></tr>
+<tr><td>20℉</td><td>-6.67℃</td></tr>
+<tr><td>32℉</td><td>0.00℃</td></tr>
+<tr><td>40℉</td><td>4.44℃</td></tr>
+<tr><td>50℉</td><td>10.00℃</td></tr>
+<tr><td>60℉</td><td>15.56℃</td></tr>
+<tr><td>68℉</td><td>20.00℃</td></tr>
+<tr><td>70℉</td><td>21.11℃</td></tr>
+<tr><td>80℉</td><td>26.67℃</td></tr>
+<tr><td>86℉</td><td>30.00℃</td></tr>
+<tr><td>90℉</td><td>32.22℃</td></tr>
+<tr><td>100℉</td><td>37.78℃</td></tr>
+<tr><td>110℉</td><td>43.33℃</td></tr>
+</tbody></table></div>
+
+<h2>早見表：摂氏 → 華氏</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>摂氏</th><th>華氏</th></tr></thead>
+<tbody>
+<tr><td>-20℃</td><td>-4.0℉</td></tr>
+<tr><td>-10℃</td><td>14.0℉</td></tr>
+<tr><td>0℃</td><td>32.0℉</td></tr>
+<tr><td>5℃</td><td>41.0℉</td></tr>
+<tr><td>10℃</td><td>50.0℉</td></tr>
+<tr><td>15℃</td><td>59.0℉</td></tr>
+<tr><td>20℃</td><td>68.0℉</td></tr>
+<tr><td>25℃</td><td>77.0℉</td></tr>
+<tr><td>30℃</td><td>86.0℉</td></tr>
+<tr><td>35℃</td><td>95.0℉</td></tr>
+<tr><td>40℃</td><td>104.0℉</td></tr>
+<tr><td>100℃</td><td>212.0℉</td></tr>
+</tbody></table></div>
+
+<h2>早見表：オーブン温度（摂氏 → 華氏）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>摂氏</th><th>華氏</th></tr></thead>
+<tbody>
+<tr><td>150℃</td><td>302℉</td></tr>
+<tr><td>160℃</td><td>320℉</td></tr>
+<tr><td>170℃</td><td>338℉</td></tr>
+<tr><td>180℃</td><td>356℉</td></tr>
+<tr><td>190℃</td><td>374℉</td></tr>
+<tr><td>200℃</td><td>392℉</td></tr>
+<tr><td>210℃</td><td>410℉</td></tr>
+<tr><td>220℃</td><td>428℉</td></tr>
+<tr><td>230℃</td><td>446℉</td></tr>
+<tr><td>250℃</td><td>482℉</td></tr>
+</tbody></table></div>
+
+<h2>早見表：身近な温度</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>温度の例</th><th>換算</th></tr></thead>
+<tbody>
+<tr><td>絶対零度</td><td>−273.15℃ ＝ −459.67℉ ＝ 0K</td></tr>
+<tr><td>華氏と摂氏が一致する点</td><td>−40℃ ＝ −40℉</td></tr>
+<tr><td>水が凍る温度（1気圧）</td><td>0℃ ＝ 32℉</td></tr>
+<tr><td>室温の目安</td><td>20℃ ＝ 68℉</td></tr>
+<tr><td>体温の目安</td><td>37.0℃ ＝ 98.6℉</td></tr>
+<tr><td>水が沸騰する温度（1気圧）</td><td>100℃ ＝ 212℉</td></tr>
+</tbody></table></div>
+<p>早見表の値は、定義式（摂氏＝（華氏−32）×5/9）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は温度の単位換算のみです。体温計の表示や天気予報の値は測定条件によって変わるため、医療判断などには使わないでください。水の凝固点・沸点は1気圧での値で、気圧が変わると沸点も変わります。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>華氏68度は摂氏何度ですか？</summary><p>華氏68度は摂氏20度です。（68−32）×5/9＝20で計算できます。米国の天気予報や室温表示でよく出る値です。</p></details>
+<details class="faq"><summary>華氏と摂氏が同じ温度になるのは何度ですか？</summary><p>マイナス40度です。−40℉＝−40℃で、2つの温度目盛が交わる唯一の点です。</p></details>
+<details class="faq"><summary>体温の華氏98.6度は摂氏何度ですか？</summary><p>摂氏37.0度です。（98.6−32）×5/9＝37.0で、平熱の目安とされる値です。</p></details>
+<details class="faq"><summary>オーブンの摂氏180度は華氏何度ですか？</summary><p>華氏356度です。180×9/5＋32＝356で計算できます。海外レシピでは350℉（約177℃）と書かれることも多いです。</p></details>
+<details class="faq"><summary>温度差の換算も同じ式ですか？</summary><p>いいえ。「何度上がったか」という温度差の換算では32の引き算・足し算はしません。温度差1℃は温度差1.8℉にあたります。式の32は、絶対的な温度（読み値）を換算するときだけ使います。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/feet-meter/"><span class="ic">フ</span><span class="t">フィート・メートル換算計算</span><div class="d">フィート⇔メートルを双方向に換算。1フィート＝0.3048m、身長・高度換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/gallon-liter/"><span class="ic">ガ</span><span class="t">ガロン・リットル換算計算</span><div class="d">ガロン⇔リットルを双方向に換算。米1ガロン＝3.785411784L・英1ガロン＝4.54609L、早見表つき。</div></a>
+<a class="toolcard c-life" href="/mile-km/"><span class="ic">マ</span><span class="t">マイル・km換算計算</span><div class="d">マイル⇔kmを双方向に換算。1マイル＝1.609344km、速度mph→km/h・マラソン距離と早見表つき。</div></a>
+<a class="toolcard c-life" href="/pound-kg/"><span class="ic">ポ</span><span class="t">ポンド・kg換算計算</span><div class="d">ポンド⇔kgを双方向に換算。1ポンド＝0.45359237kg、オンス表示・体重換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：換算式は定義式（摂氏＝（華氏−32）×5/9、ケルビン＝摂氏＋273.15）で、NIST SP 811 の温度換算と一致することを確認（2026-11-15）。計算例は research/fahrenheit-celsius-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function r2(x){ return Math.round(x*100)/100; }
+function render(f, c){
+var k = c + 273.15;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(f)+" ℉ ＝ "+fmt2(c)+" ℃</div><div class='big'>"+fmt2(c)+" ℃</div>"+
+"<table>"+
+"<tr><td>華氏</td><td>"+fmt2(f)+" ℉</td></tr>"+
+"<tr><td>摂氏</td><td>"+fmt2(c)+" ℃</td></tr>"+
+"<tr><td>ケルビン</td><td>"+fmt2(k)+" K</td></tr>"+
+"</table>"+
+"<p>"+fmt2(f)+" ℉は "+fmt2(c)+" ℃（"+fmt2(k)+" K）です（摂氏＝（華氏−32）×5/9で計算）。</p>";
+}
+function fromFah(){
+if(syncing) return; syncing=true;
+var f=num("fah");
+var c=(f-32)*5/9;
+if(c < -273.15){ c=-273.15; f=-459.67; document.getElementById("fah").value=r2(f); }
+document.getElementById("cel").value=r2(c);
+document.getElementById("kel").value=r2(c+273.15);
+render(f,c);
+syncing=false;
+}
+function fromCel(){
+if(syncing) return; syncing=true;
+var c=num("cel");
+if(c < -273.15){ c=-273.15; document.getElementById("cel").value=r2(c); }
+var f=c*9/5+32;
+document.getElementById("fah").value=r2(f);
+document.getElementById("kel").value=r2(c+273.15);
+render(f,c);
+syncing=false;
+}
+function fromKel(){
+if(syncing) return; syncing=true;
+var k=Math.max(0, num("kel"));
+var c=k-273.15;
+var f=c*9/5+32;
+document.getElementById("fah").value=r2(f);
+document.getElementById("cel").value=r2(c);
+render(f,c);
+syncing=false;
+}
+document.getElementById("fah").addEventListener("input", fromFah);
+document.getElementById("cel").addEventListener("input", fromCel);
+document.getElementById("kel").addEventListener("input", fromKel);
+presets("fah",[32,68,86,100],function(v){return v+"℉";});
+presets("cel",[0,20,37,100],function(v){return v+"℃";});
+fromFah();
+</script>
+</body>
+</html>
