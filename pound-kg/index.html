@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポンド・kg換算計算｜ポンド⇔kg・オンスへの換算と早見表</title>
+<meta name="description" content="ポンドとkg（キログラム）を双方向に換算。1ポンド＝0.45359237kgで計算し、g・オンス・ポンド＋オンス表示と体重換算、ポンド・kgの早見表も表示。10ポンド＝4.54kg、50kg＝約110.23ポンド。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/pound-kg/">
+<meta property="og:title" content="ポンド・kg換算計算｜計算ラボ">
+<meta property="og:description" content="ポンド⇔kgをすぐ換算。オンス表示・体重換算と早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ポンド・kg換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/pound-kg/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"ポンド・kg換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"1ポンドは何kgですか？","acceptedAnswer":{"@type":"Answer","text":"1ポンドは0.45359237kg（約453.6g）です。1959年の国際ヤード・ポンド協定で厳密に定義された値で、割り切れる定義値です。逆に1kg＝約2.2046ポンドです。"}},
+{"@type":"Question","name":"1ポンドステーキは何gですか？","acceptedAnswer":{"@type":"Answer","text":"1ポンド＝0.45359237kgなので、約454gです。「1ポンドステーキ」はおよそ450g強のステーキを指します。半ポンドなら約227gです。"}},
+{"@type":"Question","name":"50kgは何ポンドですか？","acceptedAnswer":{"@type":"Answer","text":"50kg÷0.45359237＝約110.23ポンドです。英国式のストーンで表すと約7ストーン12.23ポンド（1ストーン＝14ポンド）になります。"}},
+{"@type":"Question","name":"ポンドとオンスの関係は？","acceptedAnswer":{"@type":"Answer","text":"1ポンド＝16オンスです。1オンス＝28.349523125g（約28.35g）で、海外レシピの材料表示や赤ちゃんの体重表示によく使われます。"}},
+{"@type":"Question","name":"トロイポンドや通貨のポンドとは違いますか？","acceptedAnswer":{"@type":"Answer","text":"違います。このツールが扱うのは日常で使う常用ポンド（1ポンド＝0.45359237kg）です。貴金属用のトロイポンド（1トロイポンド＝約0.3732kg）や、英国の通貨ポンド（£）は別の単位です。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ ポンド・kg換算計算</nav>
+<h1>ポンド・kg換算計算</h1>
+<p class="lead">たとえば1ポンドは0.45359237kg（約453.6g）、10ポンドは4.54kg、50kgは約110.23ポンドです。ポンドかkgのどちらかを入れると、g・オンス・ポンド＋オンス表示まで同時に表示します。ステーキや海外の体重表示、手荷物制限の確認にどうぞ。</p>
+<div class="badges"><span class="badge">1ポンド＝0.45359237kg</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="lb">ポンド <small>lb</small></label><input type="number" id="lb" value="10" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="kg">キログラム <small>kg</small></label><input type="number" id="kg" value="4.54" min="0" step="1" inputmode="decimal"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※このツールが扱うのは常用ポンドです。貴金属用のトロイポンドや通貨のポンド（£）とは別単位です（本文で解説）。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">kg ＝ ポンド × 0.45359237　／　ポンド ＝ kg ÷ 0.45359237</span>
+<p>ポンド（常用ポンド、記号 lb）は1959年の国際ヤード・ポンド協定で、1ポンド＝0.45359237kgと厳密に定義されました。割り切れる定義値のため、換算に近似誤差はありません。同じ定義から、1オンス（oz）＝1/16ポンド＝28.349523125g、1ストーン（st）＝14ポンド＝6.35029318kgが導かれます。なお、日本で1993年の計量法改正前に使われていた旧定義（0.45359243kg）は現在使われておらず、このツールでも現行定義のみを使います。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。ポンド＋オンスの複合表示は、ポンドの総量から整数ポンドを取り、余りを16倍してオンスに直します。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th></tr></thead>
+<tbody>
+<tr><td>1ポンド → kg</td><td>0.45kg（453.59g）</td></tr>
+<tr><td>10ポンド → kg</td><td>4.54kg</td></tr>
+<tr><td>150ポンド → kg</td><td>68.04kg</td></tr>
+<tr><td>50kg → ポンド</td><td>110.23ポンド</td></tr>
+<tr><td>1オンス → g</td><td>28.35g</td></tr>
+</tbody></table></div>
+<p>たとえば「1ポンドステーキ」は約454g、「体重150ポンド」は約68kgです。単位をそろえてから比べるのが確実です。</p>
+
+<h2>「lb」表記と1ポンドステーキについて</h2>
+<p>ポンドの記号「lb」は、ラテン語の libra（リーブラ、天秤・重さの単位）に由来します。英語の pound とは語源が異なりますが、同じ単位を指します。食品では「1ポンドステーキ」のように使われ、1ポンド＝約454gが目安です。半ポンド（0.5ポンド）なら約227g、2ポンドなら約907gになります。</p>
+<p>重さの感覚をつかみたい場面では、置き場所の広さを<a href="/tsubo-heibei/">坪・平米換算</a>で確認したり、物の大きさを<a href="/inch-cm/">インチ・cm換算</a>で長さに直したりするのも役立ちます。</p>
+
+<h2>暗算のコツ</h2>
+<p>ポンドをkgにざっくり直すときは、「半分にして、そこから1割引く」と近似できます。たとえば100ポンドなら、半分で50、1割引いて45kg（実際の値は45.36kg、誤差1%未満）です。逆にkgをポンドに直すときは「2倍して、そこに1割足す」と近似できます（50kgなら100＋10＝110ポンド、実際は110.23ポンド）。正確な値が必要なときは上のフォームを使ってください。</p>
+
+<h2>早見表：ポンド → kg</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>ポンド</th><th>kg</th></tr></thead>
+<tbody>
+<tr><td>1ポンド</td><td>0.45kg</td></tr>
+<tr><td>2ポンド</td><td>0.91kg</td></tr>
+<tr><td>3ポンド</td><td>1.36kg</td></tr>
+<tr><td>5ポンド</td><td>2.27kg</td></tr>
+<tr><td>10ポンド</td><td>4.54kg</td></tr>
+<tr><td>15ポンド</td><td>6.80kg</td></tr>
+<tr><td>20ポンド</td><td>9.07kg</td></tr>
+<tr><td>30ポンド</td><td>13.61kg</td></tr>
+<tr><td>40ポンド</td><td>18.14kg</td></tr>
+<tr><td>50ポンド</td><td>22.68kg</td></tr>
+<tr><td>60ポンド</td><td>27.22kg</td></tr>
+<tr><td>70ポンド</td><td>31.75kg</td></tr>
+<tr><td>80ポンド</td><td>36.29kg</td></tr>
+<tr><td>90ポンド</td><td>40.82kg</td></tr>
+<tr><td>100ポンド</td><td>45.36kg</td></tr>
+<tr><td>150ポンド</td><td>68.04kg</td></tr>
+<tr><td>200ポンド</td><td>90.72kg</td></tr>
+</tbody></table></div>
+
+<h2>早見表：kg → ポンド</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>kg</th><th>ポンド</th></tr></thead>
+<tbody>
+<tr><td>1kg</td><td>2.20ポンド</td></tr>
+<tr><td>5kg</td><td>11.02ポンド</td></tr>
+<tr><td>10kg</td><td>22.05ポンド</td></tr>
+<tr><td>20kg</td><td>44.09ポンド</td></tr>
+<tr><td>30kg</td><td>66.14ポンド</td></tr>
+<tr><td>40kg</td><td>88.18ポンド</td></tr>
+<tr><td>50kg</td><td>110.23ポンド</td></tr>
+<tr><td>60kg</td><td>132.28ポンド</td></tr>
+<tr><td>70kg</td><td>154.32ポンド</td></tr>
+<tr><td>80kg</td><td>176.37ポンド</td></tr>
+<tr><td>90kg</td><td>198.42ポンド</td></tr>
+<tr><td>100kg</td><td>220.46ポンド</td></tr>
+</tbody></table></div>
+
+<h2>早見表：オンス → g</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>オンス</th><th>g</th></tr></thead>
+<tbody>
+<tr><td>1オンス</td><td>28.35g</td></tr>
+<tr><td>2オンス</td><td>56.70g</td></tr>
+<tr><td>4オンス</td><td>113.40g</td></tr>
+<tr><td>8オンス</td><td>226.80g</td></tr>
+<tr><td>12オンス</td><td>340.19g</td></tr>
+<tr><td>16オンス</td><td>453.59g（＝1ポンド）</td></tr>
+</tbody></table></div>
+
+<h2>早見表：体重換算（kg → ポンド／ストーン）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>kg</th><th>ポンド</th><th>ストーン＋ポンド</th></tr></thead>
+<tbody>
+<tr><td>50kg</td><td>110.23ポンド</td><td>7ストーン12.23ポンド</td></tr>
+<tr><td>55kg</td><td>121.25ポンド</td><td>8ストーン9.25ポンド</td></tr>
+<tr><td>60kg</td><td>132.28ポンド</td><td>9ストーン6.28ポンド</td></tr>
+<tr><td>65kg</td><td>143.30ポンド</td><td>10ストーン3.30ポンド</td></tr>
+<tr><td>70kg</td><td>154.32ポンド</td><td>11ストーン0.32ポンド</td></tr>
+<tr><td>75kg</td><td>165.35ポンド</td><td>11ストーン11.35ポンド</td></tr>
+<tr><td>80kg</td><td>176.37ポンド</td><td>12ストーン8.37ポンド</td></tr>
+<tr><td>85kg</td><td>187.39ポンド</td><td>13ストーン5.39ポンド</td></tr>
+<tr><td>90kg</td><td>198.42ポンド</td><td>14ストーン2.42ポンド</td></tr>
+<tr><td>95kg</td><td>209.44ポンド</td><td>14ストーン13.44ポンド</td></tr>
+<tr><td>100kg</td><td>220.46ポンド</td><td>15ストーン10.46ポンド</td></tr>
+</tbody></table></div>
+<p>早見表の値は、厳密な係数（1ポンド＝0.45359237kg）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は重さの単位換算のみです。ボウリングのボールやダンベルの「ポンド」は重さを指しますが、釣りの糸の「ポンド（lbテスト）」は強度、弓の「ポンド」は引く力の目安など、分野ごとにポンドが指すものが異なります。航空会社の手荷物制限など正確さが必要な場面では、各社の規定（kg表示）もあわせてご確認ください。日常の計算には<a href="/nissu/">日数計算</a>や<a href="/nenrei/">年齢計算</a>も便利です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>1ポンドは何kgですか？</summary><p>1ポンドは0.45359237kg（約453.6g）です。1959年の国際ヤード・ポンド協定で厳密に定義された値で、割り切れる定義値です。逆に1kg＝約2.2046ポンドです。</p></details>
+<details class="faq"><summary>1ポンドステーキは何gですか？</summary><p>1ポンド＝0.45359237kgなので、約454gです。「1ポンドステーキ」はおよそ450g強のステーキを指します。半ポンドなら約227gです。</p></details>
+<details class="faq"><summary>50kgは何ポンドですか？</summary><p>50kg÷0.45359237＝約110.23ポンドです。英国式のストーンで表すと約7ストーン12.23ポンド（1ストーン＝14ポンド）になります。</p></details>
+<details class="faq"><summary>ポンドとオンスの関係は？</summary><p>1ポンド＝16オンスです。1オンス＝28.349523125g（約28.35g）で、海外レシピの材料表示や赤ちゃんの体重表示によく使われます。</p></details>
+<details class="faq"><summary>トロイポンドや通貨のポンドとは違いますか？</summary><p>違います。このツールが扱うのは日常で使う常用ポンド（1ポンド＝0.45359237kg）です。貴金属用のトロイポンド（1トロイポンド＝約0.3732kg）や、英国の通貨ポンド（£）は別の単位です。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/inch-cm/"><span class="ic">イ</span><span class="t">インチ・cm換算計算</span><div class="d">インチ⇔cmを双方向に換算。1インチ＝2.54cm、フィート表示・身長換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/tsubo-heibei/"><span class="ic">坪</span><span class="t">坪・平米換算計算</span><div class="d">坪⇔平米（㎡）を双方向に換算。畳への換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/denkidai/"><span class="ic">電</span><span class="t">電気代計算</span><div class="d">家電の消費電力（W）と使用時間から、電気代を1時間・1日・1か月・1年で計算。目安単価31円/kWh対応。</div></a>
+<a class="toolcard c-life" href="/gasoline-dai/"><span class="ic">油</span><span class="t">ガソリン代計算</span><div class="d">走行距離と燃費からガソリン代と使用量を計算。往復・割り勘・通勤の月額対応。</div></a>
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：換算係数は国際ヤード・ポンド協定（1959年）の厳密値（1ポンド＝0.45359237kg）で、NIST SP 811 の換算係数と一致することを確認（2026-11-15）。計算例は research/pound-kg-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+var K=0.45359237;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmt0(x){ return Math.round(x).toLocaleString("ja-JP"); }
+function render(lb, kg){
+var g = kg*1000;
+var oz = lb*16;
+var lbInt = Math.floor(lb);
+var ozRem = (lb - lbInt)*16;
+var st = lb/14;
+var stInt = Math.floor(st);
+var stRem = lb - stInt*14;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(lb)+" ポンド ＝ "+fmt2(kg)+" kg</div><div class='big'>"+fmt2(kg)+" kg</div>"+
+"<table>"+
+"<tr><td>ポンド</td><td>"+fmt2(lb)+" lb</td></tr>"+
+"<tr><td>キログラム</td><td>"+fmt2(kg)+" kg</td></tr>"+
+"<tr><td>グラム</td><td>"+fmt2(g)+" g</td></tr>"+
+"<tr><td>オンス</td><td>"+fmt2(oz)+" oz</td></tr>"+
+"<tr><td>ポンド＋オンス</td><td>"+lbInt+" lb "+fmt2(ozRem)+" oz</td></tr>"+
+"<tr><td>ストーン（参考）</td><td>"+fmt2(st)+" st（"+stInt+" st "+fmt2(stRem)+" lb）</td></tr>"+
+"</table>"+
+"<p>"+fmt2(lb)+" ポンドは "+fmt2(kg)+" kg（"+fmt0(g)+" g）で、オンスでは "+fmt2(oz)+" ozにあたります（1ポンド＝0.45359237kgで計算）。</p>";
+}
+function fromLb(){
+if(syncing) return; syncing=true;
+var p=Math.max(0, num("lb"));
+var k=p*K;
+document.getElementById("kg").value=Math.round(k*100)/100;
+render(p,k);
+syncing=false;
+}
+function fromKg(){
+if(syncing) return; syncing=true;
+var k=Math.max(0, num("kg"));
+var p=k/K;
+document.getElementById("lb").value=Math.round(p*100)/100;
+render(p,k);
+syncing=false;
+}
+document.getElementById("lb").addEventListener("input", fromLb);
+document.getElementById("kg").addEventListener("input", fromKg);
+presets("lb",[1,10,50,100,150],function(v){return v+"ポンド";});
+presets("kg",[50,60,70,80],function(v){return v+"kg";});
+fromLb();
+</script>
+</body>
+</html>
