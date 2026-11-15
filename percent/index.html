@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>パーセント計算｜何%はいくつ・何%増減・変化率をすぐ計算</title>
+<meta name="description" content="パーセント（％）の計算を4つのモードで。「10,000の30%はいくつ」「250は1,000の何%」「8,000を10%増やすと」「5,000から6,000への変化率は何%」をすぐ計算。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/percent/">
+<meta property="og:title" content="パーセント計算｜計算ラボ">
+<meta property="og:description" content="何%はいくつ・何%か・何%増減・変化率の4モードをすぐ計算。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"パーセント計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/percent/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"パーセント計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"10,000の30%はいくつですか？","acceptedAnswer":{"@type":"Answer","text":"10,000×30÷100＝3,000です。「AのB%」は A×B÷100 で計算します。"}},
+{"@type":"Question","name":"250は1,000の何%ですか？","acceptedAnswer":{"@type":"Answer","text":"250÷1,000×100＝25%です。「AはBの何%」は A÷B×100 で計算します。"}},
+{"@type":"Question","name":"%（パーセント）と%ポイントは何が違いますか？","acceptedAnswer":{"@type":"Answer","text":"%ポイントは、パーセント同士の差を表す単位です。たとえば金利が2%から3%に上がった場合、差は1%ポイント、変化率は+50%です。混同すると大きさの受け取り方が大きく変わります。"}},
+{"@type":"Question","name":"5,000から6,000への変化率は何%ですか？","acceptedAnswer":{"@type":"Answer","text":"（6,000−5,000）÷5,000×100＝+20%です。変化率は「増えた分÷元の数×100」で計算します。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/money/">お金の計算</a> ＞ パーセント計算</nav>
+<h1>パーセント計算</h1>
+<p class="lead">たとえば10,000の30%は3,000、250は1,000の25%、8,000を10%増やすと8,800、5,000から6,000への変化率は+20%です。知りたい計算の種類を選んで数値を入れるだけです。</p>
+<div class="badges"><span class="badge">4モード対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">計算の種類</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="part">AのB%はいくつ</button><button type="button" data-v="ratio">AはBの何%</button><button type="button" data-v="change">AをB%増減</button><button type="button" data-v="rate">AからBへの変化率</button></div></div>
+<div><label class="flabel" for="a" id="aLabel">A（元の数）</label><input type="number" id="a" value="10000" step="any" inputmode="decimal"></div>
+<div><label class="flabel" for="b" id="bLabel">B（%）</label><input type="number" id="b" value="30" step="any" inputmode="decimal"></div>
+<div id="dirWrap" style="display:none"><label class="flabel">増やす／減らす</label>
+<div class="seg" id="dirSeg"><button type="button" class="on" data-v="up">増やす</button><button type="button" data-v="down">減らす</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※表示は小数第2位まで（四捨五入）です。割引だけを計算したい場合は<a href="/waribiki/">割引計算</a>、税込・税抜は<a href="/shohizei/">消費税計算</a>が便利です。</p>
+</div>
+
+<h2>計算方法</h2>
+<span class="formula">AのB% ＝ A × B ÷ 100</span>
+<span class="formula">AはBの何% ＝ A ÷ B × 100</span>
+<span class="formula">AをB%増やす ＝ A ×（1 ＋ B ÷ 100）／ 減らす ＝ A ×（1 − B ÷ 100）</span>
+<span class="formula">AからBへの変化率 ＝（B − A）÷ A × 100</span>
+<p>パーセントは「100分のいくつか」を表す割合の単位で、1%は0.01にあたります。割合の計算は、比べる量ともとにする量のどちらを分母にするかで結果が変わります。「何%か」では全体（B）が分母、「変化率」では元の数（A）が分母です。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td>10,000の30%</td><td>3,000</td></tr>
+<tr><td>3,980の30%</td><td>1,194</td></tr>
+<tr><td>250は1,000の何%</td><td>25%</td></tr>
+<tr><td>8,000を10%増やす</td><td>8,800（差 +800）</td></tr>
+<tr><td>8,000を20%減らす</td><td>6,400（差 −1,600）</td></tr>
+<tr><td>5,000から6,000への変化率</td><td>+20%（差 +1,000）</td></tr>
+</tbody></table></div>
+
+<h2>%と%ポイントの違い</h2>
+<p>ニュースでよく出る「%ポイント」は、パーセント同士の差そのものを表します。たとえば支持率が40%から50%に上がった場合、差は10%ポイントです。一方、変化率で表すと（50−40）÷40×100＝+25%になります。「10%上がった」と聞いたとき、それが10%ポイントの上昇なのか、25%の上昇（相対）なのかで意味がまったく違うため、元の数を確認するのが大切です。</p>
+
+<h2>早見表：10,000の何%</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>%</th><th>値</th></tr></thead>
+<tbody>
+<tr><td>1%</td><td>100</td></tr>
+<tr><td>5%</td><td>500</td></tr>
+<tr><td>10%</td><td>1,000</td></tr>
+<tr><td>20%</td><td>2,000</td></tr>
+<tr><td>25%</td><td>2,500</td></tr>
+<tr><td>30%</td><td>3,000</td></tr>
+<tr><td>50%</td><td>5,000</td></tr>
+<tr><td>100%</td><td>10,000</td></tr>
+</tbody></table></div>
+
+<h2>早見表：分数とパーセント</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>分数</th><th>パーセント</th></tr></thead>
+<tbody>
+<tr><td>1/2</td><td>50%</td></tr>
+<tr><td>1/3</td><td>約33.33%</td></tr>
+<tr><td>1/4</td><td>25%</td></tr>
+<tr><td>1/5</td><td>20%</td></tr>
+<tr><td>1/8</td><td>12.5%</td></tr>
+<tr><td>1/10</td><td>10%</td></tr>
+<tr><td>3/4</td><td>75%</td></tr>
+</tbody></table></div>
+<p>早見表の値は定義式で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>割合は分母の取り方で意味が変わります。たとえば「利益率」は売上に対する利益の割合、「原価率」は売上に対する原価の割合というように、業界ごとに分母の約束が決まっている場合があります。仕事の数字では、相手がどの数を分母にしているかを確認してから比べましょう。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>10,000の30%はいくつですか？</summary><p>10,000×30÷100＝3,000です。「AのB%」は A×B÷100 で計算します。</p></details>
+<details class="faq"><summary>250は1,000の何%ですか？</summary><p>250÷1,000×100＝25%です。「AはBの何%」は A÷B×100 で計算します。</p></details>
+<details class="faq"><summary>%（パーセント）と%ポイントは何が違いますか？</summary><p>%ポイントは、パーセント同士の差を表す単位です。たとえば金利が2%から3%に上がった場合、差は1%ポイント、変化率は+50%です。混同すると大きさの受け取り方が大きく変わります。</p></details>
+<details class="faq"><summary>5,000から6,000への変化率は何%ですか？</summary><p>（6,000−5,000）÷5,000×100＝+20%です。変化率は「増えた分÷元の数×100」で計算します。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/waribiki/"><span class="ic">割</span><span class="t">割引計算</span><div class="d">「30%オフはいくら？」「2割5分引きは？」を即計算。割引額と実際に払う割合も分かります。</div></a>
+<a class="toolcard" href="/shohizei/"><span class="ic">消</span><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。10%と軽減税率8%の切替、端数処理の選択つき。</div></a>
+<a class="toolcard" href="/fukuri-tsumitate/"><span class="ic">積</span><span class="t">複利・積立シミュレーション</span><div class="d">毎月積立と一括投資の将来額を複利で計算。年次推移表と、目標額からの逆算つき。</div></a>
+<a class="toolcard" href="/money/"><span class="ic">金</span><span class="t">お金の計算ツール一覧</span><div class="d">消費税・割引・手取りなど、お金に関する計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>計算方法の検証：パーセントの定義式に基づき、research/percent-test.md のテストケース12件で検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var modeSeg=document.getElementById("modeSeg"); modeSeg.dataset.mode="part";
+var dirSeg=document.getElementById("dirSeg"); dirSeg.dataset.dir="up";
+setSeg("modeSeg","mode",calc); setSeg("dirSeg","dir",calc);
+["a","b"].forEach(function(id){ document.getElementById(id).addEventListener("input",calc); });
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:0, maximumFractionDigits:2}); }
+function sign(x){ return (x>0?"+":"") + fmt2(x); }
+function calc(){
+var mode=modeSeg.dataset.mode, a=num("a"), b=num("b");
+var labels={part:["A（元の数）","B（%）"],ratio:["A（比べる量）","B（全体）"],change:["A（元の数）","B（%）"],rate:["A（元の数）","B（新しい数）"]};
+document.getElementById("aLabel").textContent=labels[mode][0];
+document.getElementById("bLabel").textContent=labels[mode][1];
+document.getElementById("dirWrap").style.display = mode==="change"? "": "none";
+var html="";
+if(mode==="part"){
+var r=a*b/100;
+html="<div>"+fmt2(a)+" の "+fmt2(b)+"%</div><div class='big'>"+fmt2(r)+"</div><table><tr><td>計算式</td><td>"+fmt2(a)+" × "+fmt2(b)+" ÷ 100</td></tr></table>";
+}else if(mode==="ratio"){
+if(b===0){ html="<div class='big'>計算できません</div><p>B（全体）が0のとき、割合は計算できません。</p>"; }
+else{ var p=a/b*100; html="<div>"+fmt2(a)+" は "+fmt2(b)+" の</div><div class='big'>"+fmt2(p)+" %</div><table><tr><td>計算式</td><td>"+fmt2(a)+" ÷ "+fmt2(b)+" × 100</td></tr></table>"; }
+}else if(mode==="change"){
+var up=dirSeg.dataset.dir==="up"; var r2= up? a*(1+b/100): a*(1-b/100); var d=r2-a;
+html="<div>"+fmt2(a)+" を "+fmt2(b)+"% "+(up?"増やすと":"減らすと")+"</div><div class='big'>"+fmt2(r2)+"</div><table><tr><td>差額</td><td>"+sign(d)+"</td></tr><tr><td>計算式</td><td>"+fmt2(a)+" × (1 "+(up?"+":"−")+" "+fmt2(b)+" ÷ 100)</td></tr></table>";
+}else{
+if(a===0){ html="<div class='big'>計算できません</div><p>A（元の数）が0のとき、変化率は計算できません。</p>"; }
+else{ var rt=(b-a)/a*100; var dd=b-a; html="<div>"+fmt2(a)+" から "+fmt2(b)+" への変化率</div><div class='big'>"+sign(rt)+" %</div><table><tr><td>差額</td><td>"+sign(dd)+"</td></tr><tr><td>計算式</td><td>("+fmt2(b)+" − "+fmt2(a)+") ÷ "+fmt2(a)+" × 100</td></tr></table>"; }
+}
+document.getElementById("resultBox").innerHTML=html;
+}
+calc();
+</script>
+</body>
+</html>
