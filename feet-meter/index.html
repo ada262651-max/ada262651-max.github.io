@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>フィート・メートル換算計算｜フィート⇔mの換算と早見表（身長・高度対応）</title>
+<meta name="description" content="フィートとメートルを双方向に換算。1フィート＝0.3048m（厳密値）で計算し、cm・インチ・フィート＋インチ複合表示と早見表も表示。6フィート＝1.83m、10,000フィート＝3,048m。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/feet-meter/">
+<meta property="og:title" content="フィート・メートル換算計算｜計算ラボ">
+<meta property="og:description" content="フィート⇔メートルをすぐ換算。身長のフィート＋インチ表示・高度換算と早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"フィート・メートル換算計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/feet-meter/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"フィート・メートル換算計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"1フィートは何メートルですか？","acceptedAnswer":{"@type":"Answer","text":"1フィート＝0.3048メートルです。1959年の国際ヤード・ポンド協定で定められた割り切れる定義値（厳密値）で、センチメートルでは30.48cmです。1フィートは12インチ、3フィートが1ヤードです。"}},
+{"@type":"Question","name":"身長170cmはフィートでは何フィート何インチですか？","acceptedAnswer":{"@type":"Answer","text":"170cm＝約5.58フィートで、フィート＋インチ表記では5フィート6.93インチ（約5フィート7インチ）です。米国のプロフィールなどでは「5'7\"」のように丸めて書かれることが多いです。"}},
+{"@type":"Question","name":"飛行機の高度10,000フィートは何メートルですか？","acceptedAnswer":{"@type":"Answer","text":"10,000フィート＝3,048メートルです。航空の世界では世界共通で高度をフィートで表すため、旅客機の巡航高度35,000フィートは約10,668メートルになります。"}},
+{"@type":"Question","name":"フィートの記号「′」は何ですか？","acceptedAnswer":{"@type":"Answer","text":"フィートは「′」（プライム）、インチは「″」（ダブルプライム）で表すことがあります。たとえば5′8″は5フィート8インチ＝172.72cmを意味します。"}},
+{"@type":"Question","name":"測量フィートという別のフィートもあるのですか？","acceptedAnswer":{"@type":"Answer","text":"米国には測量用の米国測量フィート（1フィート＝1200/3937メートル、国際フィートより約0.0002%長い）がありましたが、2022年末にNIST（米国立標準技術研究所）等が廃止しました。このツールは現在標準の国際フィート（0.3048m）を使っています。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ フィート・メートル換算計算</nav>
+<h1>フィート・メートル換算計算</h1>
+<p class="lead">たとえば1フィート＝0.3048メートル、6フィート＝1.83メートルです。飛行機の高度10,000フィートは3,048メートルになります。フィート・メートル・センチメートルのどれかを入れると、インチと「フィート＋インチ」表示まで同時に表示します。米国の身長表記や航空・スポーツの確認にどうぞ。</p>
+<div class="badges"><span class="badge">1フィート＝0.3048m</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="ft">フィート <small>ft</small></label><input type="number" id="ft" value="6" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="met">メートル <small>m</small></label><input type="number" id="met" value="1.83" min="0" step="1" inputmode="decimal"></div>
+<div><label class="flabel" for="cm">センチメートル <small>cm</small></label><input type="number" id="cm" value="182.88" min="0" step="1" inputmode="decimal"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※このツールは国際フィート（1フィート＝0.3048m、厳密値）で換算します。2022年末に廃止された米国測量フィートは対象外です（本文で解説）。</p>
+</div>
+
+<h2>換算の計算方法</h2>
+<span class="formula">メートル ＝ フィート × 0.3048　／　フィート ＝ メートル ÷ 0.3048</span>
+<p>国際フィートは、1959年の国際ヤード・ポンド協定で「1ヤード＝0.9144メートル（厳密値）」と定められたことから、その3分の1である「1フィート＝0.3048メートル」という割り切れる定義値になっています。1インチ＝2.54cm（厳密値）の12倍＝30.48cmとも一致し、換算に近似誤差はありません。身長などで使う「フィート＋インチ」表示は、小数フィートの小数部に12を掛けてインチに直したものです。</p>
+<p>端数処理は、途中の値を丸めずに最後まで計算し、表示は小数第2位まで（四捨五入）です。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>例</th><th>換算結果</th></tr></thead>
+<tbody>
+<tr><td>1フィート → メートル</td><td>0.30m（30.48cm）</td></tr>
+<tr><td>6フィート → メートル</td><td>1.83m</td></tr>
+<tr><td>10フィート → メートル</td><td>3.05m</td></tr>
+<tr><td>10,000フィート → メートル</td><td>3,048.00m</td></tr>
+<tr><td>170cm → フィート</td><td>5.58フィート（5フィート6.93インチ）</td></tr>
+</tbody></table></div>
+<p>たとえば米国の選手プロフィールで身長「6フィート2インチ」とあれば、6×30.48＋2×2.54＝187.96cmです。小さい長さの換算は<a href="/inch-cm/">インチ・cm換算</a>でも確認できます。</p>
+
+<h2>フィートが使われる場面</h2>
+<p>フィートは米国を中心に、身長・部屋の広さ・スポーツの規格などで日常的に使われます。バスケットボールのゴールの高さは10フィート（3.048m、一般に3.05mと表示）です。また航空の世界では、国によらず高度をフィートで表すのが世界共通の決まりで、旅客機の巡航高度はおおむね35,000フィート（約10,668m）です。長い距離の換算は<a href="/mile-km/">マイル・km換算</a>、面積は<a href="/tsubo-heibei/">坪・平米換算</a>もあわせてどうぞ。</p>
+<p>なお米国には土地測量用の「米国測量フィート」（1フィート＝1200/3937メートル、国際フィートより約0.0002%長い）もありましたが、混乱を避けるため2022年末にNIST（米国立標準技術研究所）と米国測地測量局が廃止し、国際フィートに一本化されました。古い測量記録を読む場合だけ注意してください。</p>
+
+<h2>暗算のコツ</h2>
+<p>フィートをメートルにざっくり直すときは「0.3倍する」と近似できます。たとえば10フィートなら約3m（実際の値は3.05m、誤差約1.6%）です。もう少し正確にしたいときは、0.3倍した値にその約1.6%を足します（10フィートなら3m＋約0.05m）。逆にメートルをフィートに直すときは「3.3倍する」が目安です（1.7mなら約5.61フィート、実際は5.58フィート）。正確な値が必要なときは上のフォームを使ってください。</p>
+
+<h2>早見表：フィート → メートル</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>フィート</th><th>メートル</th></tr></thead>
+<tbody>
+<tr><td>1フィート</td><td>0.30m</td></tr>
+<tr><td>2フィート</td><td>0.61m</td></tr>
+<tr><td>3フィート</td><td>0.91m</td></tr>
+<tr><td>4フィート</td><td>1.22m</td></tr>
+<tr><td>5フィート</td><td>1.52m</td></tr>
+<tr><td>6フィート</td><td>1.83m</td></tr>
+<tr><td>7フィート</td><td>2.13m</td></tr>
+<tr><td>8フィート</td><td>2.44m</td></tr>
+<tr><td>9フィート</td><td>2.74m</td></tr>
+<tr><td>10フィート</td><td>3.05m</td></tr>
+<tr><td>15フィート</td><td>4.57m</td></tr>
+<tr><td>20フィート</td><td>6.10m</td></tr>
+<tr><td>30フィート</td><td>9.14m</td></tr>
+<tr><td>50フィート</td><td>15.24m</td></tr>
+<tr><td>100フィート</td><td>30.48m</td></tr>
+<tr><td>1,000フィート</td><td>304.80m</td></tr>
+</tbody></table></div>
+
+<h2>早見表：メートル → フィート</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>メートル</th><th>フィート</th></tr></thead>
+<tbody>
+<tr><td>1m</td><td>3.28フィート</td></tr>
+<tr><td>2m</td><td>6.56フィート</td></tr>
+<tr><td>3m</td><td>9.84フィート</td></tr>
+<tr><td>5m</td><td>16.40フィート</td></tr>
+<tr><td>10m</td><td>32.81フィート</td></tr>
+<tr><td>20m</td><td>65.62フィート</td></tr>
+<tr><td>30m</td><td>98.43フィート</td></tr>
+<tr><td>50m</td><td>164.04フィート</td></tr>
+<tr><td>100m</td><td>328.08フィート</td></tr>
+<tr><td>300m</td><td>984.25フィート</td></tr>
+<tr><td>1,000m</td><td>3,280.84フィート</td></tr>
+</tbody></table></div>
+
+<h2>早見表：身長（フィート＋インチ → cm）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>フィート＋インチ</th><th>センチメートル</th></tr></thead>
+<tbody>
+<tr><td>4フィート6インチ</td><td>137.16cm</td></tr>
+<tr><td>4フィート9インチ</td><td>144.78cm</td></tr>
+<tr><td>5フィート0インチ</td><td>152.40cm</td></tr>
+<tr><td>5フィート3インチ</td><td>160.02cm</td></tr>
+<tr><td>5フィート6インチ</td><td>167.64cm</td></tr>
+<tr><td>5フィート8インチ</td><td>172.72cm</td></tr>
+<tr><td>5フィート10インチ</td><td>177.80cm</td></tr>
+<tr><td>6フィート0インチ</td><td>182.88cm</td></tr>
+<tr><td>6フィート2インチ</td><td>187.96cm</td></tr>
+<tr><td>6フィート6インチ</td><td>198.12cm</td></tr>
+</tbody></table></div>
+
+<h2>早見表：身近な高さ</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>高さの例</th><th>換算</th></tr></thead>
+<tbody>
+<tr><td>バスケットボールのゴール 10フィート</td><td>3.05m</td></tr>
+<tr><td>旅客機の巡航高度 35,000フィート</td><td>10,668.00m</td></tr>
+<tr><td>東京スカイツリー 634m</td><td>2,080.05フィート</td></tr>
+<tr><td>富士山 3,776m</td><td>12,388.45フィート</td></tr>
+</tbody></table></div>
+<p>早見表の値は、厳密な係数（1フィート＝0.3048m）で計算し、小数第2位まで四捨五入したものです。表にない値は上のフォームで計算してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの換算は長さの単位換算のみです。米国の身長表記はインチ部分を四捨五入して書かれることが多いため、cmに戻すと元の値と数mmずれる場合があります。測量など高精度が必要な用途では、記録が国際フィートか旧・米国測量フィートかを確認してください。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>1フィートは何メートルですか？</summary><p>1フィート＝0.3048メートルです。1959年の国際ヤード・ポンド協定で定められた割り切れる定義値（厳密値）で、センチメートルでは30.48cmです。1フィートは12インチ、3フィートが1ヤードです。</p></details>
+<details class="faq"><summary>身長170cmはフィートでは何フィート何インチですか？</summary><p>170cm＝約5.58フィートで、フィート＋インチ表記では5フィート6.93インチ（約5フィート7インチ）です。米国のプロフィールなどでは「5'7"」のように丸めて書かれることが多いです。</p></details>
+<details class="faq"><summary>飛行機の高度10,000フィートは何メートルですか？</summary><p>10,000フィート＝3,048メートルです。航空の世界では世界共通で高度をフィートで表すため、旅客機の巡航高度35,000フィートは約10,668メートルになります。</p></details>
+<details class="faq"><summary>フィートの記号「′」は何ですか？</summary><p>フィートは「′」（プライム）、インチは「″」（ダブルプライム）で表すことがあります。たとえば5′8″は5フィート8インチ＝172.72cmを意味します。</p></details>
+<details class="faq"><summary>測量フィートという別のフィートもあるのですか？</summary><p>米国には測量用の米国測量フィート（1フィート＝1200/3937メートル、国際フィートより約0.0002%長い）がありましたが、2022年末にNIST（米国立標準技術研究所）等が廃止しました。このツールは現在標準の国際フィート（0.3048m）を使っています。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/inch-cm/"><span class="ic">イ</span><span class="t">インチ・cm換算計算</span><div class="d">インチ⇔cmを双方向に換算。1インチ＝2.54cm、フィート表示・身長換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/mile-km/"><span class="ic">マ</span><span class="t">マイル・km換算計算</span><div class="d">マイル⇔kmを双方向に換算。1マイル＝1.609344km、速度mph→km/h・マラソン距離と早見表つき。</div></a>
+<a class="toolcard c-life" href="/tsubo-heibei/"><span class="ic">坪</span><span class="t">坪・平米換算計算</span><div class="d">坪⇔平米（㎡）を双方向に換算。1坪＝3.305785㎡、畳への換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/gallon-liter/"><span class="ic">ガ</span><span class="t">ガロン・リットル換算計算</span><div class="d">ガロン⇔リットルを双方向に換算。米1ガロン＝3.785411784L・英1ガロン＝4.54609L、早見表つき。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：換算係数は国際フィート＝0.3048m（1959年国際ヤード・ポンド協定の厳密値、NIST SP 811／Handbook 44 の換算係数と一致）であることを確認（2026-11-15）。米国測量フィートは2022年末廃止のため不使用。計算例は research/feet-meter-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var syncing=false;
+var K=0.3048;
+function fmt2(x){ return (Math.round(x*100)/100).toLocaleString("ja-JP",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function r2(x){ return Math.round(x*100)/100; }
+function render(ft, met){
+var cm = met*100;
+var inch = ft*12;
+var wholeFt = Math.floor(ft);
+var remIn = (ft-wholeFt)*12;
+var yd = ft/3;
+document.getElementById("resultBox").innerHTML="<div>"+fmt2(ft)+" フィート ＝ "+fmt2(met)+" m</div><div class='big'>"+fmt2(met)+" m</div>"+
+"<table>"+
+"<tr><td>フィート</td><td>"+fmt2(ft)+" ft</td></tr>"+
+"<tr><td>メートル</td><td>"+fmt2(met)+" m</td></tr>"+
+"<tr><td>センチメートル</td><td>"+fmt2(cm)+" cm</td></tr>"+
+"<tr><td>インチ</td><td>"+fmt2(inch)+" in</td></tr>"+
+"<tr><td>フィート＋インチ</td><td>"+wholeFt+" フィート "+fmt2(remIn)+" インチ</td></tr>"+
+"<tr><td>ヤード</td><td>"+fmt2(yd)+" yd</td></tr>"+
+"</table>"+
+"<p>"+fmt2(ft)+" フィートは "+fmt2(met)+" m（"+fmt2(cm)+" cm）です（1フィート＝0.3048mで計算）。</p>";
+}
+function fromFt(){
+if(syncing) return; syncing=true;
+var f=Math.max(0, num("ft"));
+var m=f*K;
+document.getElementById("met").value=r2(m);
+document.getElementById("cm").value=r2(m*100);
+render(f,m);
+syncing=false;
+}
+function fromMet(){
+if(syncing) return; syncing=true;
+var m=Math.max(0, num("met"));
+document.getElementById("ft").value=r2(m/K);
+document.getElementById("cm").value=r2(m*100);
+render(m/K,m);
+syncing=false;
+}
+function fromCm(){
+if(syncing) return; syncing=true;
+var c=Math.max(0, num("cm"));
+var m=c/100;
+document.getElementById("ft").value=r2(m/K);
+document.getElementById("met").value=r2(m);
+render(m/K,m);
+syncing=false;
+}
+document.getElementById("ft").addEventListener("input", fromFt);
+document.getElementById("met").addEventListener("input", fromMet);
+document.getElementById("cm").addEventListener("input", fromCm);
+presets("ft",[1,5,6,10],function(v){return v+"フィート";});
+presets("met",[1,10,100,1000],function(v){return v+"m";});
+fromFt();
+</script>
+</body>
+</html>
