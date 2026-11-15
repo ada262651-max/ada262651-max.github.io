@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>和暦・西暦変換計算｜令和・平成・昭和・大正・明治への変換と早見表</title>
+<meta name="description" content="西暦と和暦（元号）を双方向に変換。2026年＝令和8年、1989年1月7日＝昭和64年・1月8日＝平成元年など改元の境界日まで正確に対応。干支・曜日の表示、元号の早見表つき。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/wareki/">
+<meta property="og:title" content="和暦・西暦変換計算｜計算ラボ">
+<meta property="og:description" content="西暦⇔和暦をすぐ変換。改元の境界日・干支・曜日まで表示、早見表つき。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"和暦・西暦変換計算","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/wareki/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"生活の計算","item":"https://ada262651-max.github.io/life/"},{"@type":"ListItem","position":3,"name":"和暦・西暦変換計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"2026年は和暦で何年ですか？","acceptedAnswer":{"@type":"Answer","text":"令和8年です。令和の年は西暦から2018を引くと求められます（2026−2018＝8）。"}},
+{"@type":"Question","name":"昭和64年は西暦何年ですか？","acceptedAnswer":{"@type":"Answer","text":"1989年です。ただし昭和64年は1月7日までで、翌1月8日から平成元年になりました。同じ1989年でも日付によって元号が変わります。"}},
+{"@type":"Question","name":"平成31年の次は令和何年ですか？","acceptedAnswer":{"@type":"Answer","text":"令和元年です。平成31年は2019年4月30日までで、翌5月1日から令和元年になりました。令和2年は2020年です。"}},
+{"@type":"Question","name":"和暦から西暦を暗算するにはどうしますか？","acceptedAnswer":{"@type":"Answer","text":"元号ごとに決まった数を足します。昭和は＋25で西暦の下2桁（昭和50年→1975年）、平成は＋88（平成10年→1998年。2000年以降は−12でも可）、令和は＋18（令和8年→2026年）、大正は＋11、明治は＋67です。"}},
+{"@type":"Question","name":"明治より前の日付は変換できますか？","acceptedAnswer":{"@type":"Answer","text":"このツールは明治以降（1868年〜）が対象です。また、日本で太陽暦（グレゴリオ暦）が使われ始めたのは明治6年（1873年）1月1日からで、それ以前は旧暦のため、日付単位の換算は年の目安としてご覧ください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/life/">生活の計算</a> ＞ 和暦・西暦変換計算</nav>
+<h1>和暦・西暦変換計算</h1>
+<p class="lead">たとえば2026年は令和8年、今日（2026年11月15日）は令和8年11月15日です。西暦の日付を入れると和暦（元号）に、和暦を入れると西暦に変換します。1989年1月7日＝昭和64年・1月8日＝平成元年のような、改元の境界日まで正確に対応しています。</p>
+<div class="badges"><span class="badge">改元の境界日まで対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<h2 style="margin-top:0">西暦 → 和暦</h2>
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="gdate">西暦の日付</label><input type="date" id="gdate" value="2026-11-15" min="1868-10-23" max="2100-12-31"></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note">※明治6年（1873年）1月1日より前の日付は、日本では旧暦が使われていた時代のため、年の目安として表示します。</p>
+</div>
+
+<div class="card">
+<h2 style="margin-top:0">和暦 → 西暦</h2>
+<form class="calc" id="calcForm2" onsubmit="return false">
+<div><label class="flabel" for="era">元号</label><select id="era">
+<option value="4" selected>令和</option>
+<option value="3">平成</option>
+<option value="2">昭和</option>
+<option value="1">大正</option>
+<option value="0">明治</option>
+</select></div>
+<div><label class="flabel" for="eyear">元号の年 <small>（元年は1）</small></label><input type="number" id="eyear" value="8" min="1" max="99" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="emonth">月</label><input type="number" id="emonth" value="11" min="1" max="12" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="eday">日</label><input type="number" id="eday" value="15" min="1" max="31" step="1" inputmode="numeric"></div>
+</form>
+<div class="result" id="resultBox2"></div>
+</div>
+
+<h2>変換の方法</h2>
+<p>和暦の年は「西暦の年 − その元号が始まった西暦年 ＋ 1」で求めます。たとえば令和は2019年開始なので、2026年は 2026 − 2019 ＋ 1 ＝ 令和8年です。元号の初年は「1年」ではなく「元年」と書きます。</p>
+<p>ただし、元号が切り替わった年（1912年・1926年・1989年・2019年）は、年の途中から新しい元号になるため、日付まで見ないと決められません。このツールは改元の日を境界として判定しています。反対に和暦→西暦は「元号が始まった西暦年 ＋ 元号の年 − 1」で求め、境界を往復確認して、存在しない日付（平成31年5月1日など）は案内を表示します。</p>
+<h3>計算例</h3>
+<div class="scroll"><table class="data">
+<thead><tr><th>西暦</th><th>和暦</th></tr></thead>
+<tbody>
+<tr><td>1989年1月7日</td><td>昭和64年1月7日（昭和の最終日）</td></tr>
+<tr><td>1989年1月8日</td><td>平成元年1月8日（平成の初日）</td></tr>
+<tr><td>2019年4月30日</td><td>平成31年4月30日（平成の最終日）</td></tr>
+<tr><td>2019年5月1日</td><td>令和元年5月1日（令和の初日）</td></tr>
+<tr><td>2026年11月15日</td><td>令和8年11月15日</td></tr>
+</tbody></table></div>
+<p>生年月日からは<a href="/nenrei/">年齢計算</a>で満年齢や干支も確認できます。2つの日付の間隔は<a href="/nissu/">日数計算</a>をどうぞ。</p>
+
+<h2>改元の境界日</h2>
+<p>明治以降、元号は天皇の代替わりのときにだけ変わります（元号法）。切り替わりの日は元号ごとに決まっていて、昭和から平成、平成から令和は「翌日改元」（前の元号が終わった翌日から新しい元号）、明治から大正、大正から昭和は天皇が亡くなった当日に改元されました。公的な書類では改元の日を境に元号が変わるため、1989年生まれでも1月7日以前は昭和64年、1月8日以降は平成元年と、同じ年に2つの元号が存在します。</p>
+
+<h2>暗算のコツ</h2>
+<p>和暦→西暦は、元号ごとに決まった数を足すと暗算できます。昭和は＋25で西暦の下2桁になります（昭和50年＋25＝1975年）。平成は＋88（平成10年＋88＝1998年）で、2000年以降なら−12でも同じです（平成30年−12＝2018年）。令和は＋18（令和8年＋18＝2026年）、大正は＋11、明治は＋67です。逆に西暦→和暦はこの数を引くだけです。</p>
+
+<h2>早見表：元号一覧</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>元号</th><th>期間</th><th>元年の西暦</th></tr></thead>
+<tbody>
+<tr><td>明治</td><td>1868年10月23日 〜 1912年7月29日</td><td>1868年</td></tr>
+<tr><td>大正</td><td>1912年7月30日 〜 1926年12月24日</td><td>1912年</td></tr>
+<tr><td>昭和</td><td>1926年12月25日 〜 1989年1月7日</td><td>1926年</td></tr>
+<tr><td>平成</td><td>1989年1月8日 〜 2019年4月30日</td><td>1989年</td></tr>
+<tr><td>令和</td><td>2019年5月1日 〜</td><td>2019年</td></tr>
+</tbody></table></div>
+
+<h2>早見表：西暦 → 和暦（2015年〜2030年）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>西暦</th><th>和暦</th></tr></thead>
+<tbody>
+<tr><td>2015年</td><td>平成27年</td></tr>
+<tr><td>2016年</td><td>平成28年</td></tr>
+<tr><td>2017年</td><td>平成29年</td></tr>
+<tr><td>2018年</td><td>平成30年</td></tr>
+<tr><td>2019年</td><td>平成31年（4月30日まで）／令和元年（5月1日から）</td></tr>
+<tr><td>2020年</td><td>令和2年</td></tr>
+<tr><td>2021年</td><td>令和3年</td></tr>
+<tr><td>2022年</td><td>令和4年</td></tr>
+<tr><td>2023年</td><td>令和5年</td></tr>
+<tr><td>2024年</td><td>令和6年</td></tr>
+<tr><td>2025年</td><td>令和7年</td></tr>
+<tr><td>2026年</td><td>令和8年</td></tr>
+<tr><td>2027年</td><td>令和9年</td></tr>
+<tr><td>2028年</td><td>令和10年</td></tr>
+<tr><td>2029年</td><td>令和11年</td></tr>
+<tr><td>2030年</td><td>令和12年</td></tr>
+</tbody></table></div>
+
+<h2>早見表：昭和・平成の主な年</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>和暦</th><th>西暦</th></tr></thead>
+<tbody>
+<tr><td>昭和元年</td><td>1926年（12月25日から）</td></tr>
+<tr><td>昭和10年</td><td>1935年</td></tr>
+<tr><td>昭和20年</td><td>1945年</td></tr>
+<tr><td>昭和30年</td><td>1955年</td></tr>
+<tr><td>昭和40年</td><td>1965年</td></tr>
+<tr><td>昭和50年</td><td>1975年</td></tr>
+<tr><td>昭和60年</td><td>1985年</td></tr>
+<tr><td>昭和64年</td><td>1989年（1月7日まで）</td></tr>
+<tr><td>平成元年</td><td>1989年（1月8日から）</td></tr>
+<tr><td>平成10年</td><td>1998年</td></tr>
+<tr><td>平成20年</td><td>2008年</td></tr>
+<tr><td>平成30年</td><td>2018年</td></tr>
+<tr><td>平成31年</td><td>2019年（4月30日まで）</td></tr>
+</tbody></table></div>
+<p>早見表にない日付は上のフォームで変換してください。</p>
+
+<h2>注意点</h2>
+<p>このツールの対象は明治以降（1868年〜）です。日本で太陽暦（グレゴリオ暦）が採用されたのは明治6年1月1日（1873年1月1日）からで、それ以前は旧暦（太陰太陽暦）が使われていたため、明治元年〜5年の日付は年の目安として表示します（年そのものの対応は変わりません）。干支は立春ではなく年単位の表示です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>2026年は和暦で何年ですか？</summary><p>令和8年です。令和の年は西暦から2018を引くと求められます（2026−2018＝8）。</p></details>
+<details class="faq"><summary>昭和64年は西暦何年ですか？</summary><p>1989年です。ただし昭和64年は1月7日までで、翌1月8日から平成元年になりました。同じ1989年でも日付によって元号が変わります。</p></details>
+<details class="faq"><summary>平成31年の次は令和何年ですか？</summary><p>令和元年です。平成31年は2019年4月30日までで、翌5月1日から令和元年になりました。令和2年は2020年です。</p></details>
+<details class="faq"><summary>和暦から西暦を暗算するにはどうしますか？</summary><p>元号ごとに決まった数を足します。昭和は＋25で西暦の下2桁（昭和50年→1975年）、平成は＋88（平成10年→1998年。2000年以降は−12でも可）、令和は＋18（令和8年→2026年）、大正は＋11、明治は＋67です。</p></details>
+<details class="faq"><summary>明治より前の日付は変換できますか？</summary><p>このツールは明治以降（1868年〜）が対象です。また、日本で太陽暦（グレゴリオ暦）が使われ始めたのは明治6年（1873年）1月1日からで、それ以前は旧暦のため、日付単位の換算は年の目安としてご覧ください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard c-life" href="/nenrei/"><span class="ic">齢</span><span class="t">年齢計算</span><div class="d">生年月日から満年齢・和暦・干支・生まれてからの日数を計算します。</div></a>
+<a class="toolcard c-life" href="/nissu/"><span class="ic">日</span><span class="t">日数計算</span><div class="d">2つの日付の間の日数と、○日後・○日前の日付と曜日を計算します。</div></a>
+<a class="toolcard c-life" href="/fahrenheit-celsius/"><span class="ic">温</span><span class="t">華氏・摂氏換算計算</span><div class="d">華氏⇔摂氏を双方向に換算。摂氏＝（華氏−32）×5/9、ケルビン表示と早見表つき。</div></a>
+<a class="toolcard c-life" href="/tsubo-heibei/"><span class="ic">坪</span><span class="t">坪・平米換算計算</span><div class="d">坪⇔平米（㎡）を双方向に換算。1坪＝3.305785㎡、畳への換算と早見表つき。</div></a>
+<a class="toolcard c-life" href="/life/"><span class="ic">生</span><span class="t">生活の計算ツール一覧</span><div class="d">日数・年齢・電気代・ガソリン代など、日常生活で使う計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-15／更新日：2026-11-15<br>出典：元号の期間は元号法および各改元の政令に基づく公知の境界日（明治1868年10月23日〜／大正1912年7月30日〜／昭和1926年12月25日〜／平成1989年1月8日〜／令和2019年5月1日〜）で、2026-11-15に複数ソースで照合しています。計算例は research/wareki-test.md のテストケースで検算しています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+var ERAS=[
+{name:"明治", base:1868, sy:1868, sm:10, sd:23, max:45},
+{name:"大正", base:1912, sy:1912, sm:7, sd:30, max:15},
+{name:"昭和", base:1926, sy:1926, sm:12, sd:25, max:64},
+{name:"平成", base:1989, sy:1989, sm:1, sd:8, max:31},
+{name:"令和", base:2019, sy:2019, sm:5, sd:1, max:99}
+];
+var ETO=["子（ね）","丑（うし）","寅（とら）","卯（う）","辰（たつ）","巳（み）","午（うま）","未（ひつじ）","申（さる）","酉（とり）","戌（いぬ）","亥（い）"];
+var WDAY=["日","月","火","水","木","金","土"];
+function key(y,m,d){ return y*10000+m*100+d; }
+function eraYearLabel(n){ return n===1 ? "元年" : n+"年"; }
+function toWareki(y,m,d){
+var k=key(y,m,d), era=null;
+for(var i=0;i<ERAS.length;i++){
+var e=ERAS[i];
+if(k>=key(e.sy,e.sm,e.sd)) era=e;
+}
+if(!era) return null;
+var ey=y-era.base+1;
+if(ey<1 || ey>era.max) return null;
+return {era:era, ey:ey};
+}
+function weekday(y,m,d){ return WDAY[new Date(y, m-1, d).getDay()]; }
+function eto(y){ return ETO[((y-4)%12+12)%12]; }
+function fromGregorian(){
+var v=document.getElementById("gdate").value;
+var box=document.getElementById("resultBox");
+if(!v){ box.innerHTML="<div>日付を選んでください</div>"; return; }
+var p=v.split("-"), y=+p[0], m=+p[1], d=+p[2];
+var w=toWareki(y,m,d);
+if(!w){ box.innerHTML="<div>このツールの対象は明治以降（1868年10月23日〜）です</div>"; return; }
+var label=w.era.name+eraYearLabel(w.ey);
+var html="<div>"+y+"年"+m+"月"+d+"日（"+weekday(y,m,d)+"曜日）</div><div class='big'>"+label+" "+m+"月"+d+"日</div>"+
+"<table>"+
+"<tr><td>和暦</td><td>"+label+" "+m+"月"+d+"日</td></tr>"+
+"<tr><td>西暦</td><td>"+y+"年"+m+"月"+d+"日</td></tr>"+
+"<tr><td>干支</td><td>"+eto(y)+"</td></tr>"+
+"</table>"+
+"<p>"+y+"年"+m+"月"+d+"日は、"+label+" "+m+"月"+d+"日（"+weekday(y,m,d)+"曜日）です。</p>";
+if(y<1873) html+="<p>※明治6年（1873年）より前は旧暦の時代のため、年の目安です。</p>";
+box.innerHTML=html;
+}
+function fromWareki(){
+var idx=+document.getElementById("era").value;
+var era=ERAS[idx];
+var ey=num("eyear"), m=num("emonth"), d=num("eday");
+var box=document.getElementById("resultBox2");
+var label=era.name+eraYearLabel(ey);
+if(ey<1 || ey>era.max){ box.innerHTML="<div>"+era.name+"は"+era.max+"年までです</div>"; return; }
+if(m<1 || m>12 || d<1 || d>31){ box.innerHTML="<div>月日を確認してください</div>"; return; }
+var gy=era.base+ey-1;
+var dt=new Date(gy, m-1, d);
+if(dt.getMonth()!==m-1 || dt.getDate()!==d){ box.innerHTML="<div>"+label+" "+m+"月"+d+"日という日付は存在しません</div>"; return; }
+var w=toWareki(gy,m,d);
+if(!w || w.era!==era || w.ey!==ey){
+var correct=w ? (w.era.name+eraYearLabel(w.ey)+" "+m+"月"+d+"日") : "（対象外）";
+box.innerHTML="<div>"+label+" "+m+"月"+d+"日という日付は存在しません</div><p>その日は"+correct+"にあたります。</p>";
+return;
+}
+box.innerHTML="<div>"+label+" "+m+"月"+d+"日</div><div class='big'>"+gy+"年"+m+"月"+d+"日</div>"+
+"<table>"+
+"<tr><td>西暦</td><td>"+gy+"年"+m+"月"+d+"日（"+weekday(gy,m,d)+"曜日）</td></tr>"+
+"<tr><td>和暦</td><td>"+label+" "+m+"月"+d+"日</td></tr>"+
+"<tr><td>干支</td><td>"+eto(gy)+"</td></tr>"+
+"</table>"+
+"<p>"+label+" "+m+"月"+d+"日は、西暦"+gy+"年"+m+"月"+d+"日（"+weekday(gy,m,d)+"曜日）です。</p>";
+}
+document.getElementById("gdate").addEventListener("input", fromGregorian);
+document.getElementById("era").addEventListener("input", fromWareki);
+document.getElementById("eyear").addEventListener("input", fromWareki);
+document.getElementById("emonth").addEventListener("input", fromWareki);
+document.getElementById("eday").addEventListener("input", fromWareki);
+fromGregorian();
+fromWareki();
+</script>
+</body>
+</html>
