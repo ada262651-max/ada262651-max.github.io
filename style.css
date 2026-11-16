@@ -28,6 +28,20 @@ header.site .wrap{max-width:880px;margin:0 auto;display:flex;align-items:center;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='4' y='12' width='4' height='8' rx='1' fill='%23fff'/%3E%3Crect x='10' y='8' width='4' height='12' rx='1' fill='%23fff'/%3E%3Crect x='16' y='4' width='4' height='16' rx='1' fill='%23ffd166'/%3E%3C/svg%3E"),linear-gradient(135deg,var(--brand),#0a5f8a);
   background-size:20px 20px,cover;background-position:center;background-repeat:no-repeat}
 .tagline{color:var(--sub);font-size:.78rem;border-left:1px solid var(--line);padding-left:.7rem}
+.searchlink{margin-left:auto;color:var(--brand-dark);font-weight:700;font-size:.85rem;text-decoration:none;border:1px solid var(--line);padding:.15rem .7rem;border-radius:999px;background:#fff;white-space:nowrap}
+.searchlink:hover{border-color:var(--brand);background:var(--brand-soft)}
+/* サイト内検索 (P-2 方式b: 自前JS) */
+.searchbox{display:flex;gap:.6rem;flex-wrap:wrap}
+.searchbox input{flex:1;min-width:200px;padding:.8rem .9rem;font-size:1.05rem;border:1.5px solid var(--line);border-radius:12px;background:#fbfcfe;color:var(--ink)}
+.searchbox input:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px rgba(12,138,95,.16)}
+.searchbox button{border:none;background:var(--brand);color:#fff;border-radius:12px;padding:.8rem 1.4rem;font-size:1rem;font-weight:700;cursor:pointer}
+.searchbox button:hover{background:var(--brand-dark)}
+.searchresults{margin-top:1rem;display:grid;gap:.7rem}
+.searchresult{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
+.searchresult:hover{border-color:var(--brand)}
+.searchresult .rt{font-weight:800}
+.searchresult .rd{font-size:.88rem;color:var(--sub);margin-top:.2rem;line-height:1.65}
+.searchresult .ru{font-size:.78rem;color:var(--brand-dark)}
 
 main{max-width:880px;margin:0 auto;padding:1.2rem 1rem 3.5rem}
 .breadcrumb{font-size:.8rem;color:var(--sub);margin:.2rem 0 0}

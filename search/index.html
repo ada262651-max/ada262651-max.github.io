@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サイト内検索｜計算ラボのツールを探す</title>
+<meta name="description" content="計算ラボの全ツールをキーワードで検索できます。手取り、ふるさと納税、坪、和暦など、正式名称の一部を入れて探してください。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/search/">
+<meta property="og:title" content="サイト内検索｜計算ラボ">
+<meta property="og:description" content="計算ラボの全ツールをキーワードで検索できます。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"サイト内検索"}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ サイト内検索</nav>
+<h1>サイト内検索</h1>
+<p class="lead">計算ラボのツールをキーワードで探せます。たとえば「手取り」「ふるさと納税」「坪」「和暦」と入れてください。年収別手取り早見表を探す場合は「年収500万 手取り」のように組み合わせると、該当する早見表ページが上位に出ます。</p>
+<div class="badges"><span class="badge">全ツール対象</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+<div class="card">
+<form class="searchbox" id="searchForm" role="search">
+<input type="text" id="searchInput" placeholder="例：手取り、ふるさと納税、坪" autocomplete="off" aria-label="検索キーワード">
+<button type="submit">検索</button>
+</form>
+<p class="note" id="searchStatus">キーワードを入力して検索してください。</p>
+<div class="searchresults" id="searchResults"></div>
+<p class="note">※検索はこのページ内で索引ファイルを読み込んで行います。入力したキーワードは外部に送信されません。</p>
+</div>
+<h2>探し方のコツ</h2>
+<p>正式名称の一部で探すのが確実です。「手取り計算」のように目的＋計算でも、「手取り」だけでも見つかります。単位換算は「坪」「インチ」「ポンド」「マイル」「ガロン」「フィート」「華氏」のように、元の単位の名前で探してください。見つからないときは短いキーワードに変えて試してください。</p>
+<p>カテゴリから探したい場合は、<a href="/money/">お金の計算</a>、<a href="/work/">給付・労働の計算</a>、<a href="/invest/">投資の計算</a>、<a href="/life/">生活の計算</a>の各一覧もご覧ください。</p>
+<h2>よくある質問</h2>
+<details class="faq"><summary>検索しても何も出ません</summary><p>キーワードを短くしてみてください。たとえば「年収500万円の手取りを知りたい」ではなく「手取り」や「年収500万 手取り」で探すと見つかります。</p></details>
+<details class="faq"><summary>検索した内容は送信されますか？</summary><p>送信されません。検索はブラウザ内で索引ファイルを読み込んで行い、入力したキーワードは外部サーバーに送られません。各ツールの計算も同様にブラウザ内でのみ処理されます。</p></details>
+<details class="faq"><summary>目的のツールがありません</summary><p>トップページのカテゴリ一覧から探すか、各カテゴリページをご覧ください。計算ラボではツールを順次追加しています。</p></details>
+<p class="meta">公開日：2026-11-16／更新日：2026-11-16<br>検索は計算ラボ自前のJavaScriptで、公開時に全ページから生成したJSON索引（バイグラム索引つき）を使ってブラウザ内で行っています。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+(function(){
+  var input=document.getElementById('searchInput'), form=document.getElementById('searchForm'),
+      status=document.getElementById('searchStatus'), results=document.getElementById('searchResults'),
+      INDEX=null;
+  function norm(s){return (s||'').toLowerCase().replace(/\s+/g,' ').trim();}
+  function bigrams(s){var t=norm(s).replace(/\s+/g,''),o=[];for(var i=0;i+1<t.length;i++)o.push(t.slice(i,i+2));return o;}
+  function esc(s){return s.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function scoreDoc(q, terms, bgs, d){
+    var title=norm(d.title), desc=norm(d.desc), heads=norm(d.heads), text=norm(d.text), score=0;
+    if(title.indexOf(q)>=0) score+=100+Math.max(0,40-title.length);
+    terms.forEach(function(term){if(term&&title===term) score+=20;});
+    if(desc.indexOf(q)>=0) score+=40;
+    terms.forEach(function(term){
+      if(!term) return;
+      if(title.indexOf(term)>=0) score+=30;
+      if(heads.indexOf(term)>=0) score+=15;
+      if(desc.indexOf(term)>=0) score+=12;
+      if(text.indexOf(term)>=0) score+=5;
+    });
+    // バイグラム一致率で日本語の部分一致を拾う
+    if(bgs.length){
+      var hitT=0,hitA=0;
+      bgs.forEach(function(bg){
+        if(title.replace(/\s+/g,'').indexOf(bg)>=0) hitT++;
+        if((title+desc+heads+text).replace(/\s+/g,'').indexOf(bg)>=0) hitA++;
+      });
+      score += hitT*8 + (hitA/bgs.length)*10;
+      if(hitA===0) score=-1;
+    }
+    return score;
+  }
+  function run(){
+    var q=norm(input.value);
+    results.innerHTML='';
+    if(!q){status.textContent='キーワードを入力して検索してください。';return;}
+    if(!INDEX){status.textContent='索引を読み込み中です。少し待ってからもう一度お試しください。';return;}
+    var terms=q.split(' '), bgs=bigrams(q), scored=[];
+    INDEX.docs.forEach(function(d){var s=scoreDoc(q,terms,bgs,d);if(s>0)scored.push({d:d,s:s});});
+    scored.sort(function(a,b){return b.s-a.s;});
+    var top=scored.slice(0,20);
+    if(!top.length){status.textContent='「'+input.value+'」に一致するページは見つかりませんでした。キーワードを短くして試してください。';return;}
+    status.textContent=top.length+'件見つかりました。';
+    top.forEach(function(r){
+      var a=document.createElement('a');a.className='searchresult';a.href=r.d.url;
+      a.innerHTML='<span class="ru">'+esc(r.d.url)+'</span><div class="rt">'+esc(r.d.title)+'</div><div class="rd">'+esc(r.d.desc||r.d.text.slice(0,120))+'</div>';
+      results.appendChild(a);
+    });
+  }
+  fetch('/search-index.json').then(function(r){return r.json();}).then(function(j){INDEX=j;var q=new URLSearchParams(location.search).get('q');if(q){input.value=q;run();}}).catch(function(){status.textContent='索引の読み込みに失敗しました。カテゴリ一覧からお探しください。';});
+  form.addEventListener('submit',function(e){e.preventDefault();run();});
+  input.addEventListener('input',function(){if(INDEX)run();});
+})();
+</script>
+</body>
+</html>
