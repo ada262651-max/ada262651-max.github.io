@@ -147,7 +147,9 @@
 <a class="toolcard" href="/shohizei/"><span class="t">消費税計算</span><div class="d">税込⇔税抜をすぐ計算。8%・10%切替、端数処理の選択つき。</div></a>
 </div>
 
-<p class="meta">公開日：2026-11-08／更新日：2026-11-08<br>出典：国税庁タックスアンサー（給与所得控除・基礎控除・所得税の税率）、協会けんぽ「令和8年度保険料率」、厚生労働省「令和8年度 雇用保険料率」、総務省「個人住民税」等を確認（2026-11-08）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+<p>手取りに関わる今後の変更（2026年12月の年末調整での精算、2027年1月の源泉徴収への178万円基準反映など）は<a href="/seido-kaisei/">制度改正カレンダー</a>にまとめています。</p>
+
+<p class="meta">公開日：2026-11-08／更新日：2026-11-16<br>出典：国税庁タックスアンサー（給与所得控除・基礎控除・所得税の税率）、協会けんぽ「令和8年度保険料率」、厚生労働省「令和8年度 雇用保険料率」、総務省「個人住民税」等を確認（出典再確認日：2026-11-08）。会社負担の料率は厚生労働省「令和8（2026）年度 雇用保険料率のご案内」・協会けんぽ令和8年度保険料額表・厚生労働省「令和8年度の労災保険率について」を確認（出典再確認日：2026-11-16）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
 </main>
 <footer class="site"><div class="wrap">
 <nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
@@ -312,9 +314,21 @@ function readOpt(){
     spouse: spouseSeg.dataset.spouse==="ari"? {income:num("spouseIncome"), roujin: spouseAgeSeg.dataset.spage==="o70"} : null,
     dep:{ g16:Math.floor(num("depG16")), s19:Math.floor(num("depS19")), g23:Math.floor(num("depG23")), o70:Math.floor(num("depO70")), d70:Math.floor(num("depD70")) } };
 }
+function computeCompanyBurden(r){
+  // 会社負担（P-3仕様 research/p3-plan-2026-11-16.md §1.2）
+  // (a)-(d) 労使折半分＝本人分と同額、(e) 雇用保険事業主分0.85%、(f) 子ども・子育て拠出金 pStd×0.36%×12、(g) 労災0.3%
+  var fold = r.kenkoY + r.kaigoY + r.shienY + r.nenkinY;
+  var koyoEmployer = rhu(r.income * 0.85 / 100);
+  var kyoshutsu = rhu(r.pStd * 0.36 / 100 * 12);
+  var rosai = rhu(r.income * 0.3 / 100);
+  var total = fold + koyoEmployer + kyoshutsu + rosai;
+  return {fold:fold, koyoEmployer:koyoEmployer, kyoshutsu:kyoshutsu, rosai:rosai, total:total, personnel:r.income+total};
+}
 function calc(){
   document.getElementById("spouseWrap").style.display = spouseSeg.dataset.spouse==="ari"? "grid" : "none";
   var r=computeTedori(readOpt());
+  var comp=computeCompanyBurden(r);
+  var firstYear=r.tedori + r.juminzei;
   var prefName=KENPO_PREFS[prefSel.selectedIndex];
   var html="<div>手取り年額</div><div class='big'>"+yen(r.tedori)+" 円</div>"+
   stackBar([
@@ -334,10 +348,13 @@ function calc(){
   "<tr><td>社会保険料 合計</td><td>−"+yen(r.shaho)+" 円</td></tr>"+
   "<tr><td>所得税（復興特別所得税込み）</td><td>−"+yen(r.shotokuzei)+" 円</td></tr>"+
   "<tr><td>住民税</td><td>−"+yen(r.juminzei)+" 円</td></tr>"+
+  "<tr><td>就職1年目の手取り（住民税なし）</td><td>"+yen(firstYear)+" 円</td></tr>"+
+  "<tr><td>会社負担合計（社会保険料等の会社分）</td><td>"+yen(comp.total)+" 円</td></tr>"+
+  "<tr><td>会社の人件費（年収＋会社負担）</td><td>"+yen(comp.personnel)+" 円</td></tr>"+
   "</table>";
   document.getElementById("resultBox").innerHTML=html;
   document.getElementById("premiseNote").textContent=
-   "前提：会社員・協会けんぽ（"+prefName+"、令和8年度 健康保険料率"+parseFloat(prefSel.value).toFixed(2)+"％）・賞与なし（年収＝月給×12）で計算しています。所得税は令和8年分です。";
+   "前提：会社員・協会けんぽ（"+prefName+"、令和8年度 健康保険料率"+parseFloat(prefSel.value).toFixed(2)+"％）・賞与なし（年収＝月給×12）で計算しています。所得税は令和8年分です。会社負担は協会けんぽ・一般の事業・労災保険率3/1,000（その他の各種事業）の前提の概算です。業種・加入組合で変わります。就職1年目の手取りは、住民税が前年所得に課税されるため1年目は原則かからない前提で、通常の手取りに住民税額を戻した金額です。";
 }
 presets("income",[3000000,4000000,5000000,6000000,8000000,10000000],function(v){return (v/10000)+"万円";});
 calc();
