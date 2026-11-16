@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>傷病手当金計算｜1日あたりと総額の目安を計算</title>
+<meta name="description" content="標準報酬月額と休業日数を入れると、傷病手当金の1日あたりの金額と総額の目安を計算。待期3日・通算1年6か月・給与との差額支給に対応。協会けんぽの公式計算例で検証済み。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/shoubyo-teatekin/">
+<meta property="og:title" content="傷病手当金計算｜計算ラボ">
+<meta property="og:description" content="傷病手当金の1日あたりと総額の目安を計算。標準報酬月額の平均÷30×2/3、待期・給与との調整に対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"傷病手当金計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/shoubyo-teatekin/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"傷病手当金計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"傷病手当金はいくらもらえますか？","acceptedAnswer":{"@type":"Answer","text":"1日あたりの金額は、支給開始日以前の直近12か月間の標準報酬月額の平均額を30で割り（10円未満は四捨五入）、3分の2をかけた額（1円未満は四捨五入）です。たとえば標準報酬月額の平均が30万円なら、1日あたり6,667円、30日分で200,010円が目安です。"}},
+{"@type":"Question","name":"傷病手当金はいつからもらえますか？","acceptedAnswer":{"@type":"Answer","text":"業務外の病気やケガで仕事に就けなくなった日から連続した3日間は待期となり支給されません。4日目以降の休んだ日が支給対象です。待期の3日間には有給休暇や公休日も含まれます。"}},
+{"@type":"Question","name":"傷病手当金はいつまでもらえますか？","acceptedAnswer":{"@type":"Answer","text":"支給を開始した日から通算して1年6か月までです。2022年1月からは通算方式となり、途中で仕事に就いた日は通算に数えません。そのため、実際に支給される日数の合計が1年6か月に達するまで受けられます。"}},
+{"@type":"Question","name":"標準報酬月額が分からないときはどうすればよいですか？","acceptedAnswer":{"@type":"Answer","text":"給与明細に「標準報酬月額」や「健康保険標準報酬月額」と記載されていることがあります。分からない場合は、毎月の総支給額（基本給と諸手当の合計）に近い等級の額が目安になりますが、標準報酬月額は等級表で決まるため総支給額そのものとは一致しません。正確な額は勤務先や加入する健康保険（協会けんぽ・健康保険組合など）でご確認ください。"}},
+{"@type":"Question","name":"休んでいる間に給与が出たら傷病手当金はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"休業期間に給与が支払われている間は、傷病手当金は支給されません。ただし、給与が傷病手当金の額より少ない場合は、その差額が支給されます。たとえば手当が1日6,667円で給与が1日3,000円なら、差額の3,667円が1日あたり支給されます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 傷病手当金計算</nav>
+<h1>傷病手当金計算</h1>
+<p class="lead">たとえば標準報酬月額の平均が30万円の場合、傷病手当金は1日あたり6,667円、30日分で200,010円が目安です。標準報酬月額と、支給対象の日数を入れると、1日あたりの金額と総額の目安を計算します。</p>
+<div class="badges"><span class="badge">協会けんぽ公式例で検証</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div><label class="flabel" for="hyojun">標準報酬月額の平均<small>円／支給開始日以前の直近12か月の平均</small></label><input type="number" id="hyojun" value="300000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel" for="days">支給対象日数<small>日／待期3日を除いた、4日目以降の休んだ日数</small></label><input type="number" id="days" value="30" min="0" max="548" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="salaryDaily">休業中に支払われる給与（1日あたり）<small>円／なければ0</small></label><input type="number" id="salaryDaily" value="0" min="0" step="1000" inputmode="numeric"></div>
+<div class="full"><label class="flabel">被保険者期間（支給開始日以前）</label>
+<div class="seg" id="periodSeg"><button type="button" class="on" data-v="ge12">12か月以上</button><button type="button" data-v="lt12">12か月に満たない（全被保険者平均32万円と比較）</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※支給対象日数は、待期（連続3日）を除いた日数を入力してください。休んだ日数そのものから3日を引く方式ではありません（待期には有給休暇・公休日も含まれるためです）。※計算結果は目安です。実際の金額は、加入する健康保険（協会けんぽ・健康保険組合など）が、勤務先から提出される書類をもとに決めます。</p>
+</div>
+
+<h2>傷病手当金の計算の流れ</h2>
+<p>傷病手当金は、健康保険の被保険者が業務外の病気やケガの療養のために仕事を休み、給与を受けられないときに支給される給付です。金額は次の手順で決まります。</p>
+<h3>1. 1日あたりの金額を求める</h3>
+<p>支給開始日の属する月以前の、直近の継続した12か月間の標準報酬月額の平均額を30で割り、3分の2をかけます。30で割った額は10円未満を四捨五入し、3分の2をかけた額は1円未満を四捨五入します。たとえば平均が17万円なら、17万円÷30＝5,666.7円→5,670円、×2/3＝3,780円が1日あたりの金額です（全国健康保険協会の公式例と同じ計算です）。</p>
+<h3>2. 被保険者期間が12か月に満たない場合</h3>
+<p>支給開始日以前の期間が12か月に満たない場合は、①その期間の各月の標準報酬月額の平均と、②全被保険者の標準報酬月額の平均額（支給開始日が令和7年4月1日以降の場合は32万円）のうち、低い方の額を使います。このページでは「12か月に満たない」を選ぶと、入力した平均と32万円の低い方で計算します。</p>
+<h3>3. 待期3日と支給期間</h3>
+<p>仕事に就けなくなった日から連続した3日間は「待期」として支給されず、4日目以降の休んだ日が対象です。待期の完成には有給休暇や公休日も数えられます。支給期間は、支給を開始した日から通算して1年6か月までで、途中で仕事に就いた日は通算に数えません。</p>
+<h3>4. 給与が支払われる場合の調整</h3>
+<p>休業期間に給与が支払われている間は傷病手当金は支給されませんが、給与が手当の額より少ない場合は差額が支給されます。このページでは、給与の日額を入力すると差額で計算します。なお、障害年金や老齢年金などを受けている場合はそちらとの調整があり、このページの計算には含めていません。</p>
+
+<h2>標準報酬月額が分からない方へ</h2>
+<p>標準報酬月額は、給与明細に「標準報酬月額」「健康保険標準報酬月額」などの欄名で記載されていることがあります。記載がない場合は、毎月の総支給額（基本給・残業代・諸手当の合計。賞与は含みません）に近い等級の額が目安になります。ただし標準報酬月額は、総支給額を等級表の区切りに当てはめて決まるため、総支給額そのものとは一致しないことがあります。目安としてこのページで計算したうえで、正確な標準報酬月額は勤務先の担当部署や、加入する健康保険の窓口でご確認ください。</p>
+
+<h2>標準報酬月額別 傷病手当金の早見表</h2>
+<p>標準報酬月額の平均から計算した目安です（30で割る際に10円未満四捨五入、×2/3で1円未満四捨五入）。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>標準報酬月額の平均</th><th>1日あたり</th><th>30日分</th></tr></thead>
+<tbody>
+<tr><td>180,000円</td><td>4,000円</td><td>120,000円</td></tr>
+<tr><td>200,000円</td><td>4,447円</td><td>133,410円</td></tr>
+<tr><td>220,000円</td><td>4,887円</td><td>146,610円</td></tr>
+<tr><td>240,000円</td><td>5,333円</td><td>159,990円</td></tr>
+<tr><td>260,000円</td><td>5,780円</td><td>173,400円</td></tr>
+<tr><td>280,000円</td><td>6,220円</td><td>186,600円</td></tr>
+<tr><td>300,000円</td><td>6,667円</td><td>200,010円</td></tr>
+<tr><td>320,000円</td><td>7,113円</td><td>213,390円</td></tr>
+<tr><td>340,000円</td><td>7,553円</td><td>226,590円</td></tr>
+<tr><td>360,000円</td><td>8,000円</td><td>240,000円</td></tr>
+<tr><td>380,000円</td><td>8,447円</td><td>253,410円</td></tr>
+<tr><td>400,000円</td><td>8,887円</td><td>266,610円</td></tr>
+<tr><td>450,000円</td><td>10,000円</td><td>300,000円</td></tr>
+<tr><td>500,000円</td><td>11,113円</td><td>333,390円</td></tr>
+</tbody></table></div>
+
+<h3>計算例：標準報酬月額の平均30万円・対象30日</h3>
+<table class="data"><tbody>
+<tr><td>標準報酬月額の平均</td><td>300,000円</td></tr>
+<tr><td>30で割る</td><td>10,000円（300,000円÷30）</td></tr>
+<tr><td>3分の2をかける</td><td>6,667円（10,000円×2/3、1円未満四捨五入）</td></tr>
+<tr><td>30日分の総額</td><td>200,010円（6,667円×30日）</td></tr>
+</tbody></table>
+<p>休業が長引く場合の家計の見通しには、復帰後の<a href="/tedori/">手取り計算</a>、育児で休む場合には<a href="/ikukyu-kyufu/">育児休業給付金計算</a>もあわせてご利用ください。</p>
+
+<h2>受給の条件</h2>
+<p>傷病手当金を受けるには、次の4つを満たす必要があります。①業務外の病気やケガの療養のための休業であること、②仕事に就くことができないこと（労務不能）、③連続した3日間を含んで4日以上仕事を休んだこと、④休んだ期間について給与の支払いがないこと（給与が手当より少ない場合は差額が支給されます）。</p>
+<p>任意継続被保険者の期間中に発生した病気やケガは対象になりません。一方、退職前に継続して1年以上の被保険者期間があり、退職日の前日に受給中または受給できる状態だった場合は、退職後も引き続き受けられる「資格喪失後の継続給付」があります。申請は勤務先を通じて（退職後は直接）加入する健康保険へ行います。医師の証明（意見書）と勤務先の証明が必要です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>傷病手当金はいくらもらえますか？</summary><p>1日あたりの金額は、支給開始日以前の直近12か月間の標準報酬月額の平均額を30で割り（10円未満は四捨五入）、3分の2をかけた額（1円未満は四捨五入）です。たとえば標準報酬月額の平均が30万円なら、1日あたり6,667円、30日分で200,010円が目安です。</p></details>
+<details class="faq"><summary>傷病手当金はいつからもらえますか？</summary><p>業務外の病気やケガで仕事に就けなくなった日から連続した3日間は待期となり支給されません。4日目以降の休んだ日が支給対象です。待期の3日間には有給休暇や公休日も含まれます。</p></details>
+<details class="faq"><summary>傷病手当金はいつまでもらえますか？</summary><p>支給を開始した日から通算して1年6か月までです。2022年1月からは通算方式となり、途中で仕事に就いた日は通算に数えません。そのため、実際に支給される日数の合計が1年6か月に達するまで受けられます。</p></details>
+<details class="faq"><summary>標準報酬月額が分からないときはどうすればよいですか？</summary><p>給与明細に「標準報酬月額」や「健康保険標準報酬月額」と記載されていることがあります。分からない場合は、毎月の総支給額（基本給と諸手当の合計）に近い等級の額が目安になりますが、標準報酬月額は等級表で決まるため総支給額そのものとは一致しません。正確な額は勤務先や加入する健康保険（協会けんぽ・健康保険組合など）でご確認ください。</p></details>
+<details class="faq"><summary>休んでいる間に給与が出たら傷病手当金はどうなりますか？</summary><p>休業期間に給与が支払われている間は、傷病手当金は支給されません。ただし、給与が傷病手当金の額より少ない場合は、その差額が支給されます。たとえば手当が1日6,667円で給与が1日3,000円なら、差額の3,667円が1日あたり支給されます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/ikukyu-kyufu/"><span class="t">育児休業給付金計算</span><div class="d">月給と取得日数から、育休手当の総額と67％期間・50％期間の内訳を計算。出生後休業支援給付金の13％上乗せにも対応。</div></a>
+<a class="toolcard" href="/shitsugyo-hoken/"><span class="t">失業保険計算</span><div class="d">失業手当（基本手当）の1日あたりの金額・もらえる日数・受給総額の目安を計算。会社都合・自己都合・特定理由に対応。</div></a>
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/work/"><span class="t">給付・労働の計算ツール一覧</span><div class="d">失業保険・残業代・退職金の税金など、給付・労働の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-17／更新日：2026-11-17<br>出典：全国健康保険協会（協会けんぽ）「傷病手当金」、健康保険法第99条・第108条を確認（出典再確認日：2026-11-17）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 計算ラボ 傷病手当金計算エンジン
+// 根拠：全国健康保険協会「傷病手当金」（2026-11-17確認）、健康保険法99条・108条
+// 1日あたり＝標準報酬月額の平均÷30（10円未満四捨五入）×2/3（1円未満四捨五入）
+// 12か月未満は全被保険者平均32万円（令和7年4月1日以降開始分）との低い方を使う
+// テストケースは research/shoubyo-teate-test.md
+var ALL_AVG = 320000;
+function round10(x){ return Math.round(x/10)*10; }
+function dailyBenefit(avg, lt12){
+  var a = lt12 ? Math.min(avg, ALL_AVG) : avg;
+  var base = round10(a/30);
+  return {usedAvg:a, base:base, daily:Math.round(base*2/3)};
+}
+function calcShoubyo(avg, days, salaryDaily, lt12){
+  var d = dailyBenefit(avg, lt12);
+  var perDay = Math.max(0, d.daily - (salaryDaily||0));
+  return {usedAvg:d.usedAvg, base:d.base, daily:d.daily, perDay:perDay, total:perDay*days, fullTotal:d.daily*days};
+}
+//CORE-END
+var periodSeg=document.getElementById("periodSeg");
+periodSeg.dataset.period="ge12";
+setSeg("periodSeg","period",calc);
+["hyojun","days","salaryDaily"].forEach(function(id){ document.getElementById(id).addEventListener("input",calc); });
+presets("hyojun",[200000,250000,300000,350000,400000,450000,500000],function(v){ return (v/10000)+"万円"; });
+presets("days",[30,90,180,365,548],function(v){ return v+"日"; });
+function calc(){
+  var avg=num("hyojun");
+  var days=Math.floor(num("days")); if(days<0) days=0; if(days>548) days=548;
+  var salaryDaily=num("salaryDaily");
+  var lt12=periodSeg.dataset.period==="lt12";
+  var r=calcShoubyo(avg, days, salaryDaily, lt12);
+  var html="<div>傷病手当金の総額（目安）</div><div class='big'>"+yen(r.total)+" 円</div>";
+  if(salaryDaily>0 && r.daily>0){
+    var segs=[{label:"傷病手当金（差額）", value:r.perDay*days, cls:"sg-gain"},{label:"休業中の給与", value:Math.min(salaryDaily, r.daily)*days, cls:"sg-shaho"}];
+    if(r.perDay>0 && salaryDaily<r.daily) html+=stackBar(segs);
+  }
+  html+="<table>"+
+  "<tr><td>計算に使う標準報酬月額の平均</td><td>"+yen(r.usedAvg)+" 円"+(lt12 && avg>ALL_AVG ? "（全被保険者平均32万円を適用）" : "")+"</td></tr>"+
+  "<tr><td>平均÷30（10円未満四捨五入）</td><td>"+yen(r.base)+" 円</td></tr>"+
+  "<tr><td>1日あたりの傷病手当金</td><td>"+yen(r.daily)+" 円</td></tr>"+
+  (salaryDaily>0 ? "<tr><td>給与との差額（1日あたり）</td><td>"+yen(r.perDay)+" 円</td></tr>" : "")+
+  "<tr><td>30日分の目安</td><td>"+yen(r.perDay*30)+" 円</td></tr>"+
+  "<tr><td>支給対象日数</td><td>"+days+" 日（待期3日を除く）</td></tr>"+
+  "</table>";
+  document.getElementById("resultBox").innerHTML=html;
+  document.getElementById("premiseNote").textContent=
+   "前提：標準報酬月額の平均 "+yen(avg)+" 円、支給対象日数 "+days+" 日"+(lt12?"、被保険者期間は12か月に満たない":"、被保険者期間は12か月以上")+(salaryDaily>0?"、休業中の給与は1日あたり "+yen(salaryDaily)+" 円":"、休業中の給与なし")+"で計算しています。";
+}
+calc();
+</script>
+</body>
+</html>
