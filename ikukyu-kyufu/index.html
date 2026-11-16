@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>育児休業給付金計算｜育休手当の金額と総額を計算</title>
+<meta name="description" content="休業前の月給と育児休業の取得日数を入れると、育児休業給付金（育休手当）の総額と期間別の内訳の目安を計算。180日まで67％・181日目から50％、出生後休業支援給付金（13％上乗せ）と休業中の賃金による減額にも対応。令和8年8月1日改定の上限・下限額に対応。完全無料・登録不要。">
+<link rel="canonical" href="https://ada262651-max.github.io/ikukyu-kyufu/">
+<meta property="og:title" content="育児休業給付金計算｜計算ラボ">
+<meta property="og:description" content="育休手当（育児休業給付金）の総額と、67％期間・50％期間の内訳の目安を計算。令和8年8月改定対応。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"育児休業給付金計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/ikukyu-kyufu/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"育児休業給付金計算"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"育児休業給付金はいくらもらえますか？","acceptedAnswer":{"@type":"Answer","text":"休業開始時賃金日額（休業前の6か月の賃金総額÷180）に支給日数をかけ、休業開始から180日目までは67％、181日目からは50％をかけた額です。たとえば月給30万円（賃金日額10,000円）なら、30日分は67％期間で201,000円、50％期間で150,000円が目安です。1年（365日）取得すると合計2,131,000円が目安になります。"}},
+{"@type":"Question","name":"給付率が67％から50％に下がるのはいつですか？","acceptedAnswer":{"@type":"Answer","text":"育児休業を開始した日から通算して180日目までが67％、181日目からが50％です。日数は支給日数で数え、同じ子についての出生時育児休業給付金（産後パパ育休）の支給日数も通算に含まれます。支給単位期間は原則30日なので、通常は6回目の支給単位期間までが67％、7回目から50％になります。"}},
+{"@type":"Question","name":"賞与（ボーナス）は賃金日額の計算に入りますか？","acceptedAnswer":{"@type":"Answer","text":"入りません。休業開始時賃金日額は、休業開始前の6か月（賃金支払基礎日数が11日以上ある月）の賃金総額を180で割って求めますが、臨時に支払われる賃金と、賞与など3か月を超える期間ごとに支払われる賃金は総額に含まれません。残業代や通勤手当など毎月支払われる賃金は含まれます。"}},
+{"@type":"Question","name":"夫婦で育休を取ると給付が増えますか？","acceptedAnswer":{"@type":"Answer","text":"条件を満たすと「出生後休業支援給付金」が上乗せされます。本人と配偶者の両方が14日以上の育児休業を取得するなどの要件を満たす場合に、休業開始時賃金日額×日数（最大28日分）×13％が、育児休業給付金に上乗せされます（合計80％）。配偶者が無業・自営業・産後休業中などの場合は、配偶者の休業に関する要件が免除されることがあります。"}},
+{"@type":"Question","name":"育休中に会社から賃金が支払われたら給付はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"支給単位期間ごとに調整されます。その期間に支払われた賃金と給付金の合計が、休業開始時賃金日額×支給日数の80％を超える分は給付金から減額され、賃金だけで80％以上になるとその期間の給付金は支給されません。67％の期間は賃金が13％以下なら、50％の期間は賃金が30％以下なら、減額なしで満額が支給されます。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 育児休業給付金計算</nav>
+<h1>育児休業給付金計算</h1>
+<p class="lead">たとえば月給30万円で1年（365日）取得した場合、総額は2,131,000円が目安です（180日まで67％、181日目から50％）。休業前の月給と取得日数を入れると、育児休業給付金（いわゆる育休手当）の総額と期間別の内訳の目安を計算します。令和8年8月1日改定の上限・下限額に対応しています。</p>
+<div class="badges"><span class="badge">令和8年8月1日改定対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><label class="flabel">賃金の入力方法</label>
+<div class="seg" id="modeSeg"><button type="button" class="on" data-v="monthly">月給から計算</button><button type="button" data-v="sum">6か月合計を直接入力</button></div></div>
+<div id="monthlyWrap"><label class="flabel" for="salary">月給（休業前に毎月支払われた賃金）<small>円／賞与を除く・残業代や通勤手当を含む</small></label><input type="number" id="salary" value="300000" min="0" step="10000" inputmode="numeric"></div>
+<div id="sumWrap" style="display:none"><label class="flabel" for="sum6">休業開始前6か月の賃金合計<small>円／賞与を除く</small></label><input type="number" id="sum6" value="1800000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel" for="days">育児休業の取得日数<small>日</small></label><input type="number" id="days" value="365" min="1" max="730" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="wage">休業中に会社から支払われる賃金<small>円／30日あたり・なければ0</small></label><input type="number" id="wage" value="0" min="0" step="10000" inputmode="numeric"></div>
+<div class="full"><label class="flabel">出生後休業支援給付金（夫婦で取得した場合の13％上乗せ）</label>
+<div class="seg" id="supportSeg"><button type="button" class="on" data-v="no">対象でない</button><button type="button" data-v="yes">対象になる場合（最大28日分）</button></div></div>
+</form>
+<div class="result" id="resultBox"></div>
+<p class="note" id="premiseNote"></p>
+<p class="note">※計算結果は目安です。実際の金額は、勤務先がハローワークに提出する「休業開始時賃金月額証明書」をもとに決まります。支給は支給単位期間（原則30日）ごとに行われ、このページでは取得日数の合計から総額の目安を計算しています。休業中の賃金による減額は、賃金が毎月均等に支払われる前提で30日単位に換算して調整しています。</p>
+</div>
+
+<h2>育児休業給付金の計算の流れ</h2>
+<p>育児休業給付金は、雇用保険から支給される給付金です。金額は「休業開始時賃金日額 × 支給日数 × 給付率」で決まります。</p>
+<h3>1. 休業開始時賃金日額を求める</h3>
+<p>休業を始める前の6か月（賃金支払基礎日数が11日以上ある月）に支払われた賃金の総額を180で割ったものが「休業開始時賃金日額」です。賞与など臨時の賃金や、3か月を超える期間ごとに支払われる賃金は含まれません。月給が毎月同じなら、月給を30で割った額が賃金日額になります。賃金日額には上限（16,540円）と下限（3,203円）があります（2026年8月1日〜2027年7月31日に休業を開始した場合）。</p>
+<h3>2. 給付率をかける</h3>
+<p>休業開始から通算180日目までは賃金日額の67％、181日目からは50％が支給されます。支給単位期間は原則として1か月＝30日で、休業が終わる日を含む期間だけは、その期間の初日から終了日までの日数で計算します。給付金は非課税で、育児休業中は申出により健康保険料・厚生年金保険料も免除されるため、厚生労働省は給付と免除を合わせて「手取り10割相当」と説明しています。</p>
+<h3>3. 出生後休業支援給付金（13％の上乗せ）</h3>
+<p>本人と配偶者の両方が14日以上の育児休業を取得するなどの要件を満たすと、最大28日分について賃金日額×日数×13％が上乗せされ、育児休業給付金と合わせて80％になります。このページでは「対象になる場合」を選ぶと上乗せ額を表示します。要件の詳細は勤務先またはハローワークでご確認ください。</p>
+<h3>4. 休業中に賃金が支払われる場合の調整</h3>
+<p>支給単位期間中に会社から賃金が支払われた場合、その賃金と給付金の合計が「賃金日額×支給日数」の80％を超える分は給付金から減額され、賃金だけで80％以上になるとその期間の給付金は支給されません。言い換えると、67％の期間は賃金が13％以下なら、50％の期間は賃金が30％以下なら、減額なしで満額が支給されます。また、1つの支給単位期間中の就業日数が10日を超え、かつ就業時間が80時間を超えると、その期間は支給されません。</p>
+
+<h2>賃金日額と支給額の上限・下限（2026年8月1日〜2027年7月31日に休業開始）</h2>
+<div class="scroll"><table class="data">
+<thead><tr><th>項目</th><th>上限</th><th>下限</th></tr></thead>
+<tbody>
+<tr><td>休業開始時賃金日額</td><td>16,540円</td><td>3,203円</td></tr>
+<tr><td>支給額（30日分・67％期間）</td><td>332,454円</td><td>64,380円</td></tr>
+<tr><td>支給額（30日分・50％期間）</td><td>248,100円</td><td>48,045円</td></tr>
+<tr><td>出生後休業支援給付金（28日分）</td><td>60,205円</td><td>—</td></tr>
+</tbody></table></div>
+<p class="note">※上限・下限は毎年8月1日に、平均給与額の変動などに応じて見直されます。</p>
+
+<h2>月給別 育児休業給付金の早見表</h2>
+<p>月給が6か月とも同じ場合の目安です。賃金日額は月給÷30（1円未満切り捨て、上限・下限を適用）で計算しています。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th>月給</th><th>賃金日額</th><th>30日分（67％）</th><th>30日分（50％）</th><th>180日分（67％のみ）</th></tr></thead>
+<tbody>
+<tr><td>200,000円</td><td>6,666円</td><td>133,986円</td><td>99,990円</td><td>803,919円</td></tr>
+<tr><td>250,000円</td><td>8,333円</td><td>167,493円</td><td>124,995円</td><td>1,004,959円</td></tr>
+<tr><td>300,000円</td><td>10,000円</td><td>201,000円</td><td>150,000円</td><td>1,206,000円</td></tr>
+<tr><td>350,000円</td><td>11,666円</td><td>234,486円</td><td>174,990円</td><td>1,406,919円</td></tr>
+<tr><td>400,000円</td><td>13,333円</td><td>267,993円</td><td>199,995円</td><td>1,607,959円</td></tr>
+<tr><td>450,000円</td><td>15,000円</td><td>301,500円</td><td>225,000円</td><td>1,809,000円</td></tr>
+<tr><td>500,000円</td><td>16,540円</td><td>332,454円</td><td>248,100円</td><td>1,994,724円</td></tr>
+<tr><td>550,000円</td><td>16,540円</td><td>332,454円</td><td>248,100円</td><td>1,994,724円</td></tr>
+<tr><td>600,000円</td><td>16,540円</td><td>332,454円</td><td>248,100円</td><td>1,994,724円</td></tr>
+</tbody></table></div>
+<p class="note">※月給が496,200円を超えると賃金日額が上限（16,540円）に達し、支給額は頭打ちになります。この早見表は、このページの計算式（2026年8月1日以降の額）と同じ計算で作成しています。</p>
+
+<h3>計算例：月給30万円・取得365日（1年）</h3>
+<table class="data"><tbody>
+<tr><td>休業開始前6か月の賃金合計</td><td>1,800,000円（月給30万円×6か月）</td></tr>
+<tr><td>休業開始時賃金日額</td><td>10,000円（1,800,000円÷180）</td></tr>
+<tr><td>67％期間（180日）</td><td>1,206,000円（10,000円×180日×67％）</td></tr>
+<tr><td>50％期間（185日）</td><td>925,000円（10,000円×185日×50％）</td></tr>
+<tr><td>合計</td><td>2,131,000円</td></tr>
+<tr><td>出生後休業支援給付金の対象の場合</td><td>＋36,400円（10,000円×28日×13％）＝合計2,167,400円</td></tr>
+</tbody></table>
+<p>同じ月給30万円でも、取得日数によって総額は大きく変わります。支給単位期間（30日）中に会社から賃金6万円が支払われた場合は、厚生労働省のリーフレットの例では、給付金は201,000円から180,000円に減額されます（賃金月額30万円×80％＝24万円から、支払われた賃金6万円を引いた額）。復帰後の手取りの見通しには、<a href="/tedori/">手取り計算</a>もあわせてご利用ください。</p>
+
+<h2>受給の条件と手続きの流れ</h2>
+<p>育児休業給付金を受けるには、雇用保険の被保険者であることと、休業を始める前の2年間に、賃金支払基礎日数が11日以上ある月（完全賃金月）が通算で12か月以上あることが必要です。対象は原則として1歳未満の子を養育するための休業で、保育所に入れないなどの事情がある場合は1歳6か月まで、さらに事情がある場合は2歳まで延長できます。</p>
+<p>手続きは原則として勤務先（事業主）が行います。勤務先がハローワークに「休業開始時賃金月額証明書」と支給申請書を提出し、支給は原則2か月ごとにまとめて行われます。初回の支給は休業開始から約2か月後になるのが一般的です。給付金は非課税で、確定申告の対象にもなりません。</p>
+<p>なお、産前産後休業中は健康保険から「出産手当金」が支給されるのが一般的で、育児休業給付金とは別の制度です。男性の「産後パパ育休」には出生時育児休業給付金があり、給付率は同じ67％です。</p>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>育児休業給付金はいくらもらえますか？</summary><p>休業開始時賃金日額（休業前の6か月の賃金総額÷180）に支給日数をかけ、休業開始から180日目までは67％、181日目からは50％をかけた額です。たとえば月給30万円（賃金日額10,000円）なら、30日分は67％期間で201,000円、50％期間で150,000円が目安です。1年（365日）取得すると合計2,131,000円が目安になります。</p></details>
+<details class="faq"><summary>給付率が67％から50％に下がるのはいつですか？</summary><p>育児休業を開始した日から通算して180日目までが67％、181日目からが50％です。日数は支給日数で数え、同じ子についての出生時育児休業給付金（産後パパ育休）の支給日数も通算に含まれます。支給単位期間は原則30日なので、通常は6回目の支給単位期間までが67％、7回目から50％になります。</p></details>
+<details class="faq"><summary>賞与（ボーナス）は賃金日額の計算に入りますか？</summary><p>入りません。休業開始時賃金日額は、休業開始前の6か月（賃金支払基礎日数が11日以上ある月）の賃金総額を180で割って求めますが、臨時に支払われる賃金と、賞与など3か月を超える期間ごとに支払われる賃金は総額に含まれません。残業代や通勤手当など毎月支払われる賃金は含まれます。</p></details>
+<details class="faq"><summary>夫婦で育休を取ると給付が増えますか？</summary><p>条件を満たすと「出生後休業支援給付金」が上乗せされます。本人と配偶者の両方が14日以上の育児休業を取得するなどの要件を満たす場合に、休業開始時賃金日額×日数（最大28日分）×13％が、育児休業給付金に上乗せされます（合計80％）。配偶者が無業・自営業・産後休業中などの場合は、配偶者の休業に関する要件が免除されることがあります。</p></details>
+<details class="faq"><summary>育休中に会社から賃金が支払われたら給付はどうなりますか？</summary><p>支給単位期間ごとに調整されます。その期間に支払われた賃金と給付金の合計が、休業開始時賃金日額×支給日数の80％を超える分は給付金から減額され、賃金だけで80％以上になるとその期間の給付金は支給されません。67％の期間は賃金が13％以下なら、50％の期間は賃金が30％以下なら、減額なしで満額が支給されます。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/shitsugyo-hoken/"><span class="t">失業保険計算</span><div class="d">失業手当（基本手当）の1日あたりの金額・もらえる日数・受給総額の目安を計算。会社都合・自己都合・特定理由に対応。</div></a>
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りを計算。社会保険料・所得税・住民税の内訳と年収別早見表つき。</div></a>
+<a class="toolcard" href="/nenshu-no-kabe/"><span class="t">年収の壁シミュレーション</span><div class="d">年収から、住民税・社保扶養・配偶者控除・所得税の「年収の壁」のどれを超えているか判定。</div></a>
+<a class="toolcard" href="/work/"><span class="t">給付・労働の計算ツール一覧</span><div class="d">失業保険・残業代・退職金の税金など、給付・労働の計算ツールの一覧。</div></a>
+</div>
+
+<p class="meta">公開日：2026-11-17／更新日：2026-11-17<br>出典：厚生労働省「育児休業等給付の内容と支給申請手続」（2026（令和8）年8月1日改訂版）、厚生労働省「育児休業等給付について」、厚生労働省「産休・育休中の経済的支援 かんたん試算ツール」FAQ、厚生労働省・都道府県労働局・ハローワーク「育児休業期間中に就業した場合の育児休業給付金の支給について」を確認（出典再確認日：2026-11-17）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 計算ラボ 育児休業給付金計算エンジン（2026年8月1日〜2027年7月31日に休業開始の場合の上限・下限）
+// 根拠：厚生労働省「育児休業等給付の内容と支給申請手続」（令和8年8月1日改訂版）
+//       厚生労働省・都道府県労働局・ハローワーク「育児休業期間中に就業した場合の育児休業給付金の支給について」
+//       厚生労働省 試算ツールFAQ（賃金日額＝休業開始前6か月の賃金総額÷180）
+// 確認日：2026-11-17。テストケースは research/ikukyu-kyufu-test.md
+var DAILY_MIN = 3203;   // 休業開始時賃金日額の下限
+var DAILY_MAX = 16540;  // 休業開始時賃金日額の上限
+function wageDaily(sum6){ var w = Math.floor(sum6/180); return Math.min(Math.max(w, DAILY_MIN), DAILY_MAX); } // 1円未満切り捨て後に上限・下限を適用
+function calcBenefit(daily, days, support, monthlyWage){
+  var d67 = Math.min(days, 180), d50 = Math.max(0, days-180);
+  var b67 = Math.floor(daily*d67*0.67), b50 = Math.floor(daily*d50*0.50); // 期間ごとに1円未満切り捨て
+  var supDays = Math.min(days, 28);
+  var sup = support ? Math.floor(daily*supDays*0.13) : 0;
+  var cut = 0;
+  if(monthlyWage && monthlyWage > 0){
+    // 支給単位期間（30日）ごとに「賃金＋給付が賃金月額の80％を超える分」を減額（厚労省リーフレットの方式）
+    var remaining = days, elapsed = 0;
+    while(remaining > 0){
+      var ud = Math.min(30, remaining);
+      var u67 = elapsed >= 180 ? 0 : Math.min(ud, 180-elapsed);
+      var u50 = ud - u67;
+      var uFull = Math.floor(daily*u67*0.67) + Math.floor(daily*u50*0.50);
+      var uWage = monthlyWage * ud / 30;
+      var cap = daily * ud * 0.8;
+      var uBen = uFull;
+      if(uWage + uFull > cap) uBen = Math.max(0, Math.floor(cap - uWage));
+      cut += (uFull - uBen);
+      elapsed += ud; remaining -= ud;
+    }
+    // 出生後休業支援給付金は、対象期間の賃金が賃金月額の80％以上の場合は支給されない
+    if(support && monthlyWage * supDays / 30 >= daily * supDays * 0.8) sup = 0;
+  }
+  return {daily:daily, d67:d67, d50:d50, b67:b67, b50:b50, support:sup, cut:cut, total:b67+b50+sup-cut};
+}
+//CORE-END
+var modeSeg=document.getElementById("modeSeg"), supportSeg=document.getElementById("supportSeg");
+modeSeg.dataset.mode="monthly"; supportSeg.dataset.support="no";
+setSeg("modeSeg","mode",calc); setSeg("supportSeg","support",calc);
+["salary","sum6","days","wage"].forEach(function(id){ document.getElementById(id).addEventListener("input",calc); });
+presets("salary",[200000,250000,300000,350000,400000,500000],function(v){ return (v/10000)+"万円"; });
+presets("days",[180,270,365,548,730],function(v){ return v+"日"; });
+function calc(){
+  var mode=modeSeg.dataset.mode;
+  document.getElementById("monthlyWrap").style.display = mode==="monthly"?"":"none";
+  document.getElementById("sumWrap").style.display = mode==="sum"?"":"none";
+  var sum6 = mode==="monthly" ? num("salary")*6 : num("sum6");
+  var days = Math.floor(num("days")); if(days<0) days=0; if(days>730) days=730;
+  var monthlyWage = num("wage");
+  var support = supportSeg.dataset.support==="yes";
+  var daily = wageDaily(sum6);
+  var r = calcBenefit(daily, days, support, monthlyWage);
+  var rawDaily = Math.floor(sum6/180);
+  var capNote = rawDaily>DAILY_MAX ? "（上限 "+yen(DAILY_MAX)+" 円を適用）" : (rawDaily<DAILY_MIN ? "（下限 "+yen(DAILY_MIN)+" 円を適用）" : "");
+  var html="<div>育児休業給付金の総額（目安）</div><div class='big'>"+yen(r.total)+" 円</div>";
+  var segs=[];
+  if(r.b67-r.cut>0 || r.d50===0) segs.push({label:"67％期間", value:Math.max(0,r.b67-Math.min(r.cut,r.b67)), cls:"sg-gain"});
+  if(r.b50>0) segs.push({label:"50％期間", value:Math.max(0,r.b50-Math.max(0,r.cut-r.b67)), cls:"sg-shaho"});
+  if(r.support>0) segs.push({label:"出生後休業支援給付金", value:r.support, cls:"sg-tax1"});
+  if(segs.length>1) html+=stackBar(segs);
+  html+="<table>"+
+  "<tr><td>休業開始時賃金日額</td><td>"+yen(daily)+" 円"+capNote+"</td></tr>"+
+  "<tr><td>67％期間（180日目まで）</td><td>"+r.d67+" 日／"+yen(r.b67)+" 円</td></tr>"+
+  (r.d50>0 ? "<tr><td>50％期間（181日目から）</td><td>"+r.d50+" 日／"+yen(r.b50)+" 円</td></tr>" : "")+
+  (support ? "<tr><td>出生後休業支援給付金（13％・"+Math.min(days,28)+"日分）</td><td>"+yen(r.support)+" 円</td></tr>" : "")+
+  (r.cut>0 ? "<tr><td>減額（休業中の賃金による調整）</td><td>−"+yen(r.cut)+" 円</td></tr>" : "")+
+  "<tr><td>30日分の目安</td><td>67％期間 "+yen(Math.floor(daily*30*0.67))+" 円／50％期間 "+yen(Math.floor(daily*30*0.50))+" 円</td></tr>"+
+  "</table>";
+  document.getElementById("resultBox").innerHTML=html;
+  document.getElementById("premiseNote").textContent=
+   "前提：休業開始前6か月の賃金合計 "+yen(sum6)+" 円、取得日数 "+days+" 日"+(support?"、出生後休業支援給付金の対象になる場合":"")+(monthlyWage>0?"、休業中の賃金は30日あたり "+yen(monthlyWage)+" 円が均等に支払われる前提":"、休業中の賃金なし")+"で計算しています。金額は2026年8月1日〜2027年7月31日に休業を開始した場合の上限・下限です。";
+}
+calc();
+</script>
+</body>
+</html>
