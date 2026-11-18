@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最低賃金チェッカー｜都道府県別に時給・日給・月給を判定</title>
+<meta name="description" content="働く都道府県と時給・日給・月給を選ぶと、今日の地域別最低賃金を下回るか判定します。月給は年間休日と所定労働時間から時給に換算し、不足額と必要最低月給の目安を表示。令和8年度の47都道府県の改定額と発効日も確認できます。">
+<link rel="canonical" href="https://ada262651-max.github.io/saitei-chingin/">
+<meta property="og:title" content="最低賃金チェッカー｜計算ラボ">
+<meta property="og:description" content="時給・日給・月給を今日有効な地域別最低賃金と比較。47都道府県の改定額・発効日と、月給でいくら必要かを確認できます。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ada262651-max.github.io/saitei-chingin/">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"最低賃金チェッカー","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/saitei-chingin/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"最低賃金チェッカー"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"月給制では、最低賃金をどう確かめますか？","acceptedAnswer":{"@type":"Answer","text":"月給から通勤手当や家族手当など対象外の賃金を除き、残った額を1か月平均所定労働時間で割って、地域別最低賃金と比べます。1か月平均所定労働時間は「（365 − 年間休日）× 1日の所定労働時間 ÷ 12」で求めます。"}},
+{"@type":"Question","name":"改定の発効日前は、どちらの額で判定しますか？","acceptedAnswer":{"@type":"Answer","text":"発効日の前日までは改定前の額で、発効日からは改定後の額で判定します。発効日前は「○月○日から○○○円に上がります」と、改定日と改定後の額も表示します。"}},
+{"@type":"Question","name":"派遣で働く場合、どの都道府県を選びますか？","acceptedAnswer":{"@type":"Answer","text":"派遣先の職場がある都道府県を選んでください。派遣会社の所在地と異なる場合も、派遣先の地域別最低賃金が適用されます。"}},
+{"@type":"Question","name":"特定（産業別）最低賃金も判定に含まれますか？","acceptedAnswer":{"@type":"Answer","text":"このツールで判定するのは地域別最低賃金のみです。特定（産業別）最低賃金も適用される場合は、両方のうち高い方の額と比べてください。"}},
+{"@type":"Question","name":"最低賃金を下回ると表示されたら、どこに相談できますか？","acceptedAnswer":{"@type":"Answer","text":"判定結果は目安です。最低賃金を下回っているか気になるときは、労働基準監督署または都道府県労働局にご相談ください。"}}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 最低賃金チェッカー</nav>
+<h1>最低賃金チェッカー</h1>
+<p class="lead">東京都の地域別最低賃金は時給1,280円です。働く都道府県と支払形態（時給・日給・月給）を選び、賃金を入力すると、今日時点で有効な地域別最低賃金を下回っていないか、目安を確認できます。</p>
+<div class="badges"><span class="badge">厚労省の全国一覧で検証</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div>
+<label class="flabel" for="prefecture">働く都道府県<small>派遣の場合は派遣先の所在地</small></label>
+<select id="prefecture">
+<option value="北海道">北海道</option>
+<option value="青森">青森県</option>
+<option value="岩手">岩手県</option>
+<option value="宮城">宮城県</option>
+<option value="秋田">秋田県</option>
+<option value="山形">山形県</option>
+<option value="福島">福島県</option>
+<option value="茨城">茨城県</option>
+<option value="栃木">栃木県</option>
+<option value="群馬">群馬県</option>
+<option value="埼玉">埼玉県</option>
+<option value="千葉">千葉県</option>
+<option value="東京" selected>東京都</option>
+<option value="神奈川">神奈川県</option>
+<option value="新潟">新潟県</option>
+<option value="富山">富山県</option>
+<option value="石川">石川県</option>
+<option value="福井">福井県</option>
+<option value="山梨">山梨県</option>
+<option value="長野">長野県</option>
+<option value="岐阜">岐阜県</option>
+<option value="静岡">静岡県</option>
+<option value="愛知">愛知県</option>
+<option value="三重">三重県</option>
+<option value="滋賀">滋賀県</option>
+<option value="京都">京都府</option>
+<option value="大阪">大阪府</option>
+<option value="兵庫">兵庫県</option>
+<option value="奈良">奈良県</option>
+<option value="和歌山">和歌山県</option>
+<option value="鳥取">鳥取県</option>
+<option value="島根">島根県</option>
+<option value="岡山">岡山県</option>
+<option value="広島">広島県</option>
+<option value="山口">山口県</option>
+<option value="徳島">徳島県</option>
+<option value="香川">香川県</option>
+<option value="愛媛">愛媛県</option>
+<option value="高知">高知県</option>
+<option value="福岡">福岡県</option>
+<option value="佐賀">佐賀県</option>
+<option value="長崎">長崎県</option>
+<option value="熊本">熊本県</option>
+<option value="大分">大分県</option>
+<option value="宮崎">宮崎県</option>
+<option value="鹿児島">鹿児島県</option>
+<option value="沖縄">沖縄県</option>
+</select>
+</div>
+<div>
+<span class="flabel" id="payTypeLabel">支払形態</span>
+<div class="seg" id="paySeg" role="group" aria-labelledby="payTypeLabel" data-mode="monthly">
+<button type="button" data-v="hourly" aria-pressed="false">時給</button>
+<button type="button" data-v="daily" aria-pressed="false">日給</button>
+<button type="button" class="on" data-v="monthly" aria-pressed="true">月給</button>
+</div>
+</div>
+<div class="full">
+<label class="flabel" for="wage"><span id="wageLabel">対象賃金（月給）</span><small>円／下記の賃金・手当を除いた額</small></label>
+<input type="number" id="wage" value="200000" min="0" step="any" inputmode="decimal" required aria-describedby="excludedPay">
+<p class="note" id="excludedPay">除くもの：①臨時に支払われる賃金　②賞与など1か月を超える期間ごとの賃金　③時間外・休日・深夜の割増賃金　④精皆勤手当　⑤通勤手当　⑥家族手当</p>
+</div>
+<div id="holidaysField">
+<label class="flabel" for="holidays">年間休日<small>日／会社の年間カレンダーで確認</small></label>
+<input type="number" id="holidays" value="120" min="0" max="364" step="1" inputmode="numeric" required>
+</div>
+<div id="hoursField">
+<label class="flabel" for="hours">1日の所定労働時間<small>時間／休憩を除く</small></label>
+<input type="number" id="hours" value="8" min="0" max="24" step="any" inputmode="decimal" required>
+</div>
+</form>
+<div class="result" id="resultBox" role="status" aria-live="polite" aria-atomic="true">
+<div id="resultContext"></div>
+<div class="big" id="verdict"></div>
+<table id="resultTable" hidden><tbody>
+<tr><td>時間額換算値</td><td id="hourlyResult"></td></tr>
+<tr><td>本日有効な最低賃金（時給）</td><td id="rateResult"></td></tr>
+<tr><td>1時間あたりの不足額</td><td id="hourlyGap"></td></tr>
+<tr data-monthly><td>1か月平均所定労働時間</td><td id="avgHours"></td></tr>
+<tr data-monthly><td>不足月額</td><td id="monthlyGap"></td></tr>
+<tr data-monthly><td>必要最低月給の目安</td><td id="minimumPay"></td></tr>
+</tbody></table>
+<p id="raiseNote" hidden></p>
+<div id="resultDate"></div>
+</div>
+<noscript><p class="note">判定を利用するには、ブラウザのJavaScriptを有効にしてください。都道府県別の金額と発効日は下の一覧で確認できます。</p></noscript>
+<p class="note">金額と時間は小数第2位まで表示します。最低賃金を下回るかどうかは、丸める前の時間額で判定します。</p>
+</div>
+
+<h2>給与から最低賃金を確かめる方法</h2>
+<p>給与明細で対象賃金を確認し、支払形態に合わせて1時間あたりの金額に換算します。働く都道府県の最低賃金と同額なら「下回らない」と判定します。</p>
+<table class="data">
+<thead><tr><th scope="col">支払形態</th><th scope="col">比較に使う時間額</th></tr></thead>
+<tbody>
+<tr><th scope="row">時給</th><td>対象となる時給をそのまま使う</td></tr>
+<tr><th scope="row">日給</th><td>対象となる日給 ÷ 1日の所定労働時間</td></tr>
+<tr><th scope="row">月給</th><td>対象となる月給 ÷ 1か月平均所定労働時間</td></tr>
+</tbody></table>
+<p>月給制では、年間の所定労働時間を12で割ります。このページでは「（365 − 年間休日）× 1日の所定労働時間 ÷ 12」で1か月平均所定労働時間を求めます。地域別最低賃金にこの平均時間を掛けると、必要最低月給の目安になります。</p>
+
+<h3>給与明細で除く賃金・手当</h3>
+<p>基本給のほか、職務手当や住宅手当などは対象賃金に含めます。次の6項目が給与に含まれているときは、その金額を引いて入力してください。</p>
+<ol>
+<li>臨時に支払われる賃金（結婚手当など）</li>
+<li>1か月を超える期間ごとに支払われる賃金（賞与など）</li>
+<li>時間外・休日・深夜の割増賃金</li>
+<li>精皆勤手当</li>
+<li>通勤手当</li>
+<li>家族手当</li>
+</ol>
+
+<h3>どの最低賃金が適用されるか</h3>
+<p>地域別最低賃金は、雇用形態を問わず、働く事業場の都道府県で決まります。派遣で働く方は派遣先の所在地を選んでください。</p>
+<p>このページで判定するのは地域別最低賃金です。特定（産業別）最低賃金も適用される場合は、高い方の額を使います。対象の確認には<a href="https://saiteichingin.mhlw.go.jp/point/page_point_class.html">厚生労働省の最低賃金制度特設サイト</a>をご覧ください。</p>
+<p>最低賃金の減額特例許可を受けている方と、出来高払制などの方は、このチェッカーの対象外です。出来高払制などの換算方法は、厚生労働省の<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/chingin/newpage_43899.html">最低賃金額以上かどうかを確認する方法</a>で確認できます。</p>
+
+<h2>計算例：東京都で月給200,000円の場合</h2>
+<p>対象となる月給が200,000円、年間休日が120日、1日の所定労働時間が8時間の場合を、東京都の改定後の最低賃金で判定します。</p>
+<table class="data"><tbody>
+<tr><th scope="row">1か月平均所定労働時間</th><td>（365 − 120）× 8 ÷ 12 ＝ 163.333…時間</td></tr>
+<tr><th scope="row">時間額に換算した月給</th><td>200,000円 ÷ 163.333…時間 ≈ 1,224.49円</td></tr>
+<tr><th scope="row">判定</th><td>1,224.49円 ＜ 1,280円で、地域別最低賃金を下回る</td></tr>
+<tr><th scope="row">必要最低月給の目安</th><td>1,280円 × 163.333…時間 ≈ 209,066.67円</td></tr>
+</tbody></table>
+
+<h2>令和8年度の地域別最低賃金｜47都道府県一覧</h2>
+<p>金額はすべて1時間あたりです。発効日の前日までは前年度額、発効日当日からは改定額を使います。<span id="tableDate"></span></p>
+<div class="scroll"><table class="data" aria-label="令和8年度の地域別最低賃金">
+<thead><tr><th scope="col">都道府県</th><th scope="col">改定額</th><th scope="col">前年度額</th><th scope="col">引上げ額</th><th scope="col">発効日</th><th scope="col">本日時点の有効額</th></tr></thead>
+<tbody id="prefRows">
+<tr><th scope="row">北海道</th><td>1,131円</td><td>1,075円</td><td>56円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">青森県</th><td>1,090円</td><td>1,029円</td><td>61円</td><td><time datetime="2026-10-29">10月29日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">岩手県</th><td>1,090円</td><td>1,031円</td><td>59円</td><td><time datetime="2026-12-01">12月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">宮城県</th><td>1,098円</td><td>1,038円</td><td>60円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">秋田県</th><td>1,090円</td><td>1,031円</td><td>59円</td><td><time datetime="2026-10-14">10月14日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">山形県</th><td>1,092円</td><td>1,032円</td><td>60円</td><td><time datetime="2026-10-30">10月30日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">福島県</th><td>1,094円</td><td>1,033円</td><td>61円</td><td><time datetime="2026-10-16">10月16日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">茨城県</th><td>1,136円</td><td>1,074円</td><td>62円</td><td><time datetime="2026-10-18">10月18日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">栃木県</th><td>1,125円</td><td>1,068円</td><td>57円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">群馬県</th><td>1,120円</td><td>1,063円</td><td>57円</td><td><time datetime="2026-10-03">10月3日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">埼玉県</th><td>1,196円</td><td>1,141円</td><td>55円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">千葉県</th><td>1,195円</td><td>1,140円</td><td>55円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">東京都</th><td>1,280円</td><td>1,226円</td><td>54円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">神奈川県</th><td>1,279円</td><td>1,225円</td><td>54円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">新潟県</th><td>1,108円</td><td>1,050円</td><td>58円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">富山県</th><td>1,119円</td><td>1,062円</td><td>57円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">石川県</th><td>1,113円</td><td>1,054円</td><td>59円</td><td><time datetime="2026-10-03">10月3日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">福井県</th><td>1,112円</td><td>1,053円</td><td>59円</td><td><time datetime="2026-10-04">10月4日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">山梨県</th><td>1,113円</td><td>1,052円</td><td>61円</td><td><time datetime="2026-11-01">11月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">長野県</th><td>1,117円</td><td>1,061円</td><td>56円</td><td><time datetime="2026-10-02">10月2日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">岐阜県</th><td>1,121円</td><td>1,065円</td><td>56円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">静岡県</th><td>1,154円</td><td>1,097円</td><td>57円</td><td><time datetime="2026-10-15">10月15日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">愛知県</th><td>1,195円</td><td>1,140円</td><td>55円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">三重県</th><td>1,143円</td><td>1,087円</td><td>56円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">滋賀県</th><td>1,136円</td><td>1,080円</td><td>56円</td><td><time datetime="2026-10-03">10月3日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">京都府</th><td>1,180円</td><td>1,122円</td><td>58円</td><td><time datetime="2026-11-16">11月16日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">大阪府</th><td>1,231円</td><td>1,177円</td><td>54円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">兵庫県</th><td>1,172円</td><td>1,116円</td><td>56円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">奈良県</th><td>1,107円</td><td>1,051円</td><td>56円</td><td><time datetime="2026-10-04">10月4日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">和歌山県</th><td>1,101円</td><td>1,045円</td><td>56円</td><td><time datetime="2026-10-03">10月3日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">鳥取県</th><td>1,090円</td><td>1,030円</td><td>60円</td><td><time datetime="2026-10-03">10月3日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">島根県</th><td>1,092円</td><td>1,033円</td><td>59円</td><td><time datetime="2026-10-10">10月10日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">岡山県</th><td>1,104円</td><td>1,047円</td><td>57円</td><td><time datetime="2026-10-02">10月2日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">広島県</th><td>1,141円</td><td>1,085円</td><td>56円</td><td><time datetime="2026-10-11">10月11日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">山口県</th><td>1,101円</td><td>1,043円</td><td>58円</td><td><time datetime="2026-10-08">10月8日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">徳島県</th><td>1,103円</td><td>1,046円</td><td>57円</td><td><time datetime="2026-11-01">11月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">香川県</th><td>1,092円</td><td>1,036円</td><td>56円</td><td><time datetime="2026-10-01">10月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">愛媛県</th><td>1,093円</td><td>1,033円</td><td>60円</td><td><time datetime="2026-11-01">11月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">高知県</th><td>1,086円</td><td>1,023円</td><td>63円</td><td><time datetime="2026-10-29">10月29日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">福岡県</th><td>1,114円</td><td>1,057円</td><td>57円</td><td><time datetime="2026-10-04">10月4日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">佐賀県</th><td>1,095円</td><td>1,030円</td><td>65円</td><td><time datetime="2026-11-15">11月15日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">長崎県</th><td>1,087円</td><td>1,031円</td><td>56円</td><td><time datetime="2026-11-02">11月2日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">熊本県</th><td>1,092円</td><td>1,034円</td><td>58円</td><td><time datetime="2026-12-01">12月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">大分県</th><td>1,096円</td><td>1,035円</td><td>61円</td><td><time datetime="2026-11-01">11月1日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">宮崎県</th><td>1,085円</td><td>1,023円</td><td>62円</td><td><time datetime="2026-10-24">10月24日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">鹿児島県</th><td>1,090円</td><td>1,026円</td><td>64円</td><td><time datetime="2026-10-25">10月25日</time></td><td>発効日で判定</td></tr>
+<tr><th scope="row">沖縄県</th><td>1,086円</td><td>1,023円</td><td>63円</td><td><time datetime="2026-12-02">12月2日</time></td><td>発効日で判定</td></tr>
+</tbody></table></div>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>月給制では、最低賃金をどう確かめますか？</summary><p>月給から通勤手当や家族手当など対象外の賃金を除き、残った額を1か月平均所定労働時間で割って、地域別最低賃金と比べます。1か月平均所定労働時間は「（365 − 年間休日）× 1日の所定労働時間 ÷ 12」で求めます。</p></details>
+<details class="faq"><summary>改定の発効日前は、どちらの額で判定しますか？</summary><p>発効日の前日までは改定前の額で、発効日からは改定後の額で判定します。発効日前は「○月○日から○○○円に上がります」と、改定日と改定後の額も表示します。</p></details>
+<details class="faq"><summary>派遣で働く場合、どの都道府県を選びますか？</summary><p>派遣先の職場がある都道府県を選んでください。派遣会社の所在地と異なる場合も、派遣先の地域別最低賃金が適用されます。</p></details>
+<details class="faq"><summary>特定（産業別）最低賃金も判定に含まれますか？</summary><p>このツールで判定するのは地域別最低賃金のみです。特定（産業別）最低賃金も適用される場合は、両方のうち高い方の額と比べてください。</p></details>
+<details class="faq"><summary>最低賃金を下回ると表示されたら、どこに相談できますか？</summary><p>判定結果は目安です。最低賃金を下回っているか気になるときは、労働基準監督署または都道府県労働局にご相談ください。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/ikukyu-kyufu/"><span class="t">育児休業給付金計算</span><div class="d">休業前の月給と育休の日数から、給付額の目安を計算。</div></a>
+<a class="toolcard" href="/shoubyo-teatekin/"><span class="t">傷病手当金計算</span><div class="d">標準報酬月額と休業日数から、傷病手当金の日額と総額を計算。</div></a>
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から社会保険料や税金を差し引き、手取り額を計算。</div></a>
+<a class="toolcard" href="/work/"><span class="t">給付・労働の計算ツール一覧</span><div class="d">給与や働き方、休業・退職に関する給付の計算ツールを探す。</div></a>
+</div>
+
+<p class="meta">公開日：<time datetime="2026-11-18">2026-11-18</time>／更新日：<time datetime="2026-11-18">2026-11-18</time><br>出典：厚生労働省「<a href="https://www.mhlw.go.jp/content/11200000/001753404.pdf">令和8年度 地域別最低賃金 全国一覧</a>」（出典再確認日：2026-11-18）。詳しくは<a href="/editorial/">編集方針・検証方法</a>をご覧ください。</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 厚生労働省「令和8年度 地域別最低賃金 全国一覧」の時間額と発効日。
+const PREFS = [
+  { name: "北海道", newWage: 1131, oldWage: 1075, effective: "2026-10-01" },
+  { name: "青森", newWage: 1090, oldWage: 1029, effective: "2026-10-29" },
+  { name: "岩手", newWage: 1090, oldWage: 1031, effective: "2026-12-01" },
+  { name: "宮城", newWage: 1098, oldWage: 1038, effective: "2026-10-01" },
+  { name: "秋田", newWage: 1090, oldWage: 1031, effective: "2026-10-14" },
+  { name: "山形", newWage: 1092, oldWage: 1032, effective: "2026-10-30" },
+  { name: "福島", newWage: 1094, oldWage: 1033, effective: "2026-10-16" },
+  { name: "茨城", newWage: 1136, oldWage: 1074, effective: "2026-10-18" },
+  { name: "栃木", newWage: 1125, oldWage: 1068, effective: "2026-10-01" },
+  { name: "群馬", newWage: 1120, oldWage: 1063, effective: "2026-10-03" },
+  { name: "埼玉", newWage: 1196, oldWage: 1141, effective: "2026-10-01" },
+  { name: "千葉", newWage: 1195, oldWage: 1140, effective: "2026-10-01" },
+  { name: "東京", newWage: 1280, oldWage: 1226, effective: "2026-10-01" },
+  { name: "神奈川", newWage: 1279, oldWage: 1225, effective: "2026-10-01" },
+  { name: "新潟", newWage: 1108, oldWage: 1050, effective: "2026-10-01" },
+  { name: "富山", newWage: 1119, oldWage: 1062, effective: "2026-10-01" },
+  { name: "石川", newWage: 1113, oldWage: 1054, effective: "2026-10-03" },
+  { name: "福井", newWage: 1112, oldWage: 1053, effective: "2026-10-04" },
+  { name: "山梨", newWage: 1113, oldWage: 1052, effective: "2026-11-01" },
+  { name: "長野", newWage: 1117, oldWage: 1061, effective: "2026-10-02" },
+  { name: "岐阜", newWage: 1121, oldWage: 1065, effective: "2026-10-01" },
+  { name: "静岡", newWage: 1154, oldWage: 1097, effective: "2026-10-15" },
+  { name: "愛知", newWage: 1195, oldWage: 1140, effective: "2026-10-01" },
+  { name: "三重", newWage: 1143, oldWage: 1087, effective: "2026-10-01" },
+  { name: "滋賀", newWage: 1136, oldWage: 1080, effective: "2026-10-03" },
+  { name: "京都", newWage: 1180, oldWage: 1122, effective: "2026-11-16" },
+  { name: "大阪", newWage: 1231, oldWage: 1177, effective: "2026-10-01" },
+  { name: "兵庫", newWage: 1172, oldWage: 1116, effective: "2026-10-01" },
+  { name: "奈良", newWage: 1107, oldWage: 1051, effective: "2026-10-04" },
+  { name: "和歌山", newWage: 1101, oldWage: 1045, effective: "2026-10-03" },
+  { name: "鳥取", newWage: 1090, oldWage: 1030, effective: "2026-10-03" },
+  { name: "島根", newWage: 1092, oldWage: 1033, effective: "2026-10-10" },
+  { name: "岡山", newWage: 1104, oldWage: 1047, effective: "2026-10-02" },
+  { name: "広島", newWage: 1141, oldWage: 1085, effective: "2026-10-11" },
+  { name: "山口", newWage: 1101, oldWage: 1043, effective: "2026-10-08" },
+  { name: "徳島", newWage: 1103, oldWage: 1046, effective: "2026-11-01" },
+  { name: "香川", newWage: 1092, oldWage: 1036, effective: "2026-10-01" },
+  { name: "愛媛", newWage: 1093, oldWage: 1033, effective: "2026-11-01" },
+  { name: "高知", newWage: 1086, oldWage: 1023, effective: "2026-10-29" },
+  { name: "福岡", newWage: 1114, oldWage: 1057, effective: "2026-10-04" },
+  { name: "佐賀", newWage: 1095, oldWage: 1030, effective: "2026-11-15" },
+  { name: "長崎", newWage: 1087, oldWage: 1031, effective: "2026-11-02" },
+  { name: "熊本", newWage: 1092, oldWage: 1034, effective: "2026-12-01" },
+  { name: "大分", newWage: 1096, oldWage: 1035, effective: "2026-11-01" },
+  { name: "宮崎", newWage: 1085, oldWage: 1023, effective: "2026-10-24" },
+  { name: "鹿児島", newWage: 1090, oldWage: 1026, effective: "2026-10-25" },
+  { name: "沖縄", newWage: 1086, oldWage: 1023, effective: "2026-12-02" }
+];
+
+const japanCalendar = new Intl.DateTimeFormat("sv-SE", {
+  timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit"
+});
+
+function japanDate(now = new Date()) {
+  return japanCalendar.format(now);
+}
+
+function rateOn(pref, day = japanDate()) {
+  const pending = day < pref.effective;
+  return { pending, rate: pending ? pref.oldWage : pref.newWage };
+}
+
+function checkWage(mode, wage, dailyHours, holidays, rate) {
+  let hourly = wage;
+  let monthlyHours = null;
+  let minimumMonthly = null;
+  let monthlyShortage = null;
+  if (mode === "daily") hourly = wage / dailyHours;
+  if (mode === "monthly") {
+    monthlyHours = (365 - holidays) * dailyHours / 12;
+    hourly = wage / monthlyHours;
+    minimumMonthly = rate * monthlyHours;
+    monthlyShortage = Math.max(0, minimumMonthly - wage);
+  }
+  return {
+    hourly, monthlyHours, minimumMonthly, monthlyShortage,
+    below: hourly < rate,
+    hourlyShortage: Math.max(0, rate - hourly)
+  };
+}
+//CORE-END
+
+const byId = id => document.getElementById(id);
+const prefSelect = byId("prefecture");
+const paySeg = byId("paySeg");
+const wageInput = byId("wage");
+const holidaysInput = byId("holidays");
+const hoursInput = byId("hours");
+const dateLabel = day => day.replace(/-/g, "/");
+const decimals = new Intl.NumberFormat("ja-JP", { maximumFractionDigits: 2 });
+const payLabels = { hourly: "時給", daily: "日給", monthly: "月給" };
+const wages = { hourly: "1200", daily: "8500", monthly: "200000" };
+let activeMode = "monthly";
+let tableDay = "";
+
+function amount(value) {
+  if (Number.isInteger(value) && typeof yen === "function") return yen(value);
+  return decimals.format(value);
+}
+
+function readNumber(input) {
+  return typeof num === "function" ? num(input.id) : input.valueAsNumber;
+}
+
+function raiseNotice(pref) {
+  const [, month, day] = pref.effective.split("-").map(Number);
+  return month + "月" + day + "日から " + amount(pref.newWage) + "円に上がります";
+}
+
+function updateTable(day) {
+  if (tableDay === day) return;
+  const rows = byId("prefRows").rows;
+  PREFS.forEach((pref, index) => {
+    const { rate, pending } = rateOn(pref, day);
+    const cell = rows[index].cells[5];
+    cell.textContent = amount(rate) + "円";
+    if (pending) {
+      cell.append(document.createElement("br"), raiseNotice(pref));
+    }
+  });
+  byId("tableDate").textContent = "判定日（日本時間）：" + dateLabel(day);
+  tableDay = day;
+}
+
+function shortage(value) {
+  return value > 0 && value < 0.01 ? "0.01円未満" : amount(value) + "円";
+}
+
+function calculate() {
+  const day = japanDate();
+  updateTable(day);
+  const pref = PREFS[prefSelect.selectedIndex];
+  const { rate, pending } = rateOn(pref, day);
+  const monthly = activeMode === "monthly";
+  const usesHours = activeMode !== "hourly";
+  byId("resultContext").textContent = prefSelect.selectedOptions[0].textContent + "の地域別最低賃金との比較（" + payLabels[activeMode] + "）";
+  byId("resultDate").textContent = "判定日（日本時間）：" + dateLabel(day);
+  byId("raiseNote").hidden = !pending;
+  byId("raiseNote").textContent = pending ? raiseNotice(pref) : "";
+
+  let message = "";
+  if (!wageInput.validity.valid) {
+    message = "対象賃金を0円以上で入力してください。";
+  } else if (monthly && !holidaysInput.validity.valid) {
+    message = "年間休日は365日未満の整数で入力してください（0日も可）。";
+  } else if (usesHours && (!hoursInput.validity.valid || hoursInput.valueAsNumber <= 0)) {
+    message = "1日の所定労働時間は0時間を超え、24時間以内で入力してください。";
+  }
+  const resultTable = byId("resultTable");
+  const verdict = byId("verdict");
+  if (message) {
+    verdict.textContent = message;
+    resultTable.hidden = true;
+    return;
+  }
+  const result = checkWage(activeMode, readNumber(wageInput), readNumber(hoursInput), readNumber(holidaysInput), rate);
+  if (!Number.isFinite(result.hourly)) {
+    verdict.textContent = "対象賃金と所定労働時間を確認してください。";
+    resultTable.hidden = true;
+    return;
+  }
+
+  verdict.textContent = result.below ? "下回る" : "下回らない";
+  resultTable.hidden = false;
+  byId("hourlyResult").textContent = amount(result.hourly) + "円";
+  byId("rateResult").textContent = amount(rate) + "円";
+  byId("hourlyGap").textContent = shortage(result.hourlyShortage);
+  for (const row of resultTable.querySelectorAll("[data-monthly]")) row.hidden = !monthly;
+  if (monthly) {
+    byId("avgHours").textContent = decimals.format(result.monthlyHours) + "時間";
+    byId("monthlyGap").textContent = shortage(result.monthlyShortage);
+    byId("minimumPay").textContent = amount(result.minimumMonthly) + "円";
+  }
+}
+
+function changeMode() {
+  const mode = paySeg.dataset.mode;
+  if (mode !== activeMode) {
+    wages[activeMode] = wageInput.value;
+    wageInput.value = wages[mode];
+    activeMode = mode;
+  }
+  byId("wageLabel").textContent = "対象賃金（" + payLabels[mode] + "）";
+  holidaysInput.disabled = mode !== "monthly";
+  hoursInput.disabled = mode === "hourly";
+  byId("holidaysField").hidden = holidaysInput.disabled;
+  byId("hoursField").hidden = hoursInput.disabled;
+  for (const button of paySeg.querySelectorAll("button")) {
+    const selected = button.dataset.v === mode;
+    button.classList.toggle("on", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  }
+  calculate();
+}
+
+if (typeof setSeg === "function") {
+  setSeg("paySeg", "mode", changeMode);
+} else {
+  // 単体のHTMLを開いた場合も支払形態を切り替えられるようにする。
+  paySeg.addEventListener("click", event => {
+    const button = event.target.closest("button[data-v]");
+    if (!button) return;
+    paySeg.dataset.mode = button.dataset.v;
+    changeMode();
+  });
+}
+if (typeof presets === "function") {
+  presets("holidays", [105, 120], days => days + "日");
+}
+prefSelect.addEventListener("change", calculate);
+for (const input of [wageInput, holidaysInput, hoursInput]) {
+  input.addEventListener("input", calculate);
+}
+changeMode();
+
+// ページを開いたまま日本時間の発効日を迎えた場合も、判定と一覧を一緒に更新する。
+function refreshAtMidnight() {
+  const nextMidnight = Date.parse(tableDay + "T00:00:00+09:00") + 86400000;
+  window.setTimeout(() => {
+    calculate();
+    refreshAtMidnight();
+  }, Math.max(1, nextMidnight - Date.now()));
+}
+window.addEventListener("pageshow", calculate);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) calculate();
+});
+refreshAtMidnight();
+</script>
+</body>
+</html>
