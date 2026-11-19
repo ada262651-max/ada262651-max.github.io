@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>標準報酬月額計算｜等級と厚生年金保険料がすぐ分かる</title>
+<meta name="description" content="税引前の報酬月額、または4〜6月の報酬と支払基礎日数から、健康保険・厚生年金の等級と標準報酬月額、厚生年金の本人負担を計算。令和8年度の50行の早見表も確認できます。">
+<link rel="canonical" href="https://ada262651-max.github.io/hyojun-hoshu/">
+<meta property="og:title" content="標準報酬月額計算｜計算ラボ">
+<meta property="og:description" content="税引前の報酬月額、または4〜6月の報酬と支払基礎日数から、健康保険・厚生年金の等級と標準報酬月額、厚生年金の本人負担を計算。令和8年度の50行の早見表も確認できます。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ada262651-max.github.io/hyojun-hoshu/">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"標準報酬月額計算","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/hyojun-hoshu/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"給付・労働の計算","item":"https://ada262651-max.github.io/work/"},{"@type":"ListItem","position":3,"name":"標準報酬月額計算"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "健康保険と厚生年金で等級が違うのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "健康保険は50等級、厚生年金は32等級で、表の下限と上限が異なります。報酬月額30万円なら標準報酬月額はどちらも30万円ですが、健康保険は22級、厚生年金は19級です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "報酬月額が境目ちょうどなら、どちらの等級ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "各区分は下限以上、上限未満です。309,999円は健康保険22級・厚生年金19級、310,000円ちょうどで健康保険23級・厚生年金20級になります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "給与明細から自分の等級を調べられますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "通常の給与1か月分の厚生年金本人負担額を9.15％（0.0915）で割り、早見表の厚生年金の標準報酬月額と照合します。27,450円なら30万円で19級です。賞与や過去分の精算を含むと逆算できないため、勤務先に決定額を確認してください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "標準報酬月額はいつ変わりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "定時決定では原則として毎年9月に変わり、翌年8月まで適用されます。途中で昇給などにより随時改定の要件を満たすと、変動後の給与を受けた月から数えて4か月目に変わります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "賞与は報酬月額に含めますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "年3回以下の賞与は月々の報酬から除き、標準賞与額で別に保険料を計算します。年4回以上支給される賞与は報酬に含め、年間の対象額を月額に換算します。"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb"><a href="/">トップ</a> ＞ <a href="/work/">給付・労働の計算</a> ＞ 標準報酬月額計算</nav>
+<h1>標準報酬月額計算</h1>
+
+<p class="lead">報酬月額が30万円の場合、健康保険は22級、厚生年金は19級です。標準報酬月額はどちらも30万円で、厚生年金保険料の本人負担は月27,450円です。</p>
+<div class="badges"><span class="badge">令和8年度の等級表に対応</span><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span></div>
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<div class="full"><span id="modeLabel">入力方法</span><br>
+<div class="seg" id="mode" role="group" aria-labelledby="modeLabel" data-mode="monthly">
+<button type="button" class="on" data-v="monthly" aria-pressed="true">報酬月額</button>
+<button type="button" data-v="annual" aria-pressed="false">定時決定（4〜6月）</button>
+</div></div>
+<div class="full" id="single"><label class="flabel" for="monthly">報酬月額<small>円</small></label>
+<input type="number" id="monthly" min="0" step="1" inputmode="numeric" required value="300000" aria-describedby="payHint">
+<p class="note" id="payHint">通勤手当や残業手当などを含む、社会保険料・税金を引く前の月額を入力してください。</p></div>
+<div class="full" data-annual hidden><span id="basisLabel">支払基礎日数の基準</span><br>
+<div class="seg" id="basis" data-mode="17" role="group" aria-labelledby="basisLabel">
+<button type="button" class="on" data-v="17" aria-pressed="true">原則17日</button>
+<button type="button" data-v="11" aria-pressed="false">短時間労働者11日</button></div>
+<p class="note">4〜6月に支払われた給与を入力します。支払基礎日数は給与計算の対象日数で、欠勤控除のない完全月給制では原則として給与計算期間の暦日数です。11日基準は特定適用事業所等の短時間労働者が対象です。</p></div>
+<div data-annual hidden><label class="flabel" for="pay4">4月の報酬額<small>円</small></label>
+<input type="number" id="pay4" min="0" step="1" inputmode="numeric" value="295000" required></div>
+<div data-annual hidden><label class="flabel" for="days4">4月の支払基礎日数<small>日</small></label>
+<input type="number" id="days4" min="0" max="31" step="1" inputmode="numeric" value="20" required></div>
+<div data-annual hidden><label class="flabel" for="pay5">5月の報酬額<small>円</small></label>
+<input type="number" id="pay5" min="0" step="1" inputmode="numeric" value="305000" required></div>
+<div data-annual hidden><label class="flabel" for="days5">5月の支払基礎日数<small>日</small></label>
+<input type="number" id="days5" min="0" max="31" step="1" inputmode="numeric" value="20" required></div>
+<div data-annual hidden><label class="flabel" for="pay6">6月の報酬額<small>円</small></label>
+<input type="number" id="pay6" min="0" step="1" inputmode="numeric" value="300000" required></div>
+<div data-annual hidden><label class="flabel" for="days6">6月の支払基礎日数<small>日</small></label>
+<input type="number" id="days6" min="0" max="31" step="1" inputmode="numeric" value="20" required></div>
+
+</form>
+<div class="result" role="status" aria-live="polite" aria-atomic="true">
+<div>厚生年金保険料の本人負担（月額）</div>
+<div class="big" id="premium"></div>
+<p id="process" hidden></p>
+<table id="breakdown" hidden aria-label="標準報酬月額と保険料の内訳"><tbody>
+<tr><td id="payLabel">報酬月額</td><td id="amount"></td></tr>
+<tr><td>健康保険の等級・標準報酬月額</td><td id="health"></td></tr>
+<tr><td>厚生年金の等級・標準報酬月額</td><td id="pension"></td></tr>
+<tr><td>厚生年金本人負担（9.15％）</td><td id="share"></td></tr>
+</tbody></table></div>
+<noscript><p>自動計算にはJavaScriptを有効にしてください。下の早見表でも等級と本人負担を確認できます。</p></noscript>
+<p class="note">厚生年金の本人負担は、厚生年金の標準報酬月額に9.15％（保険料率18.3％の半分）を掛けて求めます。健康保険料は加入先や都道府県で異なるため、加入先の保険料額表で確認してください。</p></div>
+
+<h2>標準報酬月額はどう決まる？</h2>
+<p>標準報酬月額は、税引前の報酬を一定の幅で区切り、各区分に代表の金額を割り当てたものです。給与が毎月増減しても、標準報酬月額を毎月決め直すわけではありません。</p>
+<table class="data"><thead><tr><th scope="col">決める時期</th><th scope="col">基準になる報酬と適用時期</th></tr></thead><tbody>
+<tr><th scope="row">資格取得時</th><td>入社などで加入するときに、雇用契約で定めた給与や手当などをもとに月額を見積もります。</td></tr>
+<tr><th scope="row">定時決定</th><td>7月1日時点の加入者について、原則として4〜6月の対象月の報酬を平均し、9月から翌年8月までの標準報酬月額を決めます。</td></tr>
+<tr><th scope="row">随時改定</th><td>固定給の変動後、3か月の平均による等級が従前と原則2等級以上変わるなどの要件を満たすと、4か月目から改定します。</td></tr>
+</tbody></table>
+<h3>給与明細のどの金額を含める？</h3>
+<p><strong>含めるもの</strong>は、基本給、残業・通勤・住宅・役付・家族手当などです。食事や社宅などの現物給与も、所定の方法で金額に換算して加えます。</p>
+<p><strong>除くもの</strong>は、出張旅費の実費精算や臨時の慶弔見舞金などです。年3回以下の賞与は標準賞与額として別計算します。年4回以上支給される賞与は月額に換算して報酬に含めます。</p>
+<h2>健康保険・厚生年金の等級早見表（令和8年度）</h2>
+<p>左端の列で報酬月額を探し、同じ行で各保険の等級と標準報酬月額を読み取れます。厚生年金は93,000円未満がすべて1級、635,000円以上がすべて32級です。</p>
+<p class="warnbox">厚生年金の標準報酬月額の上限は、2027年9月に65万円から68万円へ引き上げられる予定です。この計算と早見表には現行の上限65万円を使用しています。</p>
+<div class="scroll" tabindex="0" role="region" aria-label="等級早見表"><table class="data"><thead><tr>
+<th scope="col">報酬月額の範囲</th><th scope="col">健康保険<br>等級・標準報酬月額</th><th scope="col">厚生年金<br>等級・標準報酬月額</th><th scope="col">厚生年金本人負担<br>（月額）</th></tr></thead><tbody id="grades">
+<tr><th scope="row">63,000円未満</th><td>1級・58,000円</td><td>1級・88,000円</td><td>8,052円</td></tr>
+<tr><th scope="row">63,000円以上〜73,000円未満</th><td>2級・68,000円</td><td>1級・88,000円</td><td>8,052円</td></tr>
+<tr><th scope="row">73,000円以上〜83,000円未満</th><td>3級・78,000円</td><td>1級・88,000円</td><td>8,052円</td></tr>
+<tr><th scope="row">83,000円以上〜93,000円未満</th><td>4級・88,000円</td><td>1級・88,000円</td><td>8,052円</td></tr>
+<tr><th scope="row">93,000円以上〜101,000円未満</th><td>5級・98,000円</td><td>2級・98,000円</td><td>8,967円</td></tr>
+<tr><th scope="row">101,000円以上〜107,000円未満</th><td>6級・104,000円</td><td>3級・104,000円</td><td>9,516円</td></tr>
+<tr><th scope="row">107,000円以上〜114,000円未満</th><td>7級・110,000円</td><td>4級・110,000円</td><td>10,065円</td></tr>
+<tr><th scope="row">114,000円以上〜122,000円未満</th><td>8級・118,000円</td><td>5級・118,000円</td><td>10,797円</td></tr>
+<tr><th scope="row">122,000円以上〜130,000円未満</th><td>9級・126,000円</td><td>6級・126,000円</td><td>11,529円</td></tr>
+<tr><th scope="row">130,000円以上〜138,000円未満</th><td>10級・134,000円</td><td>7級・134,000円</td><td>12,261円</td></tr>
+<tr><th scope="row">138,000円以上〜146,000円未満</th><td>11級・142,000円</td><td>8級・142,000円</td><td>12,993円</td></tr>
+<tr><th scope="row">146,000円以上〜155,000円未満</th><td>12級・150,000円</td><td>9級・150,000円</td><td>13,725円</td></tr>
+<tr><th scope="row">155,000円以上〜165,000円未満</th><td>13級・160,000円</td><td>10級・160,000円</td><td>14,640円</td></tr>
+<tr><th scope="row">165,000円以上〜175,000円未満</th><td>14級・170,000円</td><td>11級・170,000円</td><td>15,555円</td></tr>
+<tr><th scope="row">175,000円以上〜185,000円未満</th><td>15級・180,000円</td><td>12級・180,000円</td><td>16,470円</td></tr>
+<tr><th scope="row">185,000円以上〜195,000円未満</th><td>16級・190,000円</td><td>13級・190,000円</td><td>17,385円</td></tr>
+<tr><th scope="row">195,000円以上〜210,000円未満</th><td>17級・200,000円</td><td>14級・200,000円</td><td>18,300円</td></tr>
+<tr><th scope="row">210,000円以上〜230,000円未満</th><td>18級・220,000円</td><td>15級・220,000円</td><td>20,130円</td></tr>
+<tr><th scope="row">230,000円以上〜250,000円未満</th><td>19級・240,000円</td><td>16級・240,000円</td><td>21,960円</td></tr>
+<tr><th scope="row">250,000円以上〜270,000円未満</th><td>20級・260,000円</td><td>17級・260,000円</td><td>23,790円</td></tr>
+<tr><th scope="row">270,000円以上〜290,000円未満</th><td>21級・280,000円</td><td>18級・280,000円</td><td>25,620円</td></tr>
+<tr><th scope="row">290,000円以上〜310,000円未満</th><td>22級・300,000円</td><td>19級・300,000円</td><td>27,450円</td></tr>
+<tr><th scope="row">310,000円以上〜330,000円未満</th><td>23級・320,000円</td><td>20級・320,000円</td><td>29,280円</td></tr>
+<tr><th scope="row">330,000円以上〜350,000円未満</th><td>24級・340,000円</td><td>21級・340,000円</td><td>31,110円</td></tr>
+<tr><th scope="row">350,000円以上〜370,000円未満</th><td>25級・360,000円</td><td>22級・360,000円</td><td>32,940円</td></tr>
+<tr><th scope="row">370,000円以上〜395,000円未満</th><td>26級・380,000円</td><td>23級・380,000円</td><td>34,770円</td></tr>
+<tr><th scope="row">395,000円以上〜425,000円未満</th><td>27級・410,000円</td><td>24級・410,000円</td><td>37,515円</td></tr>
+<tr><th scope="row">425,000円以上〜455,000円未満</th><td>28級・440,000円</td><td>25級・440,000円</td><td>40,260円</td></tr>
+<tr><th scope="row">455,000円以上〜485,000円未満</th><td>29級・470,000円</td><td>26級・470,000円</td><td>43,005円</td></tr>
+<tr><th scope="row">485,000円以上〜515,000円未満</th><td>30級・500,000円</td><td>27級・500,000円</td><td>45,750円</td></tr>
+<tr><th scope="row">515,000円以上〜545,000円未満</th><td>31級・530,000円</td><td>28級・530,000円</td><td>48,495円</td></tr>
+<tr><th scope="row">545,000円以上〜575,000円未満</th><td>32級・560,000円</td><td>29級・560,000円</td><td>51,240円</td></tr>
+<tr><th scope="row">575,000円以上〜605,000円未満</th><td>33級・590,000円</td><td>30級・590,000円</td><td>53,985円</td></tr>
+<tr><th scope="row">605,000円以上〜635,000円未満</th><td>34級・620,000円</td><td>31級・620,000円</td><td>56,730円</td></tr>
+<tr><th scope="row">635,000円以上〜665,000円未満</th><td>35級・650,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">665,000円以上〜695,000円未満</th><td>36級・680,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">695,000円以上〜730,000円未満</th><td>37級・710,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">730,000円以上〜770,000円未満</th><td>38級・750,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">770,000円以上〜810,000円未満</th><td>39級・790,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">810,000円以上〜855,000円未満</th><td>40級・830,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">855,000円以上〜905,000円未満</th><td>41級・880,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">905,000円以上〜955,000円未満</th><td>42級・930,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">955,000円以上〜1,005,000円未満</th><td>43級・980,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,005,000円以上〜1,055,000円未満</th><td>44級・1,030,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,055,000円以上〜1,115,000円未満</th><td>45級・1,090,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,115,000円以上〜1,175,000円未満</th><td>46級・1,150,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,175,000円以上〜1,235,000円未満</th><td>47級・1,210,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,235,000円以上〜1,295,000円未満</th><td>48級・1,270,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,295,000円以上〜1,355,000円未満</th><td>49級・1,330,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+<tr><th scope="row">1,355,000円以上</th><td>50級・1,390,000円</td><td>32級・650,000円</td><td>59,475円</td></tr>
+</tbody></table></div>
+<h2>よくある質問</h2>
+<details class="faq"><summary>健康保険と厚生年金で等級が違うのはなぜですか？</summary><p>健康保険は50等級、厚生年金は32等級で、表の下限と上限が異なります。報酬月額30万円なら標準報酬月額はどちらも30万円ですが、健康保険は22級、厚生年金は19級です。</p></details>
+<details class="faq"><summary>報酬月額が境目ちょうどなら、どちらの等級ですか？</summary><p>各区分は下限以上、上限未満です。309,999円は健康保険22級・厚生年金19級、310,000円ちょうどで健康保険23級・厚生年金20級になります。</p></details>
+<details class="faq"><summary>給与明細から自分の等級を調べられますか？</summary><p>通常の給与1か月分の厚生年金本人負担額を9.15％（0.0915）で割り、早見表の厚生年金の標準報酬月額と照合します。27,450円なら30万円で19級です。賞与や過去分の精算を含むと逆算できないため、勤務先に決定額を確認してください。</p></details>
+<details class="faq"><summary>標準報酬月額はいつ変わりますか？</summary><p>定時決定では原則として毎年9月に変わり、翌年8月まで適用されます。途中で昇給などにより随時改定の要件を満たすと、変動後の給与を受けた月から数えて4か月目に変わります。</p></details>
+<details class="faq"><summary>賞与は報酬月額に含めますか？</summary><p>年3回以下の賞与は月々の報酬から除き、標準賞与額で別に保険料を計算します。年4回以上支給される賞与は報酬に含め、年間の対象額を月額に換算します。</p></details>
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/ikukyu-kyufu/"><span class="t">育児休業給付金計算</span><div class="d">休業前の月給と育休の日数から、給付額の目安を計算。</div></a>
+<a class="toolcard" href="/shoubyo-teatekin/"><span class="t">傷病手当金計算</span><div class="d">標準報酬月額と休業日数から、傷病手当金の日額と総額を計算。</div></a>
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から社会保険料や税金を差し引き、手取り額を計算。</div></a>
+<a class="toolcard" href="/work/"><span class="t">給付・労働の計算ツール一覧</span><div class="d">給与や働き方、休業・退職に関する給付の計算ツールを探す。</div></a>
+</div>
+
+
+<h2>出典</h2>
+<ul>
+<li>日本年金機構「<a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20150515-01.html">厚生年金保険の保険料</a>」「<a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20121017.html">定時決定（算定基礎届）</a>」「<a href="https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.html">保険料額表</a>」</li>
+<li>協会けんぽ「<a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf">令和8年度 健康保険・厚生年金保険の保険料額表（東京支部・PDF）</a>」</li>
+<li>e-Gov法令検索「<a href="https://laws.e-gov.go.jp/law/211AC0000000070">健康保険法</a>」第40条・第41条、「<a href="https://laws.e-gov.go.jp/law/329AC0000000115">厚生年金保険法</a>」第20条・第21条</li>
+</ul>
+<p class="meta">公開日：<time datetime="2026-11-19">2026-11-19</time>／更新日：<time datetime="2026-11-19">2026-11-19</time><br>出典再確認日：<time datetime="2026-11-19">2026-11-19</time></p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+const HEALTH = [
+  [0, 58000],
+  [63000, 68000],
+  [73000, 78000],
+  [83000, 88000],
+  [93000, 98000],
+  [101000, 104000],
+  [107000, 110000],
+  [114000, 118000],
+  [122000, 126000],
+  [130000, 134000],
+  [138000, 142000],
+  [146000, 150000],
+  [155000, 160000],
+  [165000, 170000],
+  [175000, 180000],
+  [185000, 190000],
+  [195000, 200000],
+  [210000, 220000],
+  [230000, 240000],
+  [250000, 260000],
+  [270000, 280000],
+  [290000, 300000],
+  [310000, 320000],
+  [330000, 340000],
+  [350000, 360000],
+  [370000, 380000],
+  [395000, 410000],
+  [425000, 440000],
+  [455000, 470000],
+  [485000, 500000],
+  [515000, 530000],
+  [545000, 560000],
+  [575000, 590000],
+  [605000, 620000],
+  [635000, 650000],
+  [665000, 680000],
+  [695000, 710000],
+  [730000, 750000],
+  [770000, 790000],
+  [810000, 830000],
+  [855000, 880000],
+  [905000, 930000],
+  [955000, 980000],
+  [1005000, 1030000],
+  [1055000, 1090000],
+  [1115000, 1150000],
+  [1175000, 1210000],
+  [1235000, 1270000],
+  [1295000, 1330000],
+  [1355000, 1390000]
+];
+const PENSION = [
+  [0, 88000],
+  [93000, 98000],
+  [101000, 104000],
+  [107000, 110000],
+  [114000, 118000],
+  [122000, 126000],
+  [130000, 134000],
+  [138000, 142000],
+  [146000, 150000],
+  [155000, 160000],
+  [165000, 170000],
+  [175000, 180000],
+  [185000, 190000],
+  [195000, 200000],
+  [210000, 220000],
+  [230000, 240000],
+  [250000, 260000],
+  [270000, 280000],
+  [290000, 300000],
+  [310000, 320000],
+  [330000, 340000],
+  [350000, 360000],
+  [370000, 380000],
+  [395000, 410000],
+  [425000, 440000],
+  [455000, 470000],
+  [485000, 500000],
+  [515000, 530000],
+  [545000, 560000],
+  [575000, 590000],
+  [605000, 620000],
+  [635000, 650000]
+];
+
+const byId = id => document.getElementById(id);
+const money = n => (typeof yen === "function" ? yen(n) : Math.round(n).toLocaleString("ja-JP")) + "円";
+
+function gradeText(table, amount) {
+  const index = table.findLastIndex(([lower]) => amount >= lower);
+  return { label: (index + 1) + "級・" + money(table[index][1]), standard: table[index][1] };
+}
+
+function calculate() {
+  const annual = byId("mode").dataset.mode === "annual";
+  const note = byId("process");
+  byId("breakdown").hidden = true;
+  byId("premium").textContent = "—";
+  note.hidden = false;
+  const invalid = [...byId("calcForm").querySelectorAll("input:enabled")].find(input =>
+    !input.validity.valid || !Number.isSafeInteger(input.valueAsNumber));
+  if (invalid) {
+    note.textContent = invalid.labels[0].textContent + "の入力を確認してください。" +
+      (invalid.id.startsWith("days") ? "日数は0〜31日の整数です。" : "報酬は0円以上の整数です。");
+    return;
+  }
+
+  let amount = byId("monthly").valueAsNumber;
+  if (annual) {
+    const threshold = Number(byId("basis").dataset.mode);
+    const included = [];
+    const excluded = [];
+    let total = 0;
+    for (const month of [4, 5, 6]) {
+      const days = byId("days" + month).valueAsNumber;
+      const pay = byId("pay" + month).valueAsNumber;
+      if (days < threshold) {
+        excluded.push(month + "月（" + days + "日）");
+      } else {
+        included.push(month + "月 " + money(pay));
+        total += pay;
+      }
+    }
+    const reason = excluded.length ? "除外：" + excluded.join("・") + "は" + threshold + "日未満です。" : "";
+    if (!included.length) {
+      note.textContent = reason + "対象月がないため等級を判定できません。基準と支払基礎日数を確認し、該当する算定方法を勤務先にご確認ください。";
+      return;
+    }
+    if (!Number.isSafeInteger(total)) {
+      note.textContent = "対象月の合計額が大きすぎます。各月の報酬額を確認してください。";
+      return;
+    }
+    amount = total / included.length;
+    note.textContent = reason + "対象：" + included.join(" ＋ ") + "。合計 " + money(total) +
+      " ÷ " + included.length + "か月 → " + money(Math.floor(amount)) +
+      "。平均額は1円未満を切り捨てて表示し、等級は切り捨て前の平均で判定します。";
+  } else {
+    note.hidden = true;
+    note.textContent = "";
+  }
+
+  const health = gradeText(HEALTH, amount);
+  const pension = gradeText(PENSION, amount);
+  const premium = money(pension.standard * 915 / 10000);
+  byId("payLabel").textContent = annual ? "対象月の平均報酬月額" : "報酬月額";
+  byId("amount").textContent = money(Math.floor(amount));
+  byId("health").textContent = health.label;
+  byId("pension").textContent = pension.label;
+  byId("share").textContent = premium;
+  byId("premium").textContent = premium;
+  byId("breakdown").hidden = false;
+}
+
+function changeMode() {
+  const annual = byId("mode").dataset.mode === "annual";
+  byId("single").hidden = annual;
+  byId("monthly").disabled = annual;
+  for (const field of document.querySelectorAll("[data-annual]")) {
+    field.hidden = !annual;
+    const input = field.querySelector("input");
+    if (input) input.disabled = !annual;
+  }
+  for (const button of document.querySelectorAll(".seg button")) {
+    const selected = button.parentElement.dataset.mode === button.dataset.v;
+    button.classList.toggle("on", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  }
+  calculate();
+}
+
+for (const id of ["mode", "basis"]) {
+  if (typeof setSeg === "function") {
+    setSeg(id, "mode", changeMode);
+  } else {
+    byId(id).addEventListener("click", event => {
+      if (!event.target.matches("button[data-v]")) return;
+      byId(id).dataset.mode = event.target.dataset.v;
+      changeMode();
+    });
+  }
+}
+if (typeof presets === "function") presets("monthly", [200000, 300000, 400000], n => n / 10000 + "万円");
+byId("calcForm").addEventListener("input", calculate);
+window.addEventListener("pageshow", changeMode);
+changeMode();
+</script>
+</body>
+</html>
