@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2つの求人を比べる（令和8年対応）｜計算ラボ</title>
+<meta name="description" content="2つの求人の額面年収と勤務地から、手取りの差と社会保険料・所得税・住民税の内訳を比較。会社の人件費も試算できます。令和8年対応。">
+<link rel="canonical" href="https://ada262651-max.github.io/kyujin-hikaku/">
+<meta property="og:title" content="2つの求人を比べる（令和8年対応）｜計算ラボ">
+<meta property="og:description" content="2つの求人の額面年収と勤務地から、手取りの差と社会保険料・所得税・住民税の内訳を比較。会社の人件費も試算できます。令和8年対応。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ada262651-max.github.io/kyujin-hikaku/">
+<link rel="stylesheet" href="/style.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"2つの求人を比べる","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://ada262651-max.github.io/kyujin-hikaku/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"計算ラボ","item":"https://ada262651-max.github.io/"},{"@type":"ListItem","position":2,"name":"お金の計算","item":"https://ada262651-max.github.io/money/"},{"@type":"ListItem","position":3,"name":"2つの求人を比べる"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"額面が高いほうが必ず手取りも高いのですか？","acceptedAnswer":{"@type":"Answer","text":"額面が高くても、勤務地による健康保険料率の差や社会保険料の等級の違いで、手取りが逆転することがあります。年収が近い求人は、額面とあわせて手取りの内訳を比べてください。"}},{"@type":"Question","name":"勤務地で手取りが変わるのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"協会けんぽの健康保険料率は都道府県によって異なります。同じ年収500万円でも、40歳未満・配偶者なし・扶養なしの場合、佐賀県と新潟県では手取りに年27,979円の差があります。"}},{"@type":"Question","name":"賞与の割合はなぜ計算に入っていないのですか？","acceptedAnswer":{"@type":"Answer","text":"賞与の社会保険料は支給回数や1回あたりの額によって上限のかかり方が変わります。このツールでは賞与を含めた額面年収の総額を12か月の月給として扱います。賞与の手取りはボーナス手取り計算で確認できます。"}},{"@type":"Question","name":"転職1年目の住民税はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"転職しても、前年の所得に対する住民税の支払いは続きます。「1年目の手取り（住民税なしの場合）」は、前年の所得に対する住民税がかからないケースの参考額です。転職後の実際の手取りを見積もる場合は、この参考額から実際に支払う住民税を差し引いてください。"}},{"@type":"Question","name":"手取り以外に比べるべき条件は何ですか？","acceptedAnswer":{"@type":"Answer","text":"退職金・企業年金・住宅手当・通勤手当・残業代の支給条件も比べてください。手取りの差が小さいほど、こうした条件の違いが求人選びに影響します。"}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-30B1XH4FJL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-30B1XH4FJL');
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="/">計算<span>ラボ</span></a><span class="tagline">無料の計算ツール集</span><a class="searchlink" href="/search/">検索</a></div></header>
+<main>
+<nav class="breadcrumb" aria-label="パンくず"><a href="/">計算ラボ</a> ＞ <a href="/money/">お金の計算</a> ＞ 2つの求人を比べる</nav>
+<h1>2つの求人を比べる（令和8年対応）</h1>
+<p class="lead">年収500万円・東京都と年収550万円・東京都（いずれも40歳未満・扶養なし）では、手取りは3,942,067円と4,285,439円で、差は343,372円（月あたり約28,614円）です。額面の差50万円のうち手元に残るのは約68.7％です。</p>
+
+<div class="card">
+<form class="calc" id="calcForm" onsubmit="return false">
+<h2 class="full">求人A</h2>
+<div><label class="flabel" for="incomeA">求人Aの年収（額面）<small>円</small></label><input type="number" id="incomeA" value="5000000" min="0" step="100000" inputmode="numeric"></div>
+<div><label class="flabel" for="prefA">求人Aの勤務地<small>協会けんぽの料率</small></label><select id="prefA"></select></div>
+<h2 class="full">求人B</h2>
+<div><label class="flabel" for="incomeB">求人Bの年収（額面）<small>円</small></label><input type="number" id="incomeB" value="5500000" min="0" step="100000" inputmode="numeric"></div>
+<div><label class="flabel" for="prefB">求人Bの勤務地<small>協会けんぽの料率</small></label><select id="prefB"></select></div>
+<h2 class="full">共通条件</h2>
+<div class="full"><label class="flabel">年齢区分<small>介護保険料の有無</small></label>
+<div class="seg" id="ageSeg"><button type="button" class="on" data-v="u40">40歳未満</button><button type="button" data-v="mid">40歳〜64歳</button></div></div>
+<div class="full"><label class="flabel">配偶者</label>
+<div class="seg" id="spouseSeg"><button type="button" class="on" data-v="none">なし</button><button type="button" data-v="ari">あり</button></div></div>
+<div id="spouseWrap" class="full" style="display:none;grid-template-columns:1fr 1fr;gap:.8rem 1rem">
+<div><label class="flabel" for="spouseIncome">配偶者の年収（給与）<small>円</small></label><input type="number" id="spouseIncome" value="1030000" min="0" step="10000" inputmode="numeric"></div>
+<div><label class="flabel">配偶者の年齢</label>
+<div class="seg" id="spouseAgeSeg"><button type="button" class="on" data-v="u70">70歳未満</button><button type="button" data-v="o70">70歳以上</button></div></div>
+</div>
+<div><label class="flabel" for="depG16">扶養親族 16〜18歳<small>人</small></label><input type="number" id="depG16" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depS19">扶養親族 19〜22歳<small>人</small></label><input type="number" id="depS19" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depG23">扶養親族 23〜69歳<small>人</small></label><input type="number" id="depG23" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depO70">扶養親族 70歳以上<small>人</small></label><input type="number" id="depO70" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+<div><label class="flabel" for="depD70">同居老親等 70歳以上<small>人</small></label><input type="number" id="depD70" value="0" min="0" max="10" step="1" inputmode="numeric"></div>
+</form>
+<h2>比較結果</h2>
+<div class="result" id="resultBox" aria-live="polite" aria-atomic="true"></div>
+<div class="result" id="resultA"></div>
+<div class="result" id="resultB"></div>
+<noscript><p class="note">計算するにはJavaScriptを有効にしてください。</p></noscript>
+</div>
+
+<h2>内訳比較表</h2>
+<p>差は求人Bから求人Aを引いた年額です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th scope="col">項目</th><th scope="col">求人A</th><th scope="col">求人B</th><th scope="col">差（B−A）</th></tr></thead>
+<tbody id="breakdown"></tbody>
+</table></div>
+
+<h2>計算方法と前提</h2>
+<p>両求人に同じ年齢・配偶者・扶養の条件を適用します。各求人の額面年収から、勤務地に応じた社会保険料と所得税・住民税を差し引き、手取りを求めます。月額は年額を12で割った目安です。</p>
+<p>協会けんぽに加入する会社員で、給与収入のみの場合の概算です。扶養親族は所得要件を満たす前提です。会社の人件費は、額面年収に会社負担の保険料などを加えた概算で、一般の事業と「その他の各種事業」の労災保険率を前提にしています。</p>
+
+<h2>手取り差の早見表</h2>
+<p>40歳未満・配偶者なし・扶養なしの場合です。</p>
+<div class="scroll"><table class="data">
+<thead><tr><th scope="col">組み合わせ</th><th scope="col">Aの手取り</th><th scope="col">Bの手取り</th><th scope="col">差（B−A）</th></tr></thead>
+<tbody id="quickReference">
+<tr><td>500万円・東京 → 550万円・東京</td><td>3,942,067円</td><td>4,285,439円</td><td>+343,372円</td></tr>
+<tr><td>300万円・東京 → 350万円・東京</td><td>2,399,924円</td><td>2,787,169円</td><td>+387,245円</td></tr>
+<tr><td>400万円・東京 → 450万円・神奈川</td><td>3,168,221円</td><td>3,546,620円</td><td>+378,399円</td></tr>
+<tr><td>500万円・佐賀 → 500万円・新潟（同額・勤務地のみ）</td><td>3,927,415円</td><td>3,955,394円</td><td>+27,979円</td></tr>
+<tr><td>600万円・東京 → 600万円・大阪（同額・勤務地のみ）</td><td>4,661,928円</td><td>4,655,145円</td><td>−6,783円</td></tr>
+<tr><td>1,000万円・東京 → 1,100万円・東京</td><td>7,274,205円</td><td>7,920,069円</td><td>+645,864円</td></tr>
+</tbody>
+</table></div>
+
+<h2>求人を比べるときの注意点</h2>
+<ul>
+<li><strong>賞与</strong>　賞与を含めた額面年収の総額を12か月の月給として計算します。賞与の支給回数や1回あたりの額で社会保険料の上限のかかり方が変わるため、賞与の割合による社会保険料の差は試算の対象外です。賞与の手取りは<a href="/bonus-tedori/">ボーナス手取り計算</a>で確認できます。</li>
+<li><strong>住民税</strong>　同じ年収が前年も続いた場合の年額を使い、2年目以降の手取りを比べます。転職しても前年の所得に対する住民税は続きます。「1年目の手取り」は住民税を手取りに戻した参考額です。前年の所得に対する住民税がある場合は、その実額を参考額から差し引いてください。</li>
+<li><strong>手取り以外の条件</strong>　退職金・企業年金・住宅手当・通勤手当・残業代の扱いは比較の対象外です。手取りの差が小さいほど、こうした条件の違いが求人選びに影響します。</li>
+</ul>
+
+<h2>よくある質問</h2>
+<details class="faq"><summary>額面が高いほうが必ず手取りも高いのですか？</summary><p>額面が高くても、勤務地による健康保険料率の差や社会保険料の等級の違いで、手取りが逆転することがあります。年収が近い求人は、額面とあわせて手取りの内訳を比べてください。</p></details>
+<details class="faq"><summary>勤務地で手取りが変わるのはなぜですか？</summary><p>協会けんぽの健康保険料率は都道府県によって異なります。同じ年収500万円でも、40歳未満・配偶者なし・扶養なしの場合、佐賀県と新潟県では手取りに年27,979円の差があります。</p></details>
+<details class="faq"><summary>賞与の割合はなぜ計算に入っていないのですか？</summary><p>賞与の社会保険料は支給回数や1回あたりの額によって上限のかかり方が変わります。このツールでは賞与を含めた額面年収の総額を12か月の月給として扱います。賞与の手取りは<a href="/bonus-tedori/">ボーナス手取り計算</a>で確認できます。</p></details>
+<details class="faq"><summary>転職1年目の住民税はどうなりますか？</summary><p>転職しても、前年の所得に対する住民税の支払いは続きます。「1年目の手取り（住民税なしの場合）」は、前年の所得に対する住民税がかからないケースの参考額です。転職後の実際の手取りを見積もる場合は、この参考額から実際に支払う住民税を差し引いてください。</p></details>
+<details class="faq"><summary>手取り以外に比べるべき条件は何ですか？</summary><p>退職金・企業年金・住宅手当・通勤手当・残業代の支給条件も比べてください。手取りの差が小さいほど、こうした条件の違いが求人選びに影響します。</p></details>
+
+<h2>関連ツール</h2>
+<div class="toolgrid">
+<a class="toolcard" href="/tedori/"><span class="t">手取り計算</span><div class="d">年収から手取りと控除の内訳を確認できます。</div></a>
+<a class="toolcard" href="/shokyu-simulation/"><span class="t">昇給シミュレーション</span><div class="d">昇給前後の手取り差を計算します。</div></a>
+<a class="toolcard" href="/bonus-tedori/"><span class="t">ボーナス手取り計算</span><div class="d">賞与から引かれる保険料・税金を計算します。</div></a>
+<a class="toolcard" href="/hyojun-hoshu/"><span class="t">標準報酬月額計算</span><div class="d">月給から健康保険・厚生年金の等級を確認できます。</div></a>
+</div>
+
+<h2>出典</h2>
+<ul>
+<li>国税庁タックスアンサー <a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">No.2260 所得税の税率</a>、<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm">No.1410 給与所得控除</a>、<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm">No.1199 基礎控除</a></li>
+<li>協会けんぽ <a href="https://www.kyoukaikenpo.or.jp/lp/2026hokenryou/">令和8年度保険料率</a>、<a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/premium_prefectures/r08/">令和8年度保険料額表</a></li>
+<li>厚生労働省 <a href="https://www.mhlw.go.jp/content/001692566.pdf">令和8年度 雇用保険料率のご案内</a>、<a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/hoken/2024707.html">令和8年度の労災保険率</a></li>
+<li>計算ラボ <a href="/tedori/">手取り計算</a>の計算仕様（令和8年分の基礎控除および会社負担の試算を含む）</li>
+</ul>
+<p class="meta">公開日：2026-11-24／更新日：2026-11-24<br>出典再確認日：2026-11-24</p>
+</main>
+<footer class="site"><div class="wrap">
+<nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
+<p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
+</div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+//CORE-START
+// 計算ラボ 手取り計算エンジン（令和8年／2026年仕様）
+// 前提：会社員・協会けんぽ・給与収入のみ・賞与なし（年収＝月給×12）
+// 料率出典：協会けんぽ令和8年度都道府県単位保険料率／国税庁タックスアンサー（確認日2026-11-08）
+var KENPO_PREFS = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+var KENPO_RATES = [10.28,9.85,9.51,10.10,10.01,9.75,9.50,9.52,9.82,9.68,9.67,9.73,9.85,9.92,9.21,9.59,9.70,9.71,9.55,9.63,9.80,9.61,9.93,9.77,9.88,9.89,10.13,10.12,9.91,10.06,9.86,9.94,10.05,9.78,10.15,10.24,10.02,9.98,10.05,10.11,10.55,10.06,10.08,10.08,9.77,10.13,9.44];
+var KAIGO_RATE = 1.62;      // 介護保険料率（40〜64歳・全国一律）
+var SHIEN_RATE = 0.23;      // 子ども・子育て支援金率（令和8年4月分から）
+var NENKIN_RATE = 18.3;     // 厚生年金保険料率
+var KOYO_RATE = 0.5;        // 雇用保険料率（一般の事業・本人負担）
+// 標準報酬月額の等級表（下限の報酬月額 → 標準報酬月額）
+var H_GRADE_MIN = [0,63000,73000,83000,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000,665000,695000,730000,770000,810000,855000,905000,955000,1005000,1055000,1115000,1175000,1235000,1295000,1355000];
+var H_GRADE = [58000,68000,78000,88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000,680000,710000,750000,790000,830000,880000,930000,980000,1030000,1090000,1150000,1210000,1270000,1330000,1390000];
+var P_GRADE_MIN = [0,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000];
+var P_GRADE = [88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000];
+function gradeOf(mins, grades, monthly){
+  var g = grades[0];
+  for(var i=0;i<mins.length;i++){ if(monthly >= mins[i]) g = grades[i]; }
+  return g;
+}
+function rhu(x){ return Math.floor(x+0.5); } // 1円未満を四捨五入
+function kyuyoDed(income){ // 給与所得控除（令和8年分）
+  if(income<=0) return 0;
+  var d;
+  if(income<=2200000) d=740000;
+  else if(income<=3600000) d=income*0.3+80000;
+  else if(income<=6600000) d=income*0.2+440000;
+  else if(income<=8500000) d=income*0.1+1100000;
+  else d=1950000;
+  return Math.min(d, income);
+}
+function kisoShotoku(gokei){ // 所得税の基礎控除（令和8年分・特例加算込み）
+  if(gokei<=4890000) return 1040000;
+  if(gokei<=6550000) return 670000;
+  if(gokei<=23500000) return 620000;
+  if(gokei<=24000000) return 480000;
+  if(gokei<=24500000) return 320000;
+  if(gokei<=25000000) return 160000;
+  return 0;
+}
+function kisoJumin(gokei){ // 住民税の基礎控除
+  if(gokei<=24000000) return 430000;
+  if(gokei<=24500000) return 290000;
+  if(gokei<=25000000) return 150000;
+  return 0;
+}
+function shotokuTax(base){ // 所得税の速算表
+  if(base<=0) return 0;
+  if(base<=1949000) return Math.round(base*0.05);
+  if(base<=3299000) return Math.round(base*0.10)-97500;
+  if(base<=6949000) return Math.round(base*0.20)-427500;
+  if(base<=8999000) return Math.round(base*0.23)-636000;
+  if(base<=17999000) return Math.round(base*0.33)-1536000;
+  if(base<=39999000) return Math.round(base*0.40)-2796000;
+  return Math.round(base*0.45)-4796000;
+}
+function spouseDedShotoku(honninGokei, spouseShotoku, roujin){
+  if(honninGokei>10000000) return 0;
+  var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+  if(spouseShotoku<=620000){
+    var t = roujin? [480000,320000,160000] : [380000,260000,130000];
+    return t[band];
+  }
+  if(spouseShotoku>1330000) return 0;
+  var bands=[950000,1000000,1050000,1100000,1150000,1200000,1250000,1300000,1330000];
+  var tbl=[[380000,360000,310000,260000,210000,160000,110000,60000,30000],
+           [260000,240000,210000,180000,140000,110000,80000,40000,20000],
+           [130000,120000,110000,90000,70000,60000,40000,20000,10000]];
+  for(var i=0;i<bands.length;i++){ if(spouseShotoku<=bands[i]) return tbl[band][i]; }
+  return 0;
+}
+function spouseDedJumin(honninGokei, spouseShotoku, roujin, shotokuDed){
+  if(honninGokei>10000000) return 0;
+  var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+  if(spouseShotoku<=620000){
+    var t = roujin? [380000,260000,130000] : [330000,220000,110000];
+    return t[band];
+  }
+  if(spouseShotoku>1330000) return 0;
+  // 住民税の配偶者特別控除は最高額（33万円等）を上限に、所得税の逓減に準じて簡易計算
+  var cap=[330000,220000,110000][band];
+  return Math.min(shotokuDed, cap);
+}
+// o: {income, kenpoRate, kaigo, spouse:null|{income,roujin}, dep:{g16,s19,g23,o70,d70}}
+function computeTedori(o){
+  var income=o.income, monthly=income/12;
+  var hStd=gradeOf(H_GRADE_MIN,H_GRADE,monthly);
+  var pStd=gradeOf(P_GRADE_MIN,P_GRADE,monthly);
+  var combRate=o.kenpoRate + (o.kaigo?KAIGO_RATE:0) + SHIEN_RATE;
+  var kenkoMonthly=rhu(hStd*combRate/100/2);
+  var shienMonthly=rhu(hStd*SHIEN_RATE/100/2);
+  var kaigoMonthly=o.kaigo? rhu(hStd*KAIGO_RATE/100/2) : 0;
+  var kenkoOnlyMonthly=kenkoMonthly-shienMonthly-kaigoMonthly;
+  var nenkinMonthly=rhu(pStd*NENKIN_RATE/100/2);
+  var koyoY=rhu(income*KOYO_RATE/100);
+  var kenkoY=kenkoOnlyMonthly*12, kaigoY=kaigoMonthly*12, shienY=shienMonthly*12, nenkinY=nenkinMonthly*12;
+  var shaho=kenkoY+kaigoY+shienY+nenkinY+koyoY;
+  var kyuyoD=kyuyoDed(income);
+  var kyuyo=income-kyuyoD; // 給与所得（＝合計所得金額）
+  var dep=o.dep;
+  var fS=dep.g16*380000 + dep.s19*630000 + dep.g23*380000 + dep.o70*480000 + dep.d70*580000;
+  var fJ=dep.g16*330000 + dep.s19*450000 + dep.g23*330000 + dep.o70*380000 + dep.d70*450000;
+  var spS=0, spJ=0, spKyuyo=null;
+  if(o.spouse){
+    spKyuyo=o.spouse.income - kyuyoDed(o.spouse.income);
+    spS=spouseDedShotoku(kyuyo, spKyuyo, o.spouse.roujin);
+    spJ=spouseDedJumin(kyuyo, spKyuyo, o.spouse.roujin, spS);
+  }
+  // 所得税
+  var kisoS=kisoShotoku(kyuyo);
+  var baseS=Math.max(0, kyuyo-shaho-kisoS-spS-fS);
+  baseS=Math.floor(baseS/1000)*1000;
+  var baseTax=shotokuTax(baseS);
+  var fukko=Math.floor(baseTax*0.021);
+  var shotokuzei=baseTax+fukko;
+  // 住民税（同じ年収が前年も続いた場合の年額）
+  var kisoJ=kisoJumin(kyuyo);
+  var baseJ=Math.max(0, kyuyo-shaho-kisoJ-spJ-fJ);
+  baseJ=Math.floor(baseJ/1000)*1000;
+  var wari=0, chousei=0, kinto=0, juminzei=0;
+  if(kyuyo>450000){
+    wari=baseJ*0.10;
+    kinto=5000; // 均等割4,000円＋森林環境税1,000円
+    var diff=50000 + dep.g16*50000 + dep.s19*180000 + dep.g23*50000 + dep.o70*100000 + dep.d70*180000;
+    if(o.spouse){
+      if(spKyuyo!==null && spKyuyo<=620000) diff+=50000;
+      else if(spS>0) diff+=Math.min(50000, Math.max(0, spS-spJ));
+    }
+    if(kyuyo<=25000000){
+      if(baseJ<=2000000) chousei=Math.min(diff, baseJ)*0.05;
+      else chousei=Math.max((diff-(baseJ-2000000))*0.05, 2500);
+    }
+    juminzei=Math.max(wari-chousei,0)+kinto;
+  }
+  var tedori=income-shaho-shotokuzei-juminzei;
+  return {income:income, hStd:hStd, pStd:pStd,
+    kenkoY:kenkoY, kaigoY:kaigoY, shienY:shienY, nenkinY:nenkinY, koyoY:koyoY, shaho:shaho,
+    kyuyoDed:kyuyoD, kyuyo:kyuyo, kisoS:kisoS, spS:spS, fS:fS, baseS:baseS, baseTax:baseTax, fukko:fukko, shotokuzei:shotokuzei,
+    kisoJ:kisoJ, spJ:spJ, fJ:fJ, baseJ:baseJ, wari:wari, chousei:chousei, kinto:kinto, juminzei:juminzei,
+    tedori:tedori, monthly:Math.round(tedori/12), rate:(income>0? tedori/income*100 : 0)};
+}
+//CORE-END
+function computeCompanyBurden(r){
+  // 会社負担（P-3仕様 research/p3-plan-2026-11-16.md §1.2）
+  // (a)-(d) 労使折半分＝本人分と同額、(e) 雇用保険事業主分0.85%、(f) 子ども・子育て拠出金 pStd×0.36%×12、(g) 労災0.3%
+  var fold = r.kenkoY + r.kaigoY + r.shienY + r.nenkinY;
+  var koyoEmployer = rhu(r.income * 0.85 / 100);
+  var kyoshutsu = rhu(r.pStd * 0.36 / 100 * 12);
+  var rosai = rhu(r.income * 0.3 / 100);
+  var total = fold + koyoEmployer + kyoshutsu + rosai;
+  return {fold:fold, koyoEmployer:koyoEmployer, kyoshutsu:kyoshutsu, rosai:rosai, total:total, personnel:r.income+total};
+}
+
+const form = document.getElementById("calcForm");
+const ageSeg = document.getElementById("ageSeg");
+const spouseSeg = document.getElementById("spouseSeg");
+const spouseAgeSeg = document.getElementById("spouseAgeSeg");
+const spouseWrap = document.getElementById("spouseWrap");
+const prefA = document.getElementById("prefA");
+const prefB = document.getElementById("prefB");
+
+const prefOptions = KENPO_PREFS.map(function(name, index) {
+  const rate = KENPO_RATES[index].toFixed(2);
+  return '<option value="' + index + '">' + name + '（' + rate + '％）</option>';
+}).join("");
+[prefA, prefB].forEach(function(select) {
+  select.innerHTML = prefOptions;
+  select.value = KENPO_PREFS.indexOf("東京都");
+});
+
+ageSeg.dataset.age = "u40";
+spouseSeg.dataset.spouse = "none";
+spouseAgeSeg.dataset.spage = "u70";
+setSeg("ageSeg", "age", calc);
+setSeg("spouseSeg", "spouse", calc);
+setSeg("spouseAgeSeg", "spage", calc);
+form.addEventListener("input", calc);
+form.addEventListener("change", calc);
+
+const incomePresets = [3000000, 4000000, 5000000, 5500000, 6000000, 8000000, 10000000];
+["incomeA", "incomeB"].forEach(function(id) {
+  presets(id, incomePresets, function(value) { return yen(value / 10000) + "万円"; });
+});
+
+function readDependents(id) {
+  return Math.min(10, Math.max(0, Math.floor(num(id))));
+}
+
+function readCommonConditions() {
+  return {
+    kaigo: ageSeg.dataset.age === "mid",
+    spouse: spouseSeg.dataset.spouse === "ari" ? {
+      income: Math.max(0, Math.floor(num("spouseIncome"))),
+      roujin: spouseAgeSeg.dataset.spage === "o70"
+    } : null,
+    dep: {
+      g16: readDependents("depG16"),
+      s19: readDependents("depS19"),
+      g23: readDependents("depG23"),
+      o70: readDependents("depO70"),
+      d70: readDependents("depD70")
+    }
+  };
+}
+
+function calculateJob(income, kenpoRate, conditions) {
+  const result = computeTedori({income, kenpoRate, ...conditions});
+  return {
+    ...result,
+    firstYear: result.tedori + result.juminzei,
+    personnel: computeCompanyBurden(result).personnel
+  };
+}
+
+function amount(value) {
+  return (value < 0 ? "−" : "") + yen(Math.abs(value)) + "円";
+}
+
+function signedAmount(value) {
+  return (value > 0 ? "+" : "") + amount(value);
+}
+
+function renderJob(id, job, result) {
+  document.getElementById(id).innerHTML =
+    "<div>" + job + "の手取り年額</div><div class='big'>" + amount(result.tedori) + "</div>" +
+    stackBar([
+      {label:"手取り", value:result.tedori, cls:"sg-net"},
+      {label:"社会保険料", value:result.shaho, cls:"sg-shaho"},
+      {label:"所得税", value:result.shotokuzei, cls:"sg-tax1"},
+      {label:"住民税", value:result.juminzei, cls:"sg-tax2"}
+    ]) +
+    "<table><tbody>" +
+    "<tr><td>手取り月額（年額÷12）</td><td>" + amount(result.monthly) + "</td></tr>" +
+    "<tr><td>控除率</td><td>" + (result.income > 0 ? (100 - result.rate).toFixed(1) + "％" : "—") + "</td></tr>" +
+    "<tr><td>1年目の手取り（住民税なしの場合）</td><td>" + amount(result.firstYear) + "</td></tr>" +
+    "<tr><td>会社の人件費（年額）</td><td>" + amount(result.personnel) + "</td></tr>" +
+    "</tbody></table>";
+}
+
+const breakdownRows = [
+  ["額面", "income"], ["社会保険料", "shaho"], ["所得税", "shotokuzei"],
+  ["住民税", "juminzei"], ["手取り", "tedori"], ["会社の人件費", "personnel"]
+];
+
+function calc() {
+  const conditions = readCommonConditions();
+  spouseWrap.style.display = conditions.spouse ? "grid" : "none";
+  const a = calculateJob(Math.max(0, Math.floor(num("incomeA"))), KENPO_RATES[prefA.value], conditions);
+  const b = calculateJob(Math.max(0, Math.floor(num("incomeB"))), KENPO_RATES[prefB.value], conditions);
+  const difference = b.tedori - a.tedori;
+  const monthlyDifference = Math.sign(difference) * Math.round(Math.abs(difference) / 12);
+  const summary = difference === 0 ? "両求人の手取りは同じです。" :
+    (difference > 0 ? "求人B" : "求人A") + "のほうが手取りは年" + amount(Math.abs(difference)) + "多くなります。";
+
+  document.getElementById("resultBox").innerHTML =
+    "<div>手取り差の年額（B−A）</div><div class='big'>" + signedAmount(difference) +
+    "</div><p>月額換算 " + signedAmount(monthlyDifference) + "（年額÷12）</p><p>" + summary + "</p>";
+  renderJob("resultA", "求人A", a);
+  renderJob("resultB", "求人B", b);
+  document.getElementById("breakdown").innerHTML = breakdownRows.map(function([label, key]) {
+    return "<tr><td>" + label + "</td><td>" + amount(a[key]) + "</td><td>" + amount(b[key]) +
+      "</td><td>" + signedAmount(b[key] - a[key]) + "</td></tr>";
+  }).join("");
+}
+calc();
+</script>
+</body>
+</html>
