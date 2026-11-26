@@ -66,6 +66,32 @@
 <p class="lead">お金と日常の「これ、いくら？」「何日？」をすぐ計算できる無料ツール集です。計算方法と出典を明記し、公開前に数値例で検算しています。</p>
 <div class="badges"><span class="badge">完全無料・登録不要</span><span class="badge">入力は送信されません</span><span class="badge">スマホ対応</span></div>
 </div>
+<section aria-labelledby="mini-tedori-title">
+<h2 id="mini-tedori-title">手取りをすぐ計算（令和8年対応）</h2>
+<p class="lead">年収・勤務地・年齢区分で手取りの目安を計算する簡易版です。詳しい条件は手取り計算の本体ページで指定できます。</p>
+<div class="card">
+<form class="calc" onsubmit="return false">
+<div>
+<label class="flabel" for="mini-tedori-income">年収（額面）<small>円</small></label>
+<input type="number" id="mini-tedori-income" value="5000000" min="0" step="100000" inputmode="numeric">
+</div>
+<div>
+<label class="flabel" for="mini-tedori-pref">勤務先の都道府県<small>協会けんぽの料率</small></label>
+<select id="mini-tedori-pref"></select>
+</div>
+<div class="full">
+<label class="flabel" id="mini-tedori-age-label">年齢区分<small>介護保険料の有無</small></label>
+<div class="seg" id="mini-tedori-age" data-age="u40" role="group" aria-labelledby="mini-tedori-age-label">
+<button type="button" class="on" data-v="u40" aria-pressed="true">40歳未満</button>
+<button type="button" data-v="mid" aria-pressed="false">40〜64歳</button>
+</div>
+</div>
+</form>
+<div class="result" id="mini-tedori-result" aria-live="polite"></div>
+<p class="note">会社員・協会けんぽ・賞与なし（年収＝月給×12）・配偶者なし・扶養親族なしで試算しています。計算結果は目安です。</p>
+<p><a href="/tedori/">配偶者・扶養・会社負担まで詳しく計算する → 手取り計算（本体）</a></p>
+</div>
+</section>
 
 <h2>投資・積立</h2>
 <div class="toolgrid">
@@ -132,5 +158,204 @@
 <nav><a href="/about/">運営者情報</a><a href="/editorial/">編集方針・検証方法</a><a href="/privacy/">プライバシーポリシー</a></nav>
 <p>計算ラボの計算結果は目安です。税金・制度が関わる判断は、必ず公式情報や専門家でご確認ください。入力した数値はブラウザ内でのみ処理され、送信されません。</p>
 </div></footer>
+<script src="/common.js?v=2"></script>
+<script>
+(function(){
+//CORE-START
+// 計算ラボ 手取り計算エンジン（令和8年／2026年仕様）
+// 前提：会社員・協会けんぽ・給与収入のみ・賞与なし（年収＝月給×12）
+// 料率出典：協会けんぽ令和8年度都道府県単位保険料率／国税庁タックスアンサー（確認日2026-11-08）
+var KENPO_PREFS = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+var KENPO_RATES = [10.28,9.85,9.51,10.10,10.01,9.75,9.50,9.52,9.82,9.68,9.67,9.73,9.85,9.92,9.21,9.59,9.70,9.71,9.55,9.63,9.80,9.61,9.93,9.77,9.88,9.89,10.13,10.12,9.91,10.06,9.86,9.94,10.05,9.78,10.15,10.24,10.02,9.98,10.05,10.11,10.55,10.06,10.08,10.08,9.77,10.13,9.44];
+var KAIGO_RATE = 1.62;      // 介護保険料率（40〜64歳・全国一律）
+var SHIEN_RATE = 0.23;      // 子ども・子育て支援金率（令和8年4月分から）
+var NENKIN_RATE = 18.3;     // 厚生年金保険料率
+var KOYO_RATE = 0.5;        // 雇用保険料率（一般の事業・本人負担）
+// 標準報酬月額の等級表（下限の報酬月額 → 標準報酬月額）
+var H_GRADE_MIN = [0,63000,73000,83000,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000,665000,695000,730000,770000,810000,855000,905000,955000,1005000,1055000,1115000,1175000,1235000,1295000,1355000];
+var H_GRADE = [58000,68000,78000,88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000,680000,710000,750000,790000,830000,880000,930000,980000,1030000,1090000,1150000,1210000,1270000,1330000,1390000];
+var P_GRADE_MIN = [0,93000,101000,107000,114000,122000,130000,138000,146000,155000,165000,175000,185000,195000,210000,230000,250000,270000,290000,310000,330000,350000,370000,390000,425000,455000,485000,515000,545000,575000,605000,635000];
+var P_GRADE = [88000,98000,104000,110000,118000,126000,134000,142000,150000,160000,170000,180000,190000,200000,220000,240000,260000,280000,300000,320000,340000,360000,380000,410000,440000,470000,500000,530000,560000,590000,620000,650000];
+function gradeOf(mins, grades, monthly){
+  var g = grades[0];
+  for(var i=0;i<mins.length;i++){ if(monthly >= mins[i]) g = grades[i]; }
+  return g;
+}
+function rhu(x){ return Math.floor(x+0.5); } // 1円未満を四捨五入
+function kyuyoDed(income){ // 給与所得控除（令和8年分）
+  if(income<=0) return 0;
+  var d;
+  if(income<=2200000) d=740000;
+  else if(income<=3600000) d=income*0.3+80000;
+  else if(income<=6600000) d=income*0.2+440000;
+  else if(income<=8500000) d=income*0.1+1100000;
+  else d=1950000;
+  return Math.min(d, income);
+}
+function kisoShotoku(gokei){ // 所得税の基礎控除（令和8年分・特例加算込み）
+  if(gokei<=4890000) return 1040000;
+  if(gokei<=6550000) return 670000;
+  if(gokei<=23500000) return 620000;
+  if(gokei<=24000000) return 480000;
+  if(gokei<=24500000) return 320000;
+  if(gokei<=25000000) return 160000;
+  return 0;
+}
+function kisoJumin(gokei){ // 住民税の基礎控除
+  if(gokei<=24000000) return 430000;
+  if(gokei<=24500000) return 290000;
+  if(gokei<=25000000) return 150000;
+  return 0;
+}
+function shotokuTax(base){ // 所得税の速算表
+  if(base<=0) return 0;
+  if(base<=1949000) return Math.round(base*0.05);
+  if(base<=3299000) return Math.round(base*0.10)-97500;
+  if(base<=6949000) return Math.round(base*0.20)-427500;
+  if(base<=8999000) return Math.round(base*0.23)-636000;
+  if(base<=17999000) return Math.round(base*0.33)-1536000;
+  if(base<=39999000) return Math.round(base*0.40)-2796000;
+  return Math.round(base*0.45)-4796000;
+}
+function spouseDedShotoku(honninGokei, spouseShotoku, roujin){
+  if(honninGokei>10000000) return 0;
+  var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+  if(spouseShotoku<=620000){
+    var t = roujin? [480000,320000,160000] : [380000,260000,130000];
+    return t[band];
+  }
+  if(spouseShotoku>1330000) return 0;
+  var bands=[950000,1000000,1050000,1100000,1150000,1200000,1250000,1300000,1330000];
+  var tbl=[[380000,360000,310000,260000,210000,160000,110000,60000,30000],
+           [260000,240000,210000,180000,140000,110000,80000,40000,20000],
+           [130000,120000,110000,90000,70000,60000,40000,20000,10000]];
+  for(var i=0;i<bands.length;i++){ if(spouseShotoku<=bands[i]) return tbl[band][i]; }
+  return 0;
+}
+function spouseDedJumin(honninGokei, spouseShotoku, roujin, shotokuDed){
+  if(honninGokei>10000000) return 0;
+  var band = honninGokei<=9000000?0:(honninGokei<=9500000?1:2);
+  if(spouseShotoku<=620000){
+    var t = roujin? [380000,260000,130000] : [330000,220000,110000];
+    return t[band];
+  }
+  if(spouseShotoku>1330000) return 0;
+  // 住民税の配偶者特別控除は最高額（33万円等）を上限に、所得税の逓減に準じて簡易計算
+  var cap=[330000,220000,110000][band];
+  return Math.min(shotokuDed, cap);
+}
+// o: {income, kenpoRate, kaigo, spouse:null|{income,roujin}, dep:{g16,s19,g23,o70,d70}}
+function computeTedori(o){
+  var income=o.income, monthly=income/12;
+  var hStd=gradeOf(H_GRADE_MIN,H_GRADE,monthly);
+  var pStd=gradeOf(P_GRADE_MIN,P_GRADE,monthly);
+  var combRate=o.kenpoRate + (o.kaigo?KAIGO_RATE:0) + SHIEN_RATE;
+  var kenkoMonthly=rhu(hStd*combRate/100/2);
+  var shienMonthly=rhu(hStd*SHIEN_RATE/100/2);
+  var kaigoMonthly=o.kaigo? rhu(hStd*KAIGO_RATE/100/2) : 0;
+  var kenkoOnlyMonthly=kenkoMonthly-shienMonthly-kaigoMonthly;
+  var nenkinMonthly=rhu(pStd*NENKIN_RATE/100/2);
+  var koyoY=rhu(income*KOYO_RATE/100);
+  var kenkoY=kenkoOnlyMonthly*12, kaigoY=kaigoMonthly*12, shienY=shienMonthly*12, nenkinY=nenkinMonthly*12;
+  var shaho=kenkoY+kaigoY+shienY+nenkinY+koyoY;
+  var kyuyoD=kyuyoDed(income);
+  var kyuyo=income-kyuyoD; // 給与所得（＝合計所得金額）
+  var dep=o.dep;
+  var fS=dep.g16*380000 + dep.s19*630000 + dep.g23*380000 + dep.o70*480000 + dep.d70*580000;
+  var fJ=dep.g16*330000 + dep.s19*450000 + dep.g23*330000 + dep.o70*380000 + dep.d70*450000;
+  var spS=0, spJ=0, spKyuyo=null;
+  if(o.spouse){
+    spKyuyo=o.spouse.income - kyuyoDed(o.spouse.income);
+    spS=spouseDedShotoku(kyuyo, spKyuyo, o.spouse.roujin);
+    spJ=spouseDedJumin(kyuyo, spKyuyo, o.spouse.roujin, spS);
+  }
+  // 所得税
+  var kisoS=kisoShotoku(kyuyo);
+  var baseS=Math.max(0, kyuyo-shaho-kisoS-spS-fS);
+  baseS=Math.floor(baseS/1000)*1000;
+  var baseTax=shotokuTax(baseS);
+  var fukko=Math.floor(baseTax*0.021);
+  var shotokuzei=baseTax+fukko;
+  // 住民税（同じ年収が前年も続いた場合の年額）
+  var kisoJ=kisoJumin(kyuyo);
+  var baseJ=Math.max(0, kyuyo-shaho-kisoJ-spJ-fJ);
+  baseJ=Math.floor(baseJ/1000)*1000;
+  var wari=0, chousei=0, kinto=0, juminzei=0;
+  if(kyuyo>450000){
+    wari=baseJ*0.10;
+    kinto=5000; // 均等割4,000円＋森林環境税1,000円
+    var diff=50000 + dep.g16*50000 + dep.s19*180000 + dep.g23*50000 + dep.o70*100000 + dep.d70*180000;
+    if(o.spouse){
+      if(spKyuyo!==null && spKyuyo<=620000) diff+=50000;
+      else if(spS>0) diff+=Math.min(50000, Math.max(0, spS-spJ));
+    }
+    if(kyuyo<=25000000){
+      if(baseJ<=2000000) chousei=Math.min(diff, baseJ)*0.05;
+      else chousei=Math.max((diff-(baseJ-2000000))*0.05, 2500);
+    }
+    juminzei=Math.max(wari-chousei,0)+kinto;
+  }
+  var tedori=income-shaho-shotokuzei-juminzei;
+  return {income:income, hStd:hStd, pStd:pStd,
+    kenkoY:kenkoY, kaigoY:kaigoY, shienY:shienY, nenkinY:nenkinY, koyoY:koyoY, shaho:shaho,
+    kyuyoDed:kyuyoD, kyuyo:kyuyo, kisoS:kisoS, spS:spS, fS:fS, baseS:baseS, baseTax:baseTax, fukko:fukko, shotokuzei:shotokuzei,
+    kisoJ:kisoJ, spJ:spJ, fJ:fJ, baseJ:baseJ, wari:wari, chousei:chousei, kinto:kinto, juminzei:juminzei,
+    tedori:tedori, monthly:Math.round(tedori/12), rate:(income>0? tedori/income*100 : 0)};
+}
+//CORE-END
+  var incomeInput = document.getElementById("mini-tedori-income");
+  var prefSel = document.getElementById("mini-tedori-pref");
+  var ageSeg = document.getElementById("mini-tedori-age");
+  var ageButtons = ageSeg.querySelectorAll("button");
+  var resultBox = document.getElementById("mini-tedori-result");
+
+  var options = "";
+  for (var i = 0; i < KENPO_PREFS.length; i++) {
+    var name = KENPO_PREFS[i];
+    var rate = KENPO_RATES[i];
+    options += "<option value='" + rate + "'" + (name === "東京都" ? " selected" : "") +
+      ">" + name + "（" + rate.toFixed(2) + "％）</option>";
+  }
+  prefSel.innerHTML = options;
+
+  function calc(){
+    var r = computeTedori({
+      income: num("mini-tedori-income"),
+      kenpoRate: parseFloat(prefSel.value),
+      kaigo: ageSeg.dataset.age === "mid",
+      spouse: null,
+      dep: {g16:0, s19:0, g23:0, o70:0, d70:0}
+    });
+    resultBox.innerHTML =
+      "<div>手取り年額</div><div class='big'>" + yen(r.tedori) + " 円</div>" +
+      stackBar([
+        {label:"手取り", value:r.tedori, cls:"sg-net"},
+        {label:"社会保険料", value:r.shaho, cls:"sg-shaho"},
+        {label:"所得税", value:r.shotokuzei, cls:"sg-tax1"},
+        {label:"住民税", value:r.juminzei, cls:"sg-tax2"}
+      ]) +
+      "<table>" +
+      "<tr><td>手取り月額（年額÷12）</td><td>" + yen(r.monthly) + " 円</td></tr>" +
+      "<tr><td>手取り率</td><td>" + r.rate.toFixed(1) + " ％</td></tr>" +
+      "<tr><td>社会保険料合計</td><td>−" + yen(r.shaho) + " 円</td></tr>" +
+      "<tr><td>所得税（復興特別所得税込み）</td><td>−" + yen(r.shotokuzei) + " 円</td></tr>" +
+      "<tr><td>住民税</td><td>−" + yen(r.juminzei) + " 円</td></tr>" +
+      "</table>";
+  }
+
+  setSeg("mini-tedori-age", "age", function(){
+    ageButtons.forEach(function(button){
+      button.setAttribute("aria-pressed", button.dataset.v === ageSeg.dataset.age);
+    });
+    calc();
+  });
+  incomeInput.addEventListener("input", calc);
+  prefSel.addEventListener("change", calc);
+  presets("mini-tedori-income", [3000000, 4000000, 5000000, 6000000, 8000000, 10000000], function(v){
+    return yen(v / 10000) + "万円";
+  });
+  calc();
+})();
+</script>
 </body>
 </html>
